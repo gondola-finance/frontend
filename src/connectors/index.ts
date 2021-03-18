@@ -17,6 +17,7 @@ if (typeof NETWORK_URL === "undefined") {
 
 export const network = new NetworkConnector({
   urls: { [NETWORK_CHAIN_ID]: NETWORK_URL },
+  defaultChainId: NETWORK_CHAIN_ID,
 })
 
 // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -30,7 +31,7 @@ export function getNetworkLibrary(): Web3Provider {
 export const injected = new InjectedConnector({
   // mainnet, ropsten, rinkeby, goerli, kovan, local buidler
   // see: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md
-  supportedChainIds: [1, 3, 4, 5, 42, 31337],
+  supportedChainIds: [43113, 43114],
 })
 
 export const walletconnect = new WalletConnectConnector({

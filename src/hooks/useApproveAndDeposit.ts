@@ -137,7 +137,6 @@ export function useApproveAndDeposit(
         POOL.poolTokens.map(({ symbol }) => state[symbol].valueSafe),
         minToMint,
         Math.round(new Date().getTime() / 1000 + 60 * deadline),
-        [],
         {
           gasPrice,
         },

@@ -1,6 +1,6 @@
 import "../styles/global.scss"
 
-import { BLOCK_TIME, BTC_POOL_NAME } from "../constants"
+import { BLOCK_TIME, STABLECOIN_POOL_NAME } from "../constants"
 import React, { ReactElement, Suspense, useCallback } from "react"
 import { Route, Switch } from "react-router-dom"
 
@@ -18,12 +18,11 @@ import usePoller from "../hooks/usePoller"
 
 export default function App(): ReactElement {
   const dispatch = useDispatch<AppDispatch>()
-
-  const fetchAndUpdateGasPrice = useCallback(() => {
-    void fetchGasPrices(dispatch)
-  }, [dispatch])
   const fetchAndUpdateTokensPrice = useCallback(() => {
     fetchTokenPricesUSD(dispatch)
+  }, [dispatch])
+  const fetchAndUpdateGasPrice = useCallback(() => {
+    void fetchGasPrices(dispatch)
   }, [dispatch])
   usePoller(fetchAndUpdateGasPrice, BLOCK_TIME)
   usePoller(fetchAndUpdateTokensPrice, BLOCK_TIME * 3)
@@ -36,20 +35,22 @@ export default function App(): ReactElement {
             <Route
               exact
               path="/"
-              render={(props) => <Swap {...props} poolName={BTC_POOL_NAME} />}
+              render={(props) => (
+                <Swap {...props} poolName={STABLECOIN_POOL_NAME} />
+              )}
             />
             <Route
               exact
               path="/deposit"
               render={(props) => (
-                <Deposit {...props} poolName={BTC_POOL_NAME} />
+                <Deposit {...props} poolName={STABLECOIN_POOL_NAME} />
               )}
             />
             <Route
               exact
               path="/withdraw"
               render={(props) => (
-                <Withdraw {...props} poolName={BTC_POOL_NAME} />
+                <Withdraw {...props} poolName={STABLECOIN_POOL_NAME} />
               )}
             />
             <Route exact path="/risk" component={Risk} />

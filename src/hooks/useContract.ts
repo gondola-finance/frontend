@@ -1,20 +1,12 @@
 import {
-  BTC_POOL_NAME,
-  BTC_SWAP_ADDRESSES,
-  BTC_SWAP_TOKEN,
   DAI,
   PoolName,
-  RENBTC,
-  SBTC,
   STABLECOIN_POOL_NAME,
   STABLECOIN_SWAP_ADDRESSES,
   STABLECOIN_SWAP_TOKEN,
-  SUSD,
-  TBTC,
   Token,
   USDC,
   USDT,
-  WBTC,
 } from "../constants"
 import { useMemo, useState } from "react"
 
@@ -69,19 +61,13 @@ export function useSwapContract(poolName: PoolName): Swap | null {
     SWAP_ABI,
     withSignerIfPossible,
   )
-  const btcSwapContract = useContract(
-    chainId ? BTC_SWAP_ADDRESSES[chainId] : undefined,
-    SWAP_ABI,
-    withSignerIfPossible,
-  )
+
   return useMemo(() => {
-    if (poolName === BTC_POOL_NAME) {
-      return btcSwapContract as Swap
-    } else if (poolName === STABLECOIN_POOL_NAME) {
+    if (poolName === STABLECOIN_POOL_NAME) {
       return stablecoinSwapContract as Swap
     }
     return null
-  }, [stablecoinSwapContract, btcSwapContract, poolName])
+  }, [stablecoinSwapContract, poolName])
 }
 
 export function useLPTokenContract(poolName: PoolName): LpToken | null {
@@ -97,15 +83,9 @@ interface AllContractsObject {
   [x: string]: Swap | Erc20 | null
 }
 export function useAllContracts(): AllContractsObject | null {
-  const tbtcContract = useTokenContract(TBTC) as Erc20
-  const wbtcContract = useTokenContract(WBTC) as Erc20
-  const renbtcContract = useTokenContract(RENBTC) as Erc20
-  const sbtcContract = useTokenContract(SBTC) as Erc20
   const daiContract = useTokenContract(DAI) as Erc20
   const usdcContract = useTokenContract(USDC) as Erc20
   const usdtContract = useTokenContract(USDT) as Erc20
-  const susdContract = useTokenContract(SUSD) as Erc20
-  const btcSwapTokenContract = useTokenContract(BTC_SWAP_TOKEN) as Swap
   const stablecoinSwapTokenContract = useTokenContract(
     STABLECOIN_SWAP_TOKEN,
   ) as Swap
@@ -113,41 +93,18 @@ export function useAllContracts(): AllContractsObject | null {
   return useMemo(() => {
     if (
       ![
-        tbtcContract,
-        wbtcContract,
-        renbtcContract,
-        sbtcContract,
         daiContract,
         usdcContract,
         usdtContract,
-        susdContract,
-        btcSwapTokenContract,
         // stablecoinSwapTokenContract, // TODO: add back when contract deployed
       ].some(Boolean)
     )
       return null
     return {
-      [TBTC.symbol]: tbtcContract,
-      [WBTC.symbol]: wbtcContract,
-      [RENBTC.symbol]: renbtcContract,
-      [SBTC.symbol]: sbtcContract,
       [DAI.symbol]: daiContract,
       [USDC.symbol]: usdcContract,
       [USDT.symbol]: usdtContract,
-      [SUSD.symbol]: susdContract,
-      [BTC_SWAP_TOKEN.symbol]: btcSwapTokenContract,
       [STABLECOIN_SWAP_TOKEN.symbol]: stablecoinSwapTokenContract,
     }
-  }, [
-    tbtcContract,
-    wbtcContract,
-    renbtcContract,
-    sbtcContract,
-    daiContract,
-    usdcContract,
-    usdtContract,
-    susdContract,
-    btcSwapTokenContract,
-    stablecoinSwapTokenContract,
-  ])
+  }, [daiContract, usdcContract, usdtContract, stablecoinSwapTokenContract])
 }

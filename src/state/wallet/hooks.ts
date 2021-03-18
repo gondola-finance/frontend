@@ -1,14 +1,11 @@
-import { BLOCK_TIME, DAI, STABLECOIN_POOL_NAME, Token } from "../../constants"
 import {
-  BTC_POOL_NAME,
+  BLOCK_TIME,
+  DAI,
   PoolName,
-  RENBTC,
-  SBTC,
-  SUSD,
-  TBTC,
+  STABLECOIN_POOL_NAME,
+  Token,
   USDC,
   USDT,
-  WBTC,
 } from "../../constants"
 
 import { BigNumber } from "@ethersproject/bignumber"
@@ -31,51 +28,34 @@ export function useTokenBalance(t: Token): BigNumber {
       const newBalance = account
         ? await tokenContract?.balanceOf(account)
         : Zero
-      if (newBalance !== balance) {
+      if (newBalance !== undefined && newBalance !== balance) {
         setBalance(newBalance)
       }
     }
     if (account && chainId) {
       void pollBalance()
     }
-  }, BLOCK_TIME)
-
+  }, BLOCK_TIME * 10)
   return balance
 }
 
 export function usePoolTokenBalances(
   poolName: PoolName,
 ): { [token: string]: BigNumber } | null {
-  const tbtcTokenBalance = useTokenBalance(TBTC)
-  const wbtcTokenBalance = useTokenBalance(WBTC)
-  const renbtcTokenBalance = useTokenBalance(RENBTC)
-  const sbtcTokenBalance = useTokenBalance(SBTC)
   const daiTokenBalance = useTokenBalance(DAI)
   const usdcTokenBalance = useTokenBalance(USDC)
   const usdtTokenBalance = useTokenBalance(USDT)
-  const susdTokenBalance = useTokenBalance(SUSD)
-  const btcPoolTokenBalances = useMemo(
-    () => ({
-      [TBTC.symbol]: tbtcTokenBalance,
-      [WBTC.symbol]: wbtcTokenBalance,
-      [RENBTC.symbol]: renbtcTokenBalance,
-      [SBTC.symbol]: sbtcTokenBalance,
-    }),
-    [tbtcTokenBalance, wbtcTokenBalance, renbtcTokenBalance, sbtcTokenBalance],
-  )
+
   const stablecoinPoolTokenBalances = useMemo(
     () => ({
       [DAI.symbol]: daiTokenBalance,
       [USDC.symbol]: usdcTokenBalance,
       [USDT.symbol]: usdtTokenBalance,
-      [SUSD.symbol]: susdTokenBalance,
     }),
-    [daiTokenBalance, usdcTokenBalance, usdtTokenBalance, susdTokenBalance],
+    [daiTokenBalance, usdcTokenBalance, usdtTokenBalance],
   )
 
-  if (poolName === BTC_POOL_NAME) {
-    return btcPoolTokenBalances
-  } else if (poolName === STABLECOIN_POOL_NAME) {
+  if (poolName === STABLECOIN_POOL_NAME) {
     return stablecoinPoolTokenBalances
   }
   return null

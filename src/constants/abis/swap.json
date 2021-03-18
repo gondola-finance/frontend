@@ -373,11 +373,6 @@
         "internalType": "uint256",
         "name": "deadline",
         "type": "uint256"
-      },
-      {
-        "internalType": "bytes32[]",
-        "name": "merkleProof",
-        "type": "bytes32[]"
       }
     ],
     "name": "addLiquidity",

@@ -38,7 +38,6 @@ export interface UserShareType {
   avgBalance: BigNumber
   currentWithdrawFee: BigNumber
   lpTokenBalance: BigNumber
-  lpTokenMinted: BigNumber
   name: string // TODO: does this need to be on user share?
   share: BigNumber
   tokens: TokenShareType[]
@@ -71,14 +70,13 @@ export default function usePoolData(
         account == null
       )
         return
-
       const POOL = POOLS_MAP[poolName]
-
       // Swap fees, price, and LP Token data
       const [userCurrentWithdrawFee, swapStorage] = await Promise.all([
         swapContract.calculateCurrentWithdrawFee(account || AddressZero),
         swapContract.swapStorage(),
       ])
+
       const { adminFee, lpToken: lpTokenAddress, swapFee } = swapStorage
       const lpTokenContract = getContract(
         lpTokenAddress,
@@ -86,16 +84,11 @@ export default function usePoolData(
         library,
         account ?? undefined,
       ) as LpToken
-      const [
-        userLpTokenBalance,
-        userLpTokenMinted,
-        totalLpTokenBalance,
-      ] = await Promise.all([
+
+      const [userLpTokenBalance, totalLpTokenBalance] = await Promise.all([
         lpTokenContract.balanceOf(account || AddressZero),
-        lpTokenContract.mintedAmounts(account || AddressZero),
         lpTokenContract.totalSupply(),
       ])
-
       const virtualPrice = totalLpTokenBalance.isZero()
         ? BigNumber.from(10).pow(18)
         : await swapContract.getVirtualPrice()
@@ -161,6 +154,8 @@ export default function usePoolData(
         (sum, b) => sum.add(b),
       )
 
+      console.log("poolData")
+
       const poolTokens = POOL.poolTokens.map((token, i) => ({
         symbol: token.symbol,
         percent: formatBNToPercentString(
@@ -213,9 +208,11 @@ export default function usePoolData(
             tokens: userPoolTokens,
             currentWithdrawFee: userCurrentWithdrawFee,
             lpTokenBalance: userLpTokenBalance,
-            lpTokenMinted: userLpTokenMinted,
           }
         : null
+
+      console.log("poolData", poolData, userShareData)
+
       setPoolData([poolData, userShareData])
     }
     void getSwapData()

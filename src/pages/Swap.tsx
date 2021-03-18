@@ -55,7 +55,10 @@ function Swap({ poolName }: Props): ReactElement {
     icon,
     symbol,
     decimals,
-    value: tokenBalances ? tokenBalances[symbol] : BigNumber.from("0"),
+    value:
+      tokenBalances && tokenBalances != undefined
+        ? tokenBalances[symbol]
+        : BigNumber.from("0"),
   }))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const calculateSwapAmount = useCallback(
