@@ -91,7 +91,7 @@
   "homepage": ".",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint:fix"
+      "pre-commit": "yarn run lint:fix"
     }
   },
   "browserslist": {
