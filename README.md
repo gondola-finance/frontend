@@ -1,17 +1,13 @@
-# saddle-frontend
+# gondola-frontend
 
-[![CI](https://github.com/saddle-finance/saddle-frontend/workflows/CI/badge.svg)](https://github.com/saddle-finance/saddle-frontend/actions?query=workflow%3ACI)
+[![CI](https://github.com/gondola-finance/frontend/workflows/CI/badge.svg)](https://github.com/gondola-finance/frontend/actions?query=workflow%3ACI)
 
-An open source UI for Saddle 🤠
-
-The UI is deployed on IPFS and accessible at
-[saddle.exchange](https://saddle.exchange/#/) or
-[saddlefinance.eth.link](https://saddlefinance.eth.link/#/).
+An open source UI for Gondola
 
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 Create a `.env.local` file with a valid `REACT_APP_NETWORK_URL` (e.g. Alchemy,
@@ -24,7 +20,7 @@ REACT_APP_NETWORK_URL="https://eth-mainnet.alchemyapi.io/v2/YOUR_KEY_HERE"
 ### Pool Stats Setup
 
 Pool stats data is required to calculate lifetime deposits, withdrawals and
-profit in USD/BTC.  You will need to update the `ChainId.HARDHAT` value for
+profit in USD/BTC. You will need to update the `ChainId.HARDHAT` value for
 `POOL_STATS_URL` in `src/constants/index.ts` to point to your own [Fleek
 bucket](https://fleek.co/):
 
@@ -43,5 +39,5 @@ transaction to update the pool stats to have the numbers computed correctly.
 ## Usage
 
 ```bash
-$ npm run start
+$ yarn start
 ```

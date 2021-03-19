@@ -1,6 +1,6 @@
 {
-  "name": "saddle-frontend",
-  "description": "The frontend for saddle.finance 🤠",
+  "name": "gondola-frontend",
+  "description": "The frontend for gondola.finance 🤠",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -85,13 +85,13 @@
     "build-storybook": "build-storybook -s public --no-dll",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "postinstall": "typechain --target ethers-v5 'src/constants/abis/*.json' && npm run gen:theme-typings",
+    "postinstall": "typechain --target ethers-v5 'src/constants/abis/*.json' && yarn run gen:theme-typings",
     "gen:theme-typings": "chakra-cli tokens src/theme/index.ts"
   },
   "homepage": ".",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint:fix"
+      "pre-commit": "yarn run lint:fix"
     }
   },
   "browserslist": {
@@ -108,7 +108,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thesis/saddle-frontend.git"
+    "url": "git+https://github.com/gondola-finance/frontend.git"
   },
   "keywords": [
     "cryptocurrency",
