@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import ThemeChanger from "./ThemeChanger"
 import Web3Status from "./Web3Status"
 import classNames from "classnames"
-import logo from "../assets/icons/logo.svg"
+import logo from "../assets/icons/brand_logo.png"
 import { useTranslation } from "react-i18next"
 
 interface Props {
