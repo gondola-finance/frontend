@@ -37,8 +37,12 @@ describe("parseStringToBigNumber", () => {
 describe("parseStringAndTokenToBigNumber", () => {
   it("returns the correct precision for a token", () => {
     const input = 1.23
-    expect(parseStringAndTokenToBigNumber(input.toString(), "STABLECOIN_SWAP_TOKEN")).toEqual({
-      value: BigNumber.from((input * 10 ** STABLECOIN_SWAP_TOKEN.decimals).toString()),
+    expect(
+      parseStringAndTokenToBigNumber(input.toString(), "STABLECOIN_SWAP_TOKEN"),
+    ).toEqual({
+      value: BigNumber.from(
+        (input * 10 ** STABLECOIN_SWAP_TOKEN.decimals).toString(),
+      ),
       isFallback: false,
     })
   })
