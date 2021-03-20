@@ -1,5 +1,5 @@
 import daiLogo from "../assets/icons/dai.svg"
-import saddleLogo from "../assets/icons/logo.svg"
+import saddleLogo from "../assets/icons/saddle_logo.svg"
 import usdcLogo from "../assets/icons/usdc.svg"
 import usdtLogo from "../assets/icons/usdt.svg"
 

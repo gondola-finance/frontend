@@ -3,16 +3,10 @@ import {
   RecursiveCSSObject,
 } from "@chakra-ui/styled-system"
 
-import { Dict } from "@chakra-ui/utils"
-import { transparentize } from "@chakra-ui/theme-tools"
-
-const variantPrimary = (
-  props: Dict,
-): RecursiveCSSObject<CSSWithMultiValues> => {
-  const transparentColor = transparentize("gray.500", 0.4)(props.theme)
+const variantPrimary = (): RecursiveCSSObject<CSSWithMultiValues> => {
   const disabled = {
     opacity: "1",
-    color: transparentColor,
+    color: "black",
     bg: "teal.500",
   }
   return {
