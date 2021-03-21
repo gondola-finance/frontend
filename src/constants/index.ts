@@ -10,11 +10,7 @@ export type PoolName = typeof STABLECOIN_POOL_NAME
 export const GAS_PRICE = 470
 
 export enum ChainId {
-  AVALANCHE = 1,
-  // ROPSTEN = 3,
-  // RINKEBY = 4,
-  // GÖRLI = 5,
-  // KOVAN = 42,
+  AVALANCHE = 43114,
   FUJI = 43113,
 }
 
