@@ -69,7 +69,7 @@ export const STABLECOIN_SWAP_TOKEN = new Token(
 
 // Stablecoins
 const DAI_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+  [ChainId.AVALANCHE]: "0xba7deebbfc5fa1100fb055a87773e1e99cd3507a",
   [ChainId.FUJI]: "0xBF967f44dB44380CD38B76AaD850f8B2f98a29aD",
 }
 export const DAI = new Token(
@@ -82,7 +82,7 @@ export const DAI = new Token(
 )
 
 const USDC_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+  [ChainId.AVALANCHE]: "",
   [ChainId.FUJI]: "0x6275B63A4eE560004c34431e573314426906cee9",
 }
 export const USDC = new Token(
@@ -95,7 +95,7 @@ export const USDC = new Token(
 )
 
 const USDT_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "0xdac17f958d2ee523a2206206994597c13d831ec7",
+  [ChainId.AVALANCHE]: "0xde3a24028580884448a5397872046a019649b084",
   [ChainId.FUJI]: "0xa6c062F1F8EAbEC4384bB2c2f65abBf710cd2998",
 }
 export const USDT = new Token(
