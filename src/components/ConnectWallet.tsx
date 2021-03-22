@@ -2,29 +2,17 @@ import "./ConnectWallet.scss"
 
 import React, { ReactElement } from "react"
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core"
-import { injected, walletconnect, walletlink } from "../connectors"
+import { injected } from "../connectors"
 
-import coinbasewalletIcon from "../assets/icons/coinbasewallet.svg"
 import { logEvent } from "../utils/googleAnalytics"
 import metamaskIcon from "../assets/icons/metamask.svg"
 import { useTranslation } from "react-i18next"
-import walletconnectIcon from "../assets/icons/walletconnect.svg"
 
 const wallets = [
   {
     name: "MetaMask",
     icon: metamaskIcon,
     connector: injected,
-  },
-  {
-    name: "Wallet Connect",
-    icon: walletconnectIcon,
-    connector: walletconnect,
-  },
-  {
-    name: "Coinbase Wallet",
-    icon: coinbasewalletIcon,
-    connector: walletlink,
   },
 ]
 
