@@ -1,5 +1,5 @@
 import daiLogo from "../assets/icons/dai.svg"
-import saddleLogo from "../assets/icons/saddle_logo.svg"
+import gondolaLogo from "../assets/icons/brand_logo.png"
 import usdcLogo from "../assets/icons/usdc.svg"
 import usdtLogo from "../assets/icons/usdt.svg"
 
@@ -64,7 +64,7 @@ export const STABLECOIN_SWAP_TOKEN = new Token(
   "saddleUSD",
   "saddleusd",
   "Saddle DAI/USDC/USDT",
-  saddleLogo,
+  gondolaLogo,
 )
 
 // Stablecoins
