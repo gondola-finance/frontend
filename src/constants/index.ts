@@ -76,9 +76,9 @@ export const STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES: {
 export const STABLECOIN_SWAP_TOKEN = new Token(
   STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES,
   18,
-  "saddleUSD",
-  "saddleusd",
-  "Saddle DAI/USDC/USDT",
+  "gondolaUSD",
+  "gondolausd",
+  "Gondola DAI/USDC/USDT",
   gondolaLogo,
 )
 
