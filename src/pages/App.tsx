@@ -7,6 +7,7 @@ import { Route, Switch } from "react-router-dom"
 import { AppDispatch } from "../state"
 import Deposit from "./Deposit"
 import Risk from "./Risk"
+import Stake from "./Stake"
 import Swap from "./Swap"
 import ToastsProvider from "../providers/ToastsProvider"
 import Web3ReactManager from "../components/Web3ReactManager"
@@ -51,6 +52,13 @@ export default function App(): ReactElement {
               path="/withdraw"
               render={(props) => (
                 <Withdraw {...props} poolName={STABLECOIN_POOL_NAME} />
+              )}
+            />
+            <Route
+              exact
+              path="/stake"
+              render={(props) => (
+                <Stake {...props} poolName={STABLECOIN_POOL_NAME} />
               )}
             />
             <Route exact path="/risk" component={Risk} />

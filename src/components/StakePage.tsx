@@ -1,4 +1,4 @@
-import "./DepositPage.scss"
+import "./StakePage.scss"
 
 import { Button, Center } from "@chakra-ui/react"
 import { PoolDataType, UserShareType } from "../hooks/usePoolData"
@@ -49,7 +49,7 @@ interface Props {
 }
 
 /* eslint-enable @typescript-eslint/no-explicit-any */
-const DepositPage = (props: Props): ReactElement => {
+const StakePage = (props: Props): ReactElement => {
   const { t } = useTranslation()
   const {
     tokens,
@@ -71,8 +71,9 @@ const DepositPage = (props: Props): ReactElement => {
   const validDepositAmount = transactionData.to.totalAmount.gt(0)
 
   return (
-    <div className="deposit">
-      <TopMenu activeTab={"deposit"} />
+    <div className="stake">
+      <TopMenu activeTab={"stake"} />
+
       <div className="content">
         <div className="left">
           <div className="form">
@@ -233,4 +234,4 @@ const DepositPage = (props: Props): ReactElement => {
   )
 }
 
-export default DepositPage
+export default StakePage
