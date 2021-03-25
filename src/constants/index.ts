@@ -127,7 +127,7 @@ export const STABLECOIN_POOL_TOKENS = [DAI, USDC, USDT]
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
   [symbol: string]: Token
-} = STABLECOIN_POOL_TOKENS.reduce(
+} = [...STABLECOIN_POOL_TOKENS, STABLECOIN_SWAP_TOKEN].reduce(
   (acc, token) => ({ ...acc, [token.symbol]: token }),
   {},
 )
