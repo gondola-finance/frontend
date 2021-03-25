@@ -1,5 +1,8 @@
 import {
   DAI,
+  GONDOLA_ADDRESS,
+  MASTERCHEF_ADDRESS,
+  MULTICALL_NETWORKS,
   PoolName,
   STABLECOIN_POOL_NAME,
   STABLECOIN_SWAP_ADDRESSES,
@@ -13,8 +16,11 @@ import { useMemo, useState } from "react"
 import { Contract } from "@ethersproject/contracts"
 import ERC20_ABI from "../constants/abis/erc20.json"
 import { Erc20 } from "../../types/ethers-contracts/Erc20"
+import GONDOLA_ABI from "../constants/abis/gondola.json"
 import LPTOKEN_ABI from "../constants/abis/lpToken.json"
 import { LpToken } from "../../types/ethers-contracts/LpToken"
+import MASTERCHEF_ABI from "../constants/abis/masterchef.json"
+import MULTICALL_ABI from "../constants/abis/multicall.json"
 import SWAP_ABI from "../constants/abis/swap.json"
 import { Swap } from "../../types/ethers-contracts/Swap"
 import { getContract } from "../utils"
@@ -107,4 +113,35 @@ export function useAllContracts(): AllContractsObject | null {
       [STABLECOIN_SWAP_TOKEN.symbol]: stablecoinSwapTokenContract,
     }
   }, [daiContract, usdcContract, usdtContract, stablecoinSwapTokenContract])
+}
+
+export function useMasterChefContract(
+  withSignerIfPossible?: boolean,
+): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(
+    chainId && MASTERCHEF_ADDRESS[chainId],
+    MASTERCHEF_ABI,
+    withSignerIfPossible,
+  )
+}
+
+export function useGondolaContract(
+  withSignerIfPossible = true,
+): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(
+    chainId && GONDOLA_ADDRESS[chainId],
+    GONDOLA_ABI,
+    withSignerIfPossible,
+  )
+}
+
+export function useMulticallContract(): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(
+    chainId && MULTICALL_NETWORKS[chainId],
+    MULTICALL_ABI,
+    false,
+  )
 }

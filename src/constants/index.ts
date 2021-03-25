@@ -41,6 +41,21 @@ export class Token {
 
 export const BLOCK_TIME = 3000
 
+export const MASTERCHEF_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.AVALANCHE]: "",
+  [ChainId.FUJI]: "0x18D45d68de514cC81e822a2B6568289668B17267",
+}
+
+export const MULTICALL_NETWORKS: { [chainId in ChainId]: string } = {
+  [ChainId.AVALANCHE]: "0x0FB54156B496b5a040b51A71817aED9e2927912E",
+  [ChainId.FUJI]: "0xb465Fd2d9C71d5D6e6c069aaC9b4E21c69aAA78f",
+}
+
+export const GONDOLA_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.AVALANCHE]: "",
+  [ChainId.FUJI]: "0xe9eAdD6873EacCF1b88c9eeC4dC9957FA88840c7",
+}
+
 export const STABLECOIN_SWAP_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0x4f6A43Ad7cba042606dECaCA730d4CE0A57ac62e",
   [ChainId.FUJI]: "0xa818a4E693132CFf3E9677474a1F57f0F7D2fe8d",
