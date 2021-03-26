@@ -21,6 +21,7 @@ import LPTOKEN_ABI from "../constants/abis/lpToken.json"
 import { LpToken } from "../../types/ethers-contracts/LpToken"
 import MASTERCHEF_ABI from "../constants/abis/masterchef.json"
 import MULTICALL_ABI from "../constants/abis/multicall.json"
+import { Masterchef } from "../../types/ethers-contracts/Masterchef"
 import SWAP_ABI from "../constants/abis/swap.json"
 import { Swap } from "../../types/ethers-contracts/Swap"
 import { getContract } from "../utils"
@@ -117,13 +118,13 @@ export function useAllContracts(): AllContractsObject | null {
 
 export function useMasterChefContract(
   withSignerIfPossible?: boolean,
-): Contract | null {
+): Masterchef | null {
   const { chainId } = useActiveWeb3React()
   return useContract(
     chainId && MASTERCHEF_ADDRESS[chainId],
     MASTERCHEF_ABI,
     withSignerIfPossible,
-  )
+  ) as Masterchef
 }
 
 export function useGondolaContract(

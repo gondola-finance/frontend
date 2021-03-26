@@ -58,9 +58,6 @@ export function useApproveAndWithdrawLP(
       }
       gasPrice = parseUnits(String(gasPrice) || "45", 9)
 
-      /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-      /* eslint-disable @typescript-eslint/no-unsafe-call */
-      /* eslint-disable @typescript-eslint/no-unsafe-member-access */
       const withdrawTransaction = await masterChefContract.withdraw(
         0, // pool id=0 for stablecoin pool
         state.lpTokenAmountToWithdraw._hex,
