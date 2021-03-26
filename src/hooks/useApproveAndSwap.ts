@@ -1,4 +1,5 @@
 import {
+  GAS_PRICE_BIGNUMBER,
   PoolName,
   STABLECOIN_POOL_NAME,
   STABLECOIN_POOL_TOKENS,
@@ -122,7 +123,7 @@ export function useApproveAndSwap(
         minToMint,
         Math.round(new Date().getTime() / 1000 + 60 * deadline),
         {
-          gasPrice: BigNumber.from(470000000000),
+          gasPrice: GAS_PRICE_BIGNUMBER,
         },
       )
       await swapTransaction.wait()

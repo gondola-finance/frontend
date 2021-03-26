@@ -1,4 +1,4 @@
-import { PoolName, TRANSACTION_TYPES } from "../constants"
+import { GAS_PRICE_BIGNUMBER, PoolName, TRANSACTION_TYPES } from "../constants"
 import { useLPTokenContract, useMasterChefContract } from "./useContract"
 
 import { AppState } from "../state"
@@ -76,7 +76,7 @@ export function useApproveAndStake(
         0, // pool id=0 for stablecoin pool
         state.lpTokenAmountToStake._hex,
         {
-          gasPrice: BigNumber.from(470000000000),
+          gasPrice: GAS_PRICE_BIGNUMBER,
         },
       )
       await spendTransaction.wait()

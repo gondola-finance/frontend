@@ -1,4 +1,10 @@
-import { POOLS_MAP, PoolName, TRANSACTION_TYPES, Token } from "../constants"
+import {
+  GAS_PRICE_BIGNUMBER,
+  POOLS_MAP,
+  PoolName,
+  TRANSACTION_TYPES,
+  Token,
+} from "../constants"
 import { useAllContracts, useSwapContract } from "./useContract"
 
 import { AppState } from "../state"
@@ -121,7 +127,7 @@ export function useApproveAndDeposit(
         minToMint,
         Math.round(new Date().getTime() / 1000 + 60 * deadline),
         {
-          gasPrice: BigNumber.from(470000000000),
+          gasPrice: GAS_PRICE_BIGNUMBER,
         },
       )
       await spendTransaction.wait()

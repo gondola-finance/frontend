@@ -1,4 +1,9 @@
-import { POOLS_MAP, PoolName, TRANSACTION_TYPES } from "../constants"
+import {
+  GAS_PRICE_BIGNUMBER,
+  POOLS_MAP,
+  PoolName,
+  TRANSACTION_TYPES,
+} from "../constants"
 import { addSlippage, subtractSlippage } from "../utils/slippage"
 import { useLPTokenContract, useSwapContract } from "./useContract"
 import { AppState } from "../state"
@@ -112,7 +117,7 @@ export function useApproveAndWithdraw(
           ),
           deadline,
           {
-            gasPrice: BigNumber.from(470000000000),
+            gasPrice: GAS_PRICE_BIGNUMBER,
           },
         )
       } else if (state.withdrawType === "IMBALANCE") {
@@ -127,7 +132,7 @@ export function useApproveAndWithdraw(
           ),
           deadline,
           {
-            gasPrice: BigNumber.from(470000000000),
+            gasPrice: GAS_PRICE_BIGNUMBER,
           },
         )
       } else {
@@ -146,7 +151,7 @@ export function useApproveAndWithdraw(
           ),
           deadline,
           {
-            gasPrice: BigNumber.from(470000000000),
+            gasPrice: GAS_PRICE_BIGNUMBER,
           },
         )
       }

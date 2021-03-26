@@ -78,7 +78,6 @@ const SwapPage = (props: Props): ReactElement => {
     18,
     4,
   )
-
   return (
     <div className="swapPage">
       <TopMenu activeTab={"swap"} />
