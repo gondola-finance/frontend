@@ -1,0 +1,28 @@
+name: Deploy to s3
+
+on:
+  push:
+    branches: [master]
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+  AWS_CLOUDFRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-18.04
+    timeout-minutes: 4
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "12"
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn test
+        env:
+          CI: true
+      - run: aws s3 sync --acl public-read build/ $AWS_S3_BUCKET
+      - run: aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_ID --paths "/*"
