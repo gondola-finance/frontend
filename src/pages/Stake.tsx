@@ -5,6 +5,7 @@ import StakePage from "../components/StakePage"
 import { Zero } from "@ethersproject/constants"
 import { formatBNToString } from "../utils"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
+import { useApproveAndWithdrawLP } from "../hooks/useApproveAndWithdrawLP"
 import { usePoolTokenBalances } from "../state/wallet/hooks"
 import { useStakedTokenBalance } from "../hooks/useStakedTokenBalance"
 import { useTokenFormState } from "../hooks/useTokenFormState"
@@ -16,6 +17,7 @@ interface Props {
 function Stake({ poolName }: Props): ReactElement | null {
   const POOL = POOLS_MAP[poolName]
   const approveAndStake = useApproveAndStake(poolName)
+  const approveAndWithdrawLP = useApproveAndWithdrawLP(poolName)
   const [tokenDepositState, updateDepositFormState] = useTokenFormState([
     POOL.lpToken,
   ])
@@ -26,17 +28,12 @@ function Stake({ poolName }: Props): ReactElement | null {
   ])
 
   const tokenBalances = usePoolTokenBalances(poolName)
+  const lpTokenBalance = tokenBalances?.[POOL.lpToken.symbol] || Zero
   const stakedTokenBalance = useStakedTokenBalance()
-
-  console.log(tokenBalances)
-  console.log(stakedTokenBalance)
 
   const lpTokenDeposit = {
     ...POOL.lpToken,
-    max: formatBNToString(
-      tokenBalances?.[POOL.lpToken.symbol] || Zero,
-      POOL.lpToken.decimals,
-    ),
+    max: formatBNToString(lpTokenBalance, POOL.lpToken.decimals),
     inputValue: tokenDepositState[POOL.lpToken.symbol].valueRaw,
   }
 
@@ -47,7 +44,7 @@ function Stake({ poolName }: Props): ReactElement | null {
     inputValue: tokenWithdrawState[POOL.lpToken.symbol].valueRaw,
   }
 
-  const exceedsUnstaked = (tokenBalances?.[POOL.lpToken.symbol] || Zero).lt(
+  const exceedsUnstaked = lpTokenBalance.lt(
     BigNumber.from(tokenDepositState[POOL.lpToken.symbol].valueSafe),
   )
 
@@ -55,15 +52,24 @@ function Stake({ poolName }: Props): ReactElement | null {
     BigNumber.from(tokenWithdrawState[POOL.lpToken.symbol].valueSafe),
   )
 
-  async function onConfirmTransaction(): Promise<void> {
+  async function onConfirmStakeLP(): Promise<void> {
     const stakeAmountBN = BigNumber.from(
       tokenDepositState[POOL.lpToken.symbol].valueSafe,
     )
-
     await approveAndStake({ lpTokenAmountToStake: stakeAmountBN })
     // Clear input after deposit
     updateDepositFormState({ [POOL.lpToken.symbol]: "" })
   }
+
+  async function onConfirmWithdrawLP(): Promise<void> {
+    const withdrawAmountBN = BigNumber.from(
+      tokenWithdrawState[POOL.lpToken.symbol].valueSafe,
+    )
+    await approveAndWithdrawLP({ lpTokenAmountToWithdraw: withdrawAmountBN })
+    // Clear input after deposit
+    updateWithdrawFormState({ [POOL.lpToken.symbol]: "" })
+  }
+
   function updateDepositFormValue(symbol: string, value: string): void {
     updateDepositFormState({ [symbol]: value })
   }
@@ -75,13 +81,24 @@ function Stake({ poolName }: Props): ReactElement | null {
 
   return (
     <StakePage
-      onConfirmTransaction={onConfirmTransaction}
+      onConfirmStakeLP={onConfirmStakeLP}
+      onConfirmWithdrawLP={onConfirmWithdrawLP}
       onChangeDepositValue={updateDepositFormValue}
       onChangeWithdrawValue={updateWithdrawFormValue}
       lpTokenDeposit={lpTokenDeposit}
       lpTokenWithdraw={lpTokenWithdraw}
       exceedsUnstaked={exceedsUnstaked}
       exceedsStaked={exceedsStaked}
+      lpTokenBalance={formatBNToString(
+        lpTokenBalance,
+        POOL.lpToken.decimals,
+        4,
+      )}
+      stakedAmount={formatBNToString(
+        stakedTokenBalance,
+        POOL.lpToken.decimals,
+        4,
+      )}
     />
   )
 }

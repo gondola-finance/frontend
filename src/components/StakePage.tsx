@@ -9,7 +9,8 @@ import { useTranslation } from "react-i18next"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface Props {
-  onConfirmTransaction: () => Promise<void>
+  onConfirmStakeLP: () => Promise<void>
+  onConfirmWithdrawLP: () => Promise<void>
   onChangeDepositValue: (tokenSymbol: string, value: string) => void
   onChangeWithdrawValue: (tokenSymbol: string, value: string) => void
   lpTokenDeposit: {
@@ -29,19 +30,24 @@ interface Props {
   }
   exceedsUnstaked: boolean
   exceedsStaked: boolean
+  lpTokenBalance: string
+  stakedAmount: string
 }
 
 /* eslint-enable @typescript-eslint/no-explicit-any */
 const StakePage = (props: Props): ReactElement => {
   const { t } = useTranslation()
   const {
+    lpTokenBalance,
     lpTokenDeposit,
     lpTokenWithdraw,
     exceedsStaked,
     exceedsUnstaked,
     onChangeDepositValue,
     onChangeWithdrawValue,
-    onConfirmTransaction,
+    onConfirmStakeLP,
+    onConfirmWithdrawLP,
+    stakedAmount,
   } = props
 
   return (
@@ -57,6 +63,16 @@ const StakePage = (props: Props): ReactElement => {
                 {t("Amount exceeds unstaked Gondola USD")}
               </div>
             ) : null}
+            <div className="info">
+              <span style={{ fontWeight: "bold" }}>Staked amount: &nbsp;</span>
+              <span className="value">{stakedAmount}</span>
+            </div>
+            <div className="info">
+              <span style={{ fontWeight: "bold" }}>
+                Unstaked balance: &nbsp;
+              </span>
+              <span className="value">{lpTokenBalance}</span>
+            </div>
             <TokenInput
               {...lpTokenDeposit}
               onChange={(value): void =>
@@ -70,10 +86,8 @@ const StakePage = (props: Props): ReactElement => {
               size="lg"
               width="240px"
               onClick={(): void => {
-                void onConfirmTransaction()
-                // setCurrentModal("review")
+                void onConfirmStakeLP()
               }}
-              /**@todo disabled = not exceed & valid */
               disabled={
                 exceedsUnstaked || Number(lpTokenDeposit.inputValue) === 0
               }
@@ -92,6 +106,10 @@ const StakePage = (props: Props): ReactElement => {
                 {t("Amount exceeds staked Gondola USD")}
               </div>
             ) : null}
+            <div className="info">
+              <span style={{ fontWeight: "bold" }}>Staked amount: &nbsp;</span>
+              <span className="value">{stakedAmount}</span>
+            </div>
             <TokenInput
               {...lpTokenWithdraw}
               onChange={(value): void =>
@@ -105,7 +123,7 @@ const StakePage = (props: Props): ReactElement => {
               size="lg"
               width="240px"
               onClick={(): void => {
-                // setCurrentModal("review")
+                void onConfirmWithdrawLP()
               }}
               disabled={
                 exceedsStaked || Number(lpTokenWithdraw.inputValue) === 0
