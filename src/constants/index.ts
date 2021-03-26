@@ -1,3 +1,4 @@
+import { BigNumber } from "@ethersproject/bignumber"
 import daiLogo from "../assets/icons/dai.svg"
 import gondolaLogo from "../assets/icons/brand_logo.png"
 import usdcLogo from "../assets/icons/usdc.svg"
@@ -7,7 +8,10 @@ export const NetworkContextName = "NETWORK"
 export const STABLECOIN_POOL_NAME = "Stablecoin Pool"
 export type PoolName = typeof STABLECOIN_POOL_NAME
 
-export const GAS_PRICE = 470
+export const GAS_PRICE = 470 // in nAVAX
+export const GAS_PRICE_BIGNUMBER = BigNumber.from(GAS_PRICE).mul(
+  BigNumber.from(10).pow(9),
+)
 
 export enum ChainId {
   AVALANCHE = 43114,

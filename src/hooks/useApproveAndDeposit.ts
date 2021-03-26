@@ -1,15 +1,19 @@
-import { POOLS_MAP, PoolName, TRANSACTION_TYPES, Token } from "../constants"
+import {
+  GAS_PRICE_BIGNUMBER,
+  POOLS_MAP,
+  PoolName,
+  TRANSACTION_TYPES,
+  Token,
+} from "../constants"
 import { useAllContracts, useSwapContract } from "./useContract"
 
 import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
 import { Erc20 } from "../../types/ethers-contracts/Erc20"
-import { GasPrices } from "../state/user"
 import { NumberInputState } from "../utils/numberInputState"
 import checkAndApproveTokenForTrade from "../utils/checkAndApproveTokenForTrade"
 import { formatDeadlineToNumber } from "../utils"
 import { getFormattedTimeString } from "../utils/dateTime"
-import { parseUnits } from "@ethersproject/units"
 import { subtractSlippage } from "../utils/slippage"
 import { updateLastTransactionTimes } from "../state/application"
 import { useActiveWeb3React } from "."
@@ -29,14 +33,10 @@ export function useApproveAndDeposit(
   const tokenContracts = useAllContracts()
   const { account } = useActiveWeb3React()
   const { addToast, clearToasts } = useToast()
-  const { gasStandard, gasFast, gasInstant } = useSelector(
-    (state: AppState) => state.application,
-  )
+
   const {
     slippageCustom,
     slippageSelected,
-    gasPriceSelected,
-    gasCustom,
     transactionDeadlineCustom,
     transactionDeadlineSelected,
     infiniteApproval,
@@ -117,17 +117,6 @@ export function useApproveAndDeposit(
         type: "pending",
         title: `${getFormattedTimeString()} Starting your deposit...`,
       })
-      let gasPrice
-      if (gasPriceSelected === GasPrices.Custom) {
-        gasPrice = gasCustom?.valueSafe
-      } else if (gasPriceSelected === GasPrices.Fast) {
-        gasPrice = gasFast
-      } else if (gasPriceSelected === GasPrices.Instant) {
-        gasPrice = gasInstant
-      } else {
-        gasPrice = gasStandard
-      }
-      gasPrice = parseUnits(String(gasPrice) || "45", 9)
       const deadline = formatDeadlineToNumber(
         transactionDeadlineSelected,
         transactionDeadlineCustom,
@@ -138,7 +127,7 @@ export function useApproveAndDeposit(
         minToMint,
         Math.round(new Date().getTime() / 1000 + 60 * deadline),
         {
-          gasPrice,
+          gasPrice: GAS_PRICE_BIGNUMBER,
         },
       )
       await spendTransaction.wait()

@@ -10,7 +10,6 @@ import { AppState } from "../state/index"
 import { BigNumber } from "@ethersproject/bignumber"
 import ConfirmTransaction from "./ConfirmTransaction"
 import DeadlineField from "./DeadlineField"
-import GasField from "./GasField"
 import InfiniteApprovalField from "./InfiniteApprovalField"
 import Modal from "./Modal"
 import { PayloadAction } from "@reduxjs/toolkit"
@@ -79,7 +78,6 @@ const SwapPage = (props: Props): ReactElement => {
     18,
     4,
   )
-
   return (
     <div className="swapPage">
       <TopMenu activeTab={"swap"} />
@@ -172,9 +170,6 @@ const SwapPage = (props: Props): ReactElement => {
               </div>
               <div className="parameter">
                 <DeadlineField />
-              </div>
-              <div className="parameter">
-                <GasField />
               </div>
             </div>
           </div>

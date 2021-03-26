@@ -1,15 +1,11 @@
-import { PoolName, TRANSACTION_TYPES } from "../constants"
+import { GAS_PRICE_BIGNUMBER, PoolName, TRANSACTION_TYPES } from "../constants"
 import { useLPTokenContract, useMasterChefContract } from "./useContract"
 
-import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
-import { GasPrices } from "../state/user"
 import { getFormattedTimeString } from "../utils/dateTime"
-import { parseUnits } from "@ethersproject/units"
 import { updateLastTransactionTimes } from "../state/application"
 import { useActiveWeb3React } from "."
 import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux"
 import { useToast } from "./useToast"
 
 interface ApproveAndWithdrawLPStateArgument {
@@ -25,12 +21,6 @@ export function useApproveAndWithdrawLP(
 
   const { account } = useActiveWeb3React()
   const { addToast, clearToasts } = useToast()
-  const { gasStandard, gasFast, gasInstant } = useSelector(
-    (state: AppState) => state.application,
-  )
-  const { gasPriceSelected, gasCustom } = useSelector(
-    (state: AppState) => state.user,
-  )
 
   return async function approveAndWithdrawLP(
     state: ApproveAndWithdrawLPStateArgument,
@@ -46,23 +36,12 @@ export function useApproveAndWithdrawLP(
         type: "pending",
         title: `${getFormattedTimeString()} Starting your withdrawal...`,
       })
-      let gasPrice
-      if (gasPriceSelected === GasPrices.Custom) {
-        gasPrice = gasCustom?.valueSafe
-      } else if (gasPriceSelected === GasPrices.Fast) {
-        gasPrice = gasFast
-      } else if (gasPriceSelected === GasPrices.Instant) {
-        gasPrice = gasInstant
-      } else {
-        gasPrice = gasStandard
-      }
-      gasPrice = parseUnits(String(gasPrice) || "45", 9)
 
       const withdrawTransaction = await masterChefContract.withdraw(
         0, // pool id=0 for stablecoin pool
         state.lpTokenAmountToWithdraw._hex,
         {
-          gasPrice,
+          gasPrice: GAS_PRICE_BIGNUMBER,
         },
       )
       await withdrawTransaction.wait()

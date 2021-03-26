@@ -117,7 +117,7 @@ function ReviewDeposit({
               gasPriceSelected,
               gasCustom,
             )}{" "}
-            GWEI
+            nAVAX
           </span>
         </div>
         <div className="depositInfoItem">

@@ -110,7 +110,7 @@ function ReviewSwap({ onClose, onConfirm, data }: Props): ReactElement {
                 gasPriceSelected,
                 gasCustom,
               )}{" "}
-              GWEI
+              nAVAX
             </span>
           </div>
           <div className="row">
