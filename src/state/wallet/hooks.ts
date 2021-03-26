@@ -3,6 +3,7 @@ import {
   DAI,
   PoolName,
   STABLECOIN_POOL_NAME,
+  STABLECOIN_SWAP_TOKEN,
   Token,
   USDC,
   USDT,
@@ -42,17 +43,21 @@ export function useTokenBalance(t: Token): BigNumber {
 export function usePoolTokenBalances(
   poolName: PoolName,
 ): { [token: string]: BigNumber } | null {
+  // pool tokens
   const daiTokenBalance = useTokenBalance(DAI)
   const usdcTokenBalance = useTokenBalance(USDC)
   const usdtTokenBalance = useTokenBalance(USDT)
+  // lpToken
+  const lpTokenBalance = useTokenBalance(STABLECOIN_SWAP_TOKEN)
 
   const stablecoinPoolTokenBalances = useMemo(
     () => ({
       [DAI.symbol]: daiTokenBalance,
       [USDC.symbol]: usdcTokenBalance,
       [USDT.symbol]: usdtTokenBalance,
+      [STABLECOIN_SWAP_TOKEN.symbol]: lpTokenBalance,
     }),
-    [daiTokenBalance, usdcTokenBalance, usdtTokenBalance],
+    [daiTokenBalance, usdcTokenBalance, usdtTokenBalance, lpTokenBalance],
   )
 
   if (poolName === STABLECOIN_POOL_NAME) {

@@ -44,7 +44,7 @@ function TokenInput({
 
   return (
     <div className="tokenInput">
-      <img alt="icon" src={icon} />
+      <img alt="icon" style={{ width: "20px" }} src={icon} />
       <span>{symbol}</span>
       <input
         disabled={disabled ? true : false}

@@ -13,7 +13,6 @@ import { DepositTransaction } from "../interfaces/transactions"
 import GasField from "./GasField"
 import { HistoricalPoolDataType } from "../hooks/useHistoricalPoolData"
 import InfiniteApprovalField from "./InfiniteApprovalField"
-import LPStakingBanner from "./LPStakingBanner"
 import Modal from "./Modal"
 import MyActivityCard from "./MyActivityCard"
 import MyShareCard from "./MyShareCard"
@@ -74,8 +73,6 @@ const DepositPage = (props: Props): ReactElement => {
   return (
     <div className="deposit">
       <TopMenu activeTab={"deposit"} />
-      {myShareData?.lpTokenBalance.gt(0) && <LPStakingBanner />}
-
       <div className="content">
         <div className="left">
           <div className="form">
