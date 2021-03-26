@@ -48,6 +48,7 @@ export default async function checkAndApproveTokenForTrade(
       const approvalTransaction = await srcTokenContract.approve(
         swapAddress,
         amount,
+        { gasPrice: BigNumber.from(470000000000) },
       )
       const confirmedTransaction = await approvalTransaction.wait()
       cleanupOnStart?.()

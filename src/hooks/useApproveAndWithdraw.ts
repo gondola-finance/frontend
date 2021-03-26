@@ -1,14 +1,13 @@
 import { POOLS_MAP, PoolName, TRANSACTION_TYPES } from "../constants"
 import { addSlippage, subtractSlippage } from "../utils/slippage"
-import { formatUnits, parseUnits } from "@ethersproject/units"
 import { useLPTokenContract, useSwapContract } from "./useContract"
-
 import { AppState } from "../state"
+
 import { BigNumber } from "@ethersproject/bignumber"
-import { GasPrices } from "../state/user"
 import { NumberInputState } from "../utils/numberInputState"
 import checkAndApproveTokenForTrade from "../utils/checkAndApproveTokenForTrade"
 import { formatDeadlineToNumber } from "../utils"
+import { formatUnits } from "@ethersproject/units"
 import { getFormattedTimeString } from "../utils/dateTime"
 import { updateLastTransactionTimes } from "../state/application"
 import { useActiveWeb3React } from "."
@@ -29,14 +28,9 @@ export function useApproveAndWithdraw(
   const swapContract = useSwapContract(poolName)
   const { account } = useActiveWeb3React()
   const { addToast, clearToasts } = useToast()
-  const { gasStandard, gasFast, gasInstant } = useSelector(
-    (state: AppState) => state.application,
-  )
   const {
     slippageCustom,
     slippageSelected,
-    gasPriceSelected,
-    gasCustom,
     transactionDeadlineCustom,
     transactionDeadlineSelected,
     infiniteApproval,
@@ -94,17 +88,6 @@ export function useApproveAndWithdraw(
         type: "pending",
         title: `${getFormattedTimeString()} Starting your withdraw...`,
       })
-      let gasPrice
-      if (gasPriceSelected === GasPrices.Custom && gasCustom?.valueSafe) {
-        gasPrice = gasCustom.valueSafe
-      } else if (gasPriceSelected === GasPrices.Standard) {
-        gasPrice = gasStandard
-      } else if (gasPriceSelected === GasPrices.Instant) {
-        gasPrice = gasInstant
-      } else {
-        gasPrice = gasFast
-      }
-      gasPrice = parseUnits(gasPrice?.toString() || "45", "gwei")
       console.debug(
         `lpTokenAmountToSpend: ${formatUnits(state.lpTokenAmountToSpend, 18)}`,
       )
@@ -129,7 +112,7 @@ export function useApproveAndWithdraw(
           ),
           deadline,
           {
-            gasPrice,
+            gasPrice: BigNumber.from(470000000000),
           },
         )
       } else if (state.withdrawType === "IMBALANCE") {
@@ -144,7 +127,7 @@ export function useApproveAndWithdraw(
           ),
           deadline,
           {
-            gasPrice,
+            gasPrice: BigNumber.from(470000000000),
           },
         )
       } else {
@@ -163,7 +146,7 @@ export function useApproveAndWithdraw(
           ),
           deadline,
           {
-            gasPrice,
+            gasPrice: BigNumber.from(470000000000),
           },
         )
       }

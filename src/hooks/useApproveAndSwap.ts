@@ -11,11 +11,9 @@ import { useAllContracts, useSwapContract } from "./useContract"
 import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
 import { Erc20 } from "../../types/ethers-contracts/Erc20"
-import { GasPrices } from "../state/user"
 import checkAndApproveTokenForTrade from "../utils/checkAndApproveTokenForTrade"
 import { formatDeadlineToNumber } from "../utils"
 import { getFormattedTimeString } from "../utils/dateTime"
-import { parseUnits } from "@ethersproject/units"
 import { subtractSlippage } from "../utils/slippage"
 import { updateLastTransactionTimes } from "../state/application"
 import { useActiveWeb3React } from "."
@@ -38,14 +36,9 @@ export function useApproveAndSwap(
   const tokenContracts = useAllContracts()
   const { account } = useActiveWeb3React()
   const { addToast, clearToasts } = useToast()
-  const { gasStandard, gasFast, gasInstant } = useSelector(
-    (state: AppState) => state.application,
-  )
   const {
     slippageCustom,
     slippageSelected,
-    gasPriceSelected,
-    gasCustom,
     transactionDeadlineCustom,
     transactionDeadlineSelected,
     infiniteApproval,
@@ -111,17 +104,7 @@ export function useApproveAndSwap(
         type: "pending",
         title: `${getFormattedTimeString()} Starting your Swap...`,
       })
-      let gasPrice
-      if (gasPriceSelected === GasPrices.Custom) {
-        gasPrice = gasCustom?.valueSafe
-      } else if (gasPriceSelected === GasPrices.Fast) {
-        gasPrice = gasFast
-      } else if (gasPriceSelected === GasPrices.Instant) {
-        gasPrice = gasInstant
-      } else {
-        gasPrice = gasStandard
-      }
-      gasPrice = parseUnits(String(gasPrice) || "45", 9)
+
       const indexFrom = POOL_TOKENS.findIndex(
         ({ symbol }) => symbol === state.fromTokenSymbol,
       )
@@ -139,7 +122,7 @@ export function useApproveAndSwap(
         minToMint,
         Math.round(new Date().getTime() / 1000 + 60 * deadline),
         {
-          gasPrice,
+          gasPrice: BigNumber.from(470000000000),
         },
       )
       await swapTransaction.wait()
