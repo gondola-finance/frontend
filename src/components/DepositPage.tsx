@@ -10,7 +10,6 @@ import { AppState } from "../state"
 import ConfirmTransaction from "./ConfirmTransaction"
 import DeadlineField from "./DeadlineField"
 import { DepositTransaction } from "../interfaces/transactions"
-import GasField from "./GasField"
 import { HistoricalPoolDataType } from "../hooks/useHistoricalPoolData"
 import InfiniteApprovalField from "./InfiniteApprovalField"
 import Modal from "./Modal"
@@ -170,9 +169,6 @@ const DepositPage = (props: Props): ReactElement => {
               </div>
               <div className="parameter">
                 <DeadlineField />
-              </div>
-              <div className="parameter">
-                <GasField />
               </div>
             </div>
           </div>

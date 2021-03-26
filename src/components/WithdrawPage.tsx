@@ -10,7 +10,6 @@ import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
 import ConfirmTransaction from "./ConfirmTransaction"
 import DeadlineField from "./DeadlineField"
-import GasField from "./GasField"
 import { HistoricalPoolDataType } from "../hooks/useHistoricalPoolData"
 import InfiniteApprovalField from "./InfiniteApprovalField"
 import Modal from "./Modal"
@@ -226,9 +225,6 @@ const WithdrawPage = (props: Props): ReactElement => {
                 </div>
                 <div className="parameter">
                   <DeadlineField />
-                </div>
-                <div className="parameter">
-                  <GasField />
                 </div>
               </div>
             </div>
