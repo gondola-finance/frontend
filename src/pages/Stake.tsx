@@ -6,6 +6,7 @@ import { Zero } from "@ethersproject/constants"
 import { formatBNToString } from "../utils"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
 import { usePoolTokenBalances } from "../state/wallet/hooks"
+import { useStakedTokenBalance } from "../hooks/useStakedTokenBalance"
 import { useTokenFormState } from "../hooks/useTokenFormState"
 
 interface Props {
@@ -20,11 +21,15 @@ function Stake({ poolName }: Props): ReactElement | null {
   ])
 
   /**@todo uncomment when withdraw is enabled */
-  // const [tokenWithdrawState, updateWithdrawFormState] = useTokenFormState([
-  //   POOL.lpToken,
-  // ])
+  const [tokenWithdrawState, updateWithdrawFormState] = useTokenFormState([
+    POOL.lpToken,
+  ])
 
   const tokenBalances = usePoolTokenBalances(poolName)
+  const stakedTokenBalance = useStakedTokenBalance()
+
+  console.log(tokenBalances)
+  console.log(stakedTokenBalance)
 
   const lpTokenDeposit = {
     ...POOL.lpToken,
@@ -36,17 +41,18 @@ function Stake({ poolName }: Props): ReactElement | null {
   }
 
   /**@todo uncomment when withdraw is enabled */
-  // const lpTokenWithdraw = {
-  //   ...POOL.lpToken,
-  //   max: formatBNToString(
-  //     tokenBalances?.[POOL.lpToken.symbol] || Zero,
-  //     POOL.lpToken.decimals,
-  //   ),
-  //   inputValue: tokenWithdrawState[POOL.lpToken.symbol].valueRaw,
-  // }
+  const lpTokenWithdraw = {
+    ...POOL.lpToken,
+    max: formatBNToString(stakedTokenBalance, POOL.lpToken.decimals),
+    inputValue: tokenWithdrawState[POOL.lpToken.symbol].valueRaw,
+  }
 
-  const exceedsBalance = (tokenBalances?.[POOL.lpToken.symbol] || Zero).lt(
+  const exceedsUnstaked = (tokenBalances?.[POOL.lpToken.symbol] || Zero).lt(
     BigNumber.from(tokenDepositState[POOL.lpToken.symbol].valueSafe),
+  )
+
+  const exceedsStaked = stakedTokenBalance.lt(
+    BigNumber.from(tokenWithdrawState[POOL.lpToken.symbol].valueSafe),
   )
 
   async function onConfirmTransaction(): Promise<void> {
@@ -63,18 +69,19 @@ function Stake({ poolName }: Props): ReactElement | null {
   }
 
   /**@todo uncomment when withdraw is enabled */
-  // function updateWithdrawFormValue(symbol: string, value: string): void {
-  //   updateWithdrawFormState({ [symbol]: value })
-  // }
+  function updateWithdrawFormValue(symbol: string, value: string): void {
+    updateWithdrawFormState({ [symbol]: value })
+  }
 
   return (
     <StakePage
       onConfirmTransaction={onConfirmTransaction}
       onChangeDepositValue={updateDepositFormValue}
-      // onChangeWithdrawValue={updateWithdrawFormValue}
+      onChangeWithdrawValue={updateWithdrawFormValue}
       lpTokenDeposit={lpTokenDeposit}
-      // lpTokenWithdraw={lpTokenWithdraw}
-      exceedsWallet={exceedsBalance}
+      lpTokenWithdraw={lpTokenWithdraw}
+      exceedsUnstaked={exceedsUnstaked}
+      exceedsStaked={exceedsStaked}
     />
   )
 }
