@@ -70,6 +70,10 @@ function Stake({ poolName }: Props): ReactElement | null {
     updateWithdrawFormState({ [POOL.lpToken.symbol]: "" })
   }
 
+  async function onConfirmClaim(): Promise<void> {
+    await approveAndWithdrawLP({ lpTokenAmountToWithdraw: Zero })
+  }
+
   function updateDepositFormValue(symbol: string, value: string): void {
     updateDepositFormState({ [symbol]: value })
   }
@@ -82,6 +86,7 @@ function Stake({ poolName }: Props): ReactElement | null {
     <StakePage
       onConfirmStakeLP={onConfirmStakeLP}
       onConfirmWithdrawLP={onConfirmWithdrawLP}
+      onConfirmClaim={onConfirmClaim}
       onChangeDepositValue={updateDepositFormValue}
       onChangeWithdrawValue={updateWithdrawFormValue}
       lpTokenDeposit={lpTokenDeposit}

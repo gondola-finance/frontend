@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next"
 interface Props {
   onConfirmStakeLP: () => Promise<void>
   onConfirmWithdrawLP: () => Promise<void>
+  onConfirmClaim: () => Promise<void>
   onChangeDepositValue: (tokenSymbol: string, value: string) => void
   onChangeWithdrawValue: (tokenSymbol: string, value: string) => void
   lpTokenDeposit: {
@@ -49,6 +50,7 @@ const StakePage = (props: Props): ReactElement => {
     onChangeWithdrawValue,
     onConfirmStakeLP,
     onConfirmWithdrawLP,
+    onConfirmClaim,
     stakedAmount,
     gdlBalance,
     gdlUnclaimed,
@@ -120,13 +122,9 @@ const StakePage = (props: Props): ReactElement => {
               size="lg"
               width="240px"
               onClick={(): void => {
-                /**@todo update onClick */
-                void console.log("button clicked")
+                void onConfirmClaim()
               }}
-              disabled={
-                /**@todo disable if unclaimed is 0 */
-                false
-              }
+              disabled={gdlUnclaimed === "0.0"}
             >
               {t("Claim")}
             </Button>
