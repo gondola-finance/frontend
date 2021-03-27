@@ -6,6 +6,7 @@ import { Zero } from "@ethersproject/constants"
 import { formatBNToString } from "../utils"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
 import { useApproveAndWithdrawLP } from "../hooks/useApproveAndWithdrawLP"
+import { useGDLTokenBalance } from "../hooks/useGDLTokenBalance"
 import { usePoolTokenBalances } from "../state/wallet/hooks"
 import { useStakedTokenBalance } from "../hooks/useStakedTokenBalance"
 import { useTokenFormState } from "../hooks/useTokenFormState"
@@ -22,7 +23,6 @@ function Stake({ poolName }: Props): ReactElement | null {
     POOL.lpToken,
   ])
 
-  /**@todo uncomment when withdraw is enabled */
   const [tokenWithdrawState, updateWithdrawFormState] = useTokenFormState([
     POOL.lpToken,
   ])
@@ -30,6 +30,7 @@ function Stake({ poolName }: Props): ReactElement | null {
   const tokenBalances = usePoolTokenBalances(poolName)
   const lpTokenBalance = tokenBalances?.[POOL.lpToken.symbol] || Zero
   const stakedTokenBalance = useStakedTokenBalance()
+  const [gdlBalance, gdlUnclaimed] = useGDLTokenBalance()
 
   const lpTokenDeposit = {
     ...POOL.lpToken,
@@ -37,7 +38,6 @@ function Stake({ poolName }: Props): ReactElement | null {
     inputValue: tokenDepositState[POOL.lpToken.symbol].valueRaw,
   }
 
-  /**@todo uncomment when withdraw is enabled */
   const lpTokenWithdraw = {
     ...POOL.lpToken,
     max: formatBNToString(stakedTokenBalance, POOL.lpToken.decimals),
@@ -74,7 +74,6 @@ function Stake({ poolName }: Props): ReactElement | null {
     updateDepositFormState({ [symbol]: value })
   }
 
-  /**@todo uncomment when withdraw is enabled */
   function updateWithdrawFormValue(symbol: string, value: string): void {
     updateWithdrawFormState({ [symbol]: value })
   }
@@ -99,6 +98,8 @@ function Stake({ poolName }: Props): ReactElement | null {
         POOL.lpToken.decimals,
         4,
       )}
+      gdlBalance={formatBNToString(gdlBalance, 18, 4)}
+      gdlUnclaimed={formatBNToString(gdlUnclaimed, 18, 4)}
     />
   )
 }

@@ -32,6 +32,8 @@ interface Props {
   exceedsStaked: boolean
   lpTokenBalance: string
   stakedAmount: string
+  gdlBalance: string
+  gdlUnclaimed: string
 }
 
 /* eslint-enable @typescript-eslint/no-explicit-any */
@@ -48,6 +50,8 @@ const StakePage = (props: Props): ReactElement => {
     onConfirmStakeLP,
     onConfirmWithdrawLP,
     stakedAmount,
+    gdlBalance,
+    gdlUnclaimed,
   } = props
 
   return (
@@ -93,6 +97,38 @@ const StakePage = (props: Props): ReactElement => {
               }
             >
               {t("Stake")}
+            </Button>
+          </Center>
+          <div className="form">
+            <h3>{t("Claim GDL Token")}</h3>
+            <div className="info">
+              <span style={{ fontWeight: "bold" }}>
+                Your GDL balance &nbsp;
+              </span>
+              <span className="value">{gdlBalance}</span>
+            </div>
+            <div className="info">
+              <span style={{ fontWeight: "bold" }}>
+                Unclaimed GDL balance: &nbsp;
+              </span>
+              <span className="value">{gdlUnclaimed}</span>
+            </div>
+          </div>
+          <Center width="100%" py={6}>
+            <Button
+              variant="primary"
+              size="lg"
+              width="240px"
+              onClick={(): void => {
+                /**@todo update onClick */
+                void console.log("button clicked")
+              }}
+              disabled={
+                /**@todo disable if unclaimed is 0 */
+                false
+              }
+            >
+              {t("Claim")}
             </Button>
           </Center>
         </div>
