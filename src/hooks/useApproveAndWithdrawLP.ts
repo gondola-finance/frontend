@@ -29,7 +29,6 @@ export function useApproveAndWithdrawLP(
       if (!account) throw new Error("Wallet must be connected")
       if (!masterChefContract)
         throw new Error("MasterChef Contract contract is not loaded")
-      if (state.lpTokenAmountToWithdraw.isZero()) return
       if (lpTokenContract == null) return
 
       const clearMessage = addToast({

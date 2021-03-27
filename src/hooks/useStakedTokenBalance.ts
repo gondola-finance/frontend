@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { BLOCK_TIME } from "../constants"
-
 import { BigNumber } from "@ethersproject/bignumber"
 import { Zero } from "@ethersproject/constants"
 import { useActiveWeb3React } from "../hooks"
@@ -17,7 +14,6 @@ export function useStakedTokenBalance(): BigNumber {
 
   usePoller((): void => {
     async function pollBalance(): Promise<void> {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const userInfo = account
         ? await masterChefContract?.userInfo(0, account)
         : { amount: Zero }
