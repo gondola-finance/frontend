@@ -7,7 +7,6 @@ import TokenInput from "./TokenInput"
 import TopMenu from "./TopMenu"
 import { useTranslation } from "react-i18next"
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 interface Props {
   onConfirmStakeLP: () => Promise<void>
   onConfirmWithdrawLP: () => Promise<void>
@@ -37,7 +36,6 @@ interface Props {
   gdlUnclaimed: string
 }
 
-/* eslint-enable @typescript-eslint/no-explicit-any */
 const StakePage = (props: Props): ReactElement => {
   const { t } = useTranslation()
   const {
