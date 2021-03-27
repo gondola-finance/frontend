@@ -12,7 +12,6 @@ import Button from "./Button"
 import { DepositTransaction } from "../interfaces/transactions"
 import HighPriceImpactConfirmation from "./HighPriceImpactConfirmation"
 import { commify } from "@ethersproject/units"
-import { formatGasToString } from "../utils/gas"
 import { formatSlippageToString } from "../utils/slippage"
 import { isHighPriceImpact } from "../utils/priceImpact"
 import { useSelector } from "react-redux"
@@ -33,14 +32,9 @@ function ReviewDeposit({
   const {
     slippageCustom,
     slippageSelected,
-    gasPriceSelected,
-    gasCustom,
     transactionDeadlineSelected,
     transactionDeadlineCustom,
   } = useSelector((state: AppState) => state.user)
-  const { gasStandard, gasFast, gasInstant } = useSelector(
-    (state: AppState) => state.application,
-  )
   const [
     hasConfirmedHighPriceImpact,
     setHasConfirmedHighPriceImpact,
@@ -107,17 +101,6 @@ function ReviewDeposit({
           <span className="label">{t("shareOfPool")}</span>
           <span className="value">
             {formatBNToPercentString(transactionData.shareOfPool, 18)}
-          </span>
-        </div>
-        <div className="depositInfoItem">
-          <span className="label">{t("gas")}</span>
-          <span className="value">
-            {formatGasToString(
-              { gasStandard, gasFast, gasInstant },
-              gasPriceSelected,
-              gasCustom,
-            )}{" "}
-            nAVAX
           </span>
         </div>
         <div className="depositInfoItem">

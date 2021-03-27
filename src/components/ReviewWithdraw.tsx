@@ -8,7 +8,6 @@ import { GasPrices } from "../state/user"
 import HighPriceImpactConfirmation from "./HighPriceImpactConfirmation"
 import { ReviewWithdrawData } from "./WithdrawPage"
 import { formatDeadlineToNumber } from "../utils"
-import { formatGasToString } from "../utils/gas"
 import { formatSlippageToString } from "../utils/slippage"
 import { isHighPriceImpact } from "../utils/priceImpact"
 import { useSelector } from "react-redux"
@@ -26,14 +25,9 @@ function ReviewWithdraw({ onClose, onConfirm, data }: Props): ReactElement {
   const {
     slippageCustom,
     slippageSelected,
-    gasPriceSelected,
-    gasCustom,
     transactionDeadlineSelected,
     transactionDeadlineCustom,
   } = useSelector((state: AppState) => state.user)
-  const { gasStandard, gasFast, gasInstant } = useSelector(
-    (state: AppState) => state.application,
-  )
   const [
     hasConfirmedHighPriceImpact,
     setHasConfirmedHighPriceImpact,
@@ -61,17 +55,6 @@ function ReviewWithdraw({ onClose, onConfirm, data }: Props): ReactElement {
           ))}
         </div>
         <div className="divider"></div>
-        <div className="withdrawInfoItem">
-          <span className="label">{t("gas")}</span>
-          <span className="value">
-            {formatGasToString(
-              { gasStandard, gasFast, gasInstant },
-              gasPriceSelected,
-              gasCustom,
-            )}{" "}
-            nAVAX
-          </span>
-        </div>
         <div className="withdrawInfoItem">
           <span className="label">{t("maxSlippage")}</span>
           <span className="value">

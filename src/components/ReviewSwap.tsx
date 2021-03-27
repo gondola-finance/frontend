@@ -8,7 +8,6 @@ import { BigNumber } from "@ethersproject/bignumber"
 import Button from "./Button"
 import HighPriceImpactConfirmation from "./HighPriceImpactConfirmation"
 import { TOKENS_MAP } from "../constants"
-import { formatGasToString } from "../utils/gas"
 import { formatSlippageToString } from "../utils/slippage"
 import iconDown from "../assets/icons/icon_down.svg"
 import { isHighPriceImpact } from "../utils/priceImpact"
@@ -34,14 +33,9 @@ function ReviewSwap({ onClose, onConfirm, data }: Props): ReactElement {
   const {
     slippageCustom,
     slippageSelected,
-    gasPriceSelected,
-    gasCustom,
     transactionDeadlineSelected,
     transactionDeadlineCustom,
   } = useSelector((state: AppState) => state.user)
-  const { gasStandard, gasFast, gasInstant } = useSelector(
-    (state: AppState) => state.application,
-  )
   const [
     hasConfirmedHighPriceImpact,
     setHasConfirmedHighPriceImpact,
@@ -100,17 +94,6 @@ function ReviewSwap({ onClose, onConfirm, data }: Props): ReactElement {
             </button>
             <span className="value floatRight">
               {formatBNToString(data.exchangeRateInfo.exchangeRate, 18, 4)}
-            </span>
-          </div>
-          <div className="row">
-            <span className="title">{t("gas")}</span>
-            <span className="value floatRight">
-              {formatGasToString(
-                { gasStandard, gasFast, gasInstant },
-                gasPriceSelected,
-                gasCustom,
-              )}{" "}
-              nAVAX
             </span>
           </div>
           <div className="row">
