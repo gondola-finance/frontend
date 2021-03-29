@@ -108,7 +108,7 @@ export const TUSD = new Token(
   TUSD_CONTRACT_ADDRESSES,
   6,
   "TUSD",
-  "tusd-coin",
+  "true-usd",
   "True USD",
   tusdLogo,
 )

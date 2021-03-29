@@ -107,8 +107,9 @@ export default function usePoolData(
       )
       const tokenBalancesUSD = POOL.poolTokens.map((token, i) => {
         const balance = tokenBalances[i]
+
         return balance
-          .mul(parseUnits(String(tokenPricesUSD[token.symbol]), 18))
+          .mul(parseUnits(String(tokenPricesUSD[token.symbol] || 0), 18))
           .div(BigNumber.from(10).pow(18))
       })
       const tokenBalancesUSDSum: BigNumber = tokenBalancesUSD.reduce((sum, b) =>
