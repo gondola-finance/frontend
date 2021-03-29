@@ -1,7 +1,7 @@
 import { BigNumber } from "@ethersproject/bignumber"
 import daiLogo from "../assets/icons/dai.svg"
 import gondolaLogo from "../assets/icons/brand_logo.png"
-import usdcLogo from "../assets/icons/usdc.svg"
+import tusdLogo from "../assets/icons/tusd.svg"
 import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
@@ -46,7 +46,7 @@ export class Token {
 export const BLOCK_TIME = 3000
 
 export const MASTERCHEF_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "",
+  [ChainId.AVALANCHE]: "0x34C8712Cc527a8E6834787Bd9e3AD4F2537B0f50",
   [ChainId.FUJI]: "0x18D45d68de514cC81e822a2B6568289668B17267",
 }
 
@@ -56,12 +56,12 @@ export const MULTICALL_NETWORKS: { [chainId in ChainId]: string } = {
 }
 
 export const GONDOLA_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "",
+  [ChainId.AVALANCHE]: "0xD606199557c8Ab6F4Cc70bD03FaCc96ca576f142",
   [ChainId.FUJI]: "0xe9eAdD6873EacCF1b88c9eeC4dC9957FA88840c7",
 }
 
 export const STABLECOIN_SWAP_ADDRESSES: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "0x4f6A43Ad7cba042606dECaCA730d4CE0A57ac62e",
+  [ChainId.AVALANCHE]: "0xe67F3fda5E24EdEbcADDFE9A4a222514013B6e21",
   [ChainId.FUJI]: "0xa818a4E693132CFf3E9677474a1F57f0F7D2fe8d",
 }
 
@@ -73,7 +73,7 @@ export const MERKLETREE_DATA: { [chainId in ChainId]: string } = {
 export const STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.AVALANCHE]: "",
+  [ChainId.AVALANCHE]: "0xb51f20A5C8541666E7c7320AdDad1B1A5fecFa2a",
   [ChainId.FUJI]: "0x748e67353306b3183E8Bc9C27fE60a017E99d4D4",
 }
 
@@ -82,7 +82,7 @@ export const STABLECOIN_SWAP_TOKEN = new Token(
   18,
   "gondolaUSD",
   "gondolausd",
-  "Gondola DAI/USDC/USDT",
+  "Gondola DAI/TUSD/USDT",
   gondolaLogo,
 )
 
@@ -100,17 +100,17 @@ export const DAI = new Token(
   daiLogo,
 )
 
-const USDC_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "",
+const TUSD_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
+  [ChainId.AVALANCHE]: "0x1C20E891Bab6b1727d14Da358FAe2984Ed9B59EB",
   [ChainId.FUJI]: "0x6275B63A4eE560004c34431e573314426906cee9",
 }
-export const USDC = new Token(
-  USDC_CONTRACT_ADDRESSES,
+export const TUSD = new Token(
+  TUSD_CONTRACT_ADDRESSES,
   6,
-  "USDC",
-  "usd-coin",
-  "USDC Coin",
-  usdcLogo,
+  "TUSD",
+  "tusd-coin",
+  "True USD",
+  tusdLogo,
 )
 
 const USDT_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
@@ -126,7 +126,7 @@ export const USDT = new Token(
   usdtLogo,
 )
 
-export const STABLECOIN_POOL_TOKENS = [DAI, USDC, USDT]
+export const STABLECOIN_POOL_TOKENS = [DAI, TUSD, USDT]
 
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
