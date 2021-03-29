@@ -100,7 +100,7 @@ const StakePage = (props: Props): ReactElement => {
             </Button>
           </Center>
           <div className="form">
-            <h3>{t("Claim GDL Token")}</h3>
+            <h3>{t("claimGDLToken")}</h3>
             <div className="info">
               <span style={{ fontWeight: "bold" }}>
                 Your GDL balance &nbsp;
