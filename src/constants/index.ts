@@ -1,7 +1,9 @@
 import { BigNumber } from "@ethersproject/bignumber"
 import daiLogo from "../assets/icons/dai.svg"
 import gondolaLogo from "../assets/icons/brand_logo.png"
+import telegram from "../assets/icons/social/telegram.png"
 import tusdLogo from "../assets/icons/tusd.svg"
+import twitter from "../assets/icons/social/twitter.png"
 import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
@@ -18,6 +20,15 @@ export enum ChainId {
   FUJI = 43113,
 }
 
+export class Social {
+  readonly icon: string
+  readonly url: string
+
+  constructor(icon: string, url: string) {
+    this.icon = icon
+    this.url = url
+  }
+}
 export class Token {
   readonly addresses: { [chainId in ChainId]: string }
   readonly decimals: number
@@ -166,3 +177,8 @@ export const POOL_STATS_URL: { [chainId in ChainId]: string } = {
   [ChainId.FUJI]:
     "https://mehmeta-team-bucket.storage.fleek.co/pool-stats-dev.json",
 }
+
+export const SOCIALS: Social[] = [
+  new Social(telegram, "https://telegram.com"),
+  new Social(twitter, "https://twitter.com/GondolaFinance"),
+]
