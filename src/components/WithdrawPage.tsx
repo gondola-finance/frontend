@@ -10,6 +10,7 @@ import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
 import ConfirmTransaction from "./ConfirmTransaction"
 import DeadlineField from "./DeadlineField"
+import Footer from "./Footer"
 import { HistoricalPoolDataType } from "../hooks/useHistoricalPoolData"
 import InfiniteApprovalField from "./InfiniteApprovalField"
 import Modal from "./Modal"
@@ -94,7 +95,12 @@ const WithdrawPage = (props: Props): ReactElement => {
     <div className={"withdraw " + classNames({ noShare: noShare })}>
       <TopMenu activeTab={"withdraw"} />
       {noShare ? (
-        <NoShareContent />
+        <>
+          <NoShareContent />
+          <div className="content">
+            <Footer />
+          </div>
+        </>
       ) : (
         <div className="content">
           <div className="left">
@@ -282,6 +288,7 @@ const WithdrawPage = (props: Props): ReactElement => {
             ) : null}
             {currentModal === "confirm" ? <ConfirmTransaction /> : null}
           </Modal>
+          <Footer />
         </div>
       )}
     </div>

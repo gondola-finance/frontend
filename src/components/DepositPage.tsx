@@ -10,6 +10,7 @@ import { AppState } from "../state"
 import ConfirmTransaction from "./ConfirmTransaction"
 import DeadlineField from "./DeadlineField"
 import { DepositTransaction } from "../interfaces/transactions"
+import Footer from "./Footer"
 import { HistoricalPoolDataType } from "../hooks/useHistoricalPoolData"
 import InfiniteApprovalField from "./InfiniteApprovalField"
 import Modal from "./Modal"
@@ -224,6 +225,7 @@ const DepositPage = (props: Props): ReactElement => {
           ) : null}
           {currentModal === "confirm" ? <ConfirmTransaction /> : null}
         </Modal>
+        <Footer />
       </div>
     </div>
   )
