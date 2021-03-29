@@ -97,20 +97,6 @@ const DepositPage = (props: Props): ReactElement => {
             ))}
             <div className={classNames("transactionInfoContainer", "show")}>
               <div className="transactionInfo">
-                {poolData?.keepApr && (
-                  <div className="transactionInfoItem">
-                    <a
-                      href="https://docs.saddle.finance/faq#what-are-saddles-liquidity-provider-rewards"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span>{`KEEP APR:`}</span>
-                    </a>{" "}
-                    <span className="value">
-                      {formatBNToPercentString(poolData.keepApr, 18)}
-                    </span>
-                  </div>
-                )}
                 <div className="transactionInfoItem">
                   {transactionData.priceImpact.gte(0) ? (
                     <span className="bonus">{`${t("bonus")}: `}</span>
