@@ -2,9 +2,13 @@ import { BigNumber } from "@ethersproject/bignumber"
 import daiLogo from "../assets/icons/dai.svg"
 import github from "../assets/icons/social/github.png"
 import gondolaLogo from "../assets/icons/brand_logo.png"
+<<<<<<< HEAD
 import telegram from "../assets/icons/social/telegram.png"
 import tusdLogo from "../assets/icons/tusd.svg"
 import twitter from "../assets/icons/social/twitter.png"
+=======
+import tusdLogo from "../assets/icons/tusd.svg"
+>>>>>>> mainnet config
 import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
