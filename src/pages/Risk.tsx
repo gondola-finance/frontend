@@ -2,7 +2,9 @@ import "./Risk.scss"
 
 import React, { ReactElement } from "react"
 
+import Footer from "../components/Footer"
 import TopMenu from "../components/TopMenu"
+
 import { useTranslation } from "react-i18next"
 
 function Risk(): ReactElement {
@@ -35,6 +37,7 @@ function Risk(): ReactElement {
         </p>
         <h3>{t("lossOfPeg")}</h3>
         <p>{t("riskLossOfPeg")}</p>
+        <Footer />
       </div>
     </div>
   )

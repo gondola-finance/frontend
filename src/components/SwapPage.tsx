@@ -10,6 +10,7 @@ import { AppState } from "../state/index"
 import { BigNumber } from "@ethersproject/bignumber"
 import ConfirmTransaction from "./ConfirmTransaction"
 import DeadlineField from "./DeadlineField"
+import Footer from "./Footer"
 import InfiniteApprovalField from "./InfiniteApprovalField"
 import Modal from "./Modal"
 import { PayloadAction } from "@reduxjs/toolkit"
@@ -190,6 +191,7 @@ const SwapPage = (props: Props): ReactElement => {
         <div className={"error " + classNames({ showError: !!error })}>
           {error}
         </div>
+        <Footer />
         <Modal
           isOpen={!!currentModal}
           onClose={(): void => setCurrentModal(null)}

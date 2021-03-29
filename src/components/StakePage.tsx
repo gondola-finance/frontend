@@ -2,7 +2,7 @@ import "./StakePage.scss"
 
 import { Button, Center } from "@chakra-ui/react"
 import React, { ReactElement } from "react"
-
+import Footer from "./Footer"
 import TokenInput from "./TokenInput"
 import TopMenu from "./TopMenu"
 import { useTranslation } from "react-i18next"
@@ -165,6 +165,7 @@ const StakePage = (props: Props): ReactElement => {
             </Button>
           </Center>
         </div>
+        <Footer />
       </div>
     </div>
   )
