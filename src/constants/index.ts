@@ -1,5 +1,6 @@
 import { BigNumber } from "@ethersproject/bignumber"
 import daiLogo from "../assets/icons/dai.svg"
+import github from "../assets/icons/social/github.png"
 import gondolaLogo from "../assets/icons/brand_logo.png"
 import telegram from "../assets/icons/social/telegram.png"
 import tusdLogo from "../assets/icons/tusd.svg"
@@ -179,6 +180,8 @@ export const POOL_STATS_URL: { [chainId in ChainId]: string } = {
 }
 
 export const SOCIALS: Social[] = [
+  new Social(gondolaLogo, "https://gondola.finance"),
   new Social(telegram, "https://telegram.com"),
   new Social(twitter, "https://twitter.com/GondolaFinance"),
+  new Social(github, "https://github.com/gondola-finance"),
 ]
