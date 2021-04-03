@@ -7,7 +7,6 @@ import {
   STABLECOIN_POOL_NAME,
   STABLECOIN_SWAP_ADDRESSES,
   STABLECOIN_SWAP_TOKEN,
-  TUSD,
   Token,
   USDT,
 } from "../constants"
@@ -92,7 +91,6 @@ interface AllContractsObject {
 }
 export function useAllContracts(): AllContractsObject | null {
   const daiContract = useTokenContract(DAI) as Erc20
-  const tusdContract = useTokenContract(TUSD) as Erc20
   const usdtContract = useTokenContract(USDT) as Erc20
   const stablecoinSwapTokenContract = useTokenContract(
     STABLECOIN_SWAP_TOKEN,
@@ -102,7 +100,6 @@ export function useAllContracts(): AllContractsObject | null {
     if (
       ![
         daiContract,
-        tusdContract,
         usdtContract,
         // stablecoinSwapTokenContract, // TODO: add back when contract deployed
       ].some(Boolean)
@@ -110,11 +107,10 @@ export function useAllContracts(): AllContractsObject | null {
       return null
     return {
       [DAI.symbol]: daiContract,
-      [TUSD.symbol]: tusdContract,
       [USDT.symbol]: usdtContract,
       [STABLECOIN_SWAP_TOKEN.symbol]: stablecoinSwapTokenContract,
     }
-  }, [daiContract, tusdContract, usdtContract, stablecoinSwapTokenContract])
+  }, [daiContract, usdtContract, stablecoinSwapTokenContract])
 }
 
 export function useMasterChefContract(
