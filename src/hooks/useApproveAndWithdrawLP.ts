@@ -1,4 +1,9 @@
-import { GAS_PRICE_BIGNUMBER, PoolName, TRANSACTION_TYPES } from "../constants"
+import {
+  GAS_PRICE_BIGNUMBER,
+  PoolName,
+  STABLECOIN_POOL_ID,
+  TRANSACTION_TYPES,
+} from "../constants"
 import { useLPTokenContract, useMasterChefContract } from "./useContract"
 
 import { BigNumber } from "@ethersproject/bignumber"
@@ -37,7 +42,7 @@ export function useApproveAndWithdrawLP(
       })
 
       const withdrawTransaction = await masterChefContract.withdraw(
-        0, // pool id=0 for stablecoin pool
+        STABLECOIN_POOL_ID,
         state.lpTokenAmountToWithdraw._hex,
         {
           gasPrice: GAS_PRICE_BIGNUMBER,
