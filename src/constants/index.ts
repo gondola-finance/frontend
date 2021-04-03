@@ -3,8 +3,8 @@ import daiLogo from "../assets/icons/dai.svg"
 import github from "../assets/icons/social/github.png"
 import gondolaLogo from "../assets/icons/brand_logo.png"
 import telegram from "../assets/icons/social/telegram.png"
-import tusdLogo from "../assets/icons/tusd.svg"
 import twitter from "../assets/icons/social/twitter.png"
+
 import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
@@ -73,7 +73,7 @@ export const GONDOLA_ADDRESS: { [chainId in ChainId]: string } = {
 }
 
 export const STABLECOIN_SWAP_ADDRESSES: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "0xe67F3fda5E24EdEbcADDFE9A4a222514013B6e21",
+  [ChainId.AVALANCHE]: "0x898B76a2F6755caecC661de8cf1f789611d50B6c",
   [ChainId.FUJI]: "0xa818a4E693132CFf3E9677474a1F57f0F7D2fe8d",
 }
 
@@ -85,7 +85,7 @@ export const MERKLETREE_DATA: { [chainId in ChainId]: string } = {
 export const STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.AVALANCHE]: "0xb51f20A5C8541666E7c7320AdDad1B1A5fecFa2a",
+  [ChainId.AVALANCHE]: "0xDd7b883dF594BFBca3779f75999D5a7D3DD39BBe",
   [ChainId.FUJI]: "0x748e67353306b3183E8Bc9C27fE60a017E99d4D4",
 }
 
@@ -94,7 +94,7 @@ export const STABLECOIN_SWAP_TOKEN = new Token(
   18,
   "gondolaUSD",
   "gondolausd",
-  "Gondola DAI/TUSD/USDT",
+  "Gondola DAI/USDT",
   gondolaLogo,
 )
 
@@ -112,19 +112,6 @@ export const DAI = new Token(
   daiLogo,
 )
 
-const TUSD_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "0x1C20E891Bab6b1727d14Da358FAe2984Ed9B59EB",
-  [ChainId.FUJI]: "0x6275B63A4eE560004c34431e573314426906cee9",
-}
-export const TUSD = new Token(
-  TUSD_CONTRACT_ADDRESSES,
-  6,
-  "TUSD",
-  "true-usd",
-  "True USD",
-  tusdLogo,
-)
-
 const USDT_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0xde3a24028580884448a5397872046a019649b084",
   [ChainId.FUJI]: "0xa6c062F1F8EAbEC4384bB2c2f65abBf710cd2998",
@@ -138,7 +125,7 @@ export const USDT = new Token(
   usdtLogo,
 )
 
-export const STABLECOIN_POOL_TOKENS = [DAI, TUSD, USDT]
+export const STABLECOIN_POOL_TOKENS = [DAI, USDT]
 
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
