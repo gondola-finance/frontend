@@ -9,6 +9,7 @@ import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
 export const STABLECOIN_POOL_NAME = "Stablecoin Pool"
+export const STABLECOIN_POOL_ID = 1
 export type PoolName = typeof STABLECOIN_POOL_NAME
 
 export const GAS_PRICE = 470 // in nAVAX

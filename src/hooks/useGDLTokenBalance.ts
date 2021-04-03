@@ -1,5 +1,5 @@
+import { BLOCK_TIME, STABLECOIN_POOL_ID } from "../constants"
 import { useGondolaContract, useMasterChefContract } from "./useContract"
-import { BLOCK_TIME } from "../constants"
 
 import { BigNumber } from "@ethersproject/bignumber"
 import { Zero } from "@ethersproject/constants"
@@ -22,7 +22,10 @@ export function useGDLTokenBalance(): [BigNumber, BigNumber] {
         : Zero
 
       const userUnclaimedBalance = account
-        ? (await masterChefContract?.pendingGondola(1, account)) || Zero
+        ? (await masterChefContract?.pendingGondola(
+            STABLECOIN_POOL_ID,
+            account,
+          )) || Zero
         : Zero
 
       if (userBalance !== balance) {
