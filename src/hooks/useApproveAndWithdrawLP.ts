@@ -37,7 +37,7 @@ export function useApproveAndWithdrawLP(
       })
 
       const withdrawTransaction = await masterChefContract.withdraw(
-        0, // pool id=0 for stablecoin pool
+        1, // pool id=0 for stablecoin pool
         state.lpTokenAmountToWithdraw._hex,
         {
           gasPrice: GAS_PRICE_BIGNUMBER,

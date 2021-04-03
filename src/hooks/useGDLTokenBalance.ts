@@ -22,7 +22,7 @@ export function useGDLTokenBalance(): [BigNumber, BigNumber] {
         : Zero
 
       const userUnclaimedBalance = account
-        ? (await masterChefContract?.pendingGondola(0, account)) || Zero
+        ? (await masterChefContract?.pendingGondola(1, account)) || Zero
         : Zero
 
       if (userBalance !== balance) {

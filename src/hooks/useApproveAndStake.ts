@@ -73,7 +73,7 @@ export function useApproveAndStake(
       })
 
       const spendTransaction = await masterChefContract.deposit(
-        0, // pool id=0 for stablecoin pool
+        1, // pool id=0 for stablecoin pool
         state.lpTokenAmountToStake._hex,
         {
           gasPrice: GAS_PRICE_BIGNUMBER,
