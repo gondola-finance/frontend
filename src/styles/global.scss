@@ -37,7 +37,7 @@ img {
   --background-element-hover: rgba(255, 255, 255, 0.88);
   --background-main: #e9e9e9;
   --background-logo: #{$primary};
-  --outline: #000;
+  --outline: #444450;
 
   --text: #000;
   --text-darker: #000;
@@ -58,7 +58,7 @@ body.dark {
   --background-main: #000 url("../assets/bg.png") center/auto 60% no-repeat
     fixed;
   --background-logo: #e9e9e9;
-  --outline: #fff;
+  --outline: rgb(161, 152, 152);
 
   --text: #fff;
   --text-darker: #e9e9e9;
