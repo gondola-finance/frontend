@@ -29,7 +29,7 @@ export enum Deadlines {
 interface UserState {
   userSwapAdvancedMode: boolean
   userPoolAdvancedMode: boolean
-  userDarkMode: boolean
+  isDarkMode: boolean
   gasCustom?: NumberInputState
   gasPriceSelected: GasPrices
   slippageCustom?: NumberInputState
@@ -42,7 +42,7 @@ interface UserState {
 export const initialState: UserState = {
   userSwapAdvancedMode: false,
   userPoolAdvancedMode: false,
-  userDarkMode: false,
+  isDarkMode: true,
   gasPriceSelected: GasPrices.Standard,
   slippageSelected: Slippages.OneTenth,
   infiniteApproval: false,
@@ -76,7 +76,7 @@ const userSlice = createSlice({
     },
     updateDarkMode(state: UserState, action: PayloadAction<boolean>): void {
       // this will be phased out in favor of chakra's colorMode
-      state.userDarkMode = action.payload
+      state.isDarkMode = action.payload
     },
     updateGasPriceCustom(
       state: UserState,

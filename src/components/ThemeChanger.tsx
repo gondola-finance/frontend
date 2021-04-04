@@ -10,30 +10,30 @@ import { useColorMode } from "@chakra-ui/react"
 const ThemeChanger = (): ReactElement => {
   const dispatch = useDispatch<AppDispatch>()
   const { colorMode, toggleColorMode } = useColorMode()
-  const { userDarkMode } = useSelector((state: AppState) => state.user)
+  const { isDarkMode } = useSelector((state: AppState) => state.user)
 
   useEffect(() => {
-    if (userDarkMode) {
+    if (isDarkMode) {
       document.body.classList.add("dark")
     } else {
       document.body.classList.remove("dark")
     }
-  }, [userDarkMode])
+  }, [isDarkMode])
 
   return (
     <div className="themeChanger">
       <button
         onClick={(): void => {
-          dispatch(updateDarkMode(!userDarkMode))
+          dispatch(updateDarkMode(!isDarkMode))
           if (
-            (userDarkMode && colorMode === "dark") ||
-            (!userDarkMode && colorMode === "light")
+            (isDarkMode && colorMode === "dark") ||
+            (!isDarkMode && colorMode === "light")
           ) {
             toggleColorMode()
           }
         }}
       >
-        {userDarkMode ? "☾" : "☀"}
+        {isDarkMode ? "☾" : "☀"}
       </button>
     </div>
   )
