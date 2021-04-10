@@ -2,11 +2,14 @@ import "./TopMenu.scss"
 
 import React, { ReactElement } from "react"
 
+import { AppState } from "../state"
 import { Link } from "react-router-dom"
 import ThemeChanger from "./ThemeChanger"
 import Web3Status from "./Web3Status"
 import classNames from "classnames"
 import logo from "../assets/icons/brand_logo.png"
+import logoDarkMode from "../assets/icons/brand_logo_darkmode.png"
+import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -15,12 +18,17 @@ interface Props {
 
 function TopMenu({ activeTab }: Props): ReactElement {
   const { t } = useTranslation()
+  const { isDarkMode } = useSelector((state: AppState) => state.user)
 
   return (
     <header className="top">
       <h1>
         <Link to="/">
-          <img className="logo" alt="logo" src={logo} />
+          <img
+            className="logo"
+            alt="logo"
+            src={isDarkMode ? logoDarkMode : logo}
+          />
         </Link>
       </h1>
 
