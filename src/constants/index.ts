@@ -12,6 +12,7 @@ import usdtLogo from "../assets/icons/usdt.svg"
 export const NetworkContextName = "NETWORK"
 export const STABLECOIN_POOL_NAME = "Stablecoin Pool"
 export const STABLECOIN_POOL_ID = 1
+export const GDL_POOL_ID = 2
 export type PoolName = typeof STABLECOIN_POOL_NAME
 
 export const GAS_PRICE = 470 // in nAVAX
@@ -150,6 +151,11 @@ export const POOLS_MAP: {
     lpToken: STABLECOIN_SWAP_TOKEN,
     poolTokens: STABLECOIN_POOL_TOKENS,
   },
+  /** @todo uncomment when a new pool is added */
+  // [NEW_POOL_NAME]: {
+  //   lpToken: POOL_LP_TOKEN,
+  //   poolTokens: POOL_TOKENS,
+  // },
 }
 
 export const TRANSACTION_TYPES = {
@@ -163,12 +169,6 @@ export const POOL_FEE_PRECISION = 10
 export const DEPLOYED_BLOCK: { [chainId in ChainId]: number } = {
   [ChainId.AVALANCHE]: 11656944,
   [ChainId.FUJI]: 10000,
-}
-
-export const POOL_STATS_URL: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "https://ipfs.saddle.exchange/pool-stats.json",
-  [ChainId.FUJI]:
-    "https://mehmeta-team-bucket.storage.fleek.co/pool-stats-dev.json",
 }
 
 export const SOCIALS: Social[] = [

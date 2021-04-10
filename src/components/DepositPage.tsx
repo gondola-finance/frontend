@@ -11,10 +11,8 @@ import ConfirmTransaction from "./ConfirmTransaction"
 import DeadlineField from "./DeadlineField"
 import { DepositTransaction } from "../interfaces/transactions"
 import Footer from "./Footer"
-import { HistoricalPoolDataType } from "../hooks/useHistoricalPoolData"
 import InfiniteApprovalField from "./InfiniteApprovalField"
 import Modal from "./Modal"
-import MyActivityCard from "./MyActivityCard"
 import MyShareCard from "./MyShareCard"
 import { PayloadAction } from "@reduxjs/toolkit"
 import PoolInfoCard from "./PoolInfoCard"
@@ -43,7 +41,6 @@ interface Props {
   exceedsWallet: boolean
   selected?: { [key: string]: any }
   poolData: PoolDataType | null
-  historicalPoolData: HistoricalPoolDataType | null
   myShareData: UserShareType | null
   transactionData: DepositTransaction
 }
@@ -55,7 +52,6 @@ const DepositPage = (props: Props): ReactElement => {
     tokens,
     exceedsWallet,
     poolData,
-    historicalPoolData,
     myShareData,
     transactionData,
     onChangeTokenInputValue,
@@ -178,13 +174,6 @@ const DepositPage = (props: Props): ReactElement => {
           <div
             style={{
               display: myShareData ? "block" : "none",
-            }}
-            className="divider"
-          ></div>{" "}
-          <MyActivityCard historicalPoolData={historicalPoolData} />
-          <div
-            style={{
-              display: historicalPoolData ? "block" : "none",
             }}
             className="divider"
           ></div>{" "}
