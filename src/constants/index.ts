@@ -29,10 +29,10 @@ export class Social {
   readonly icon: string
   readonly iconDark: string
 
-  constructor(url: string, icon: string, iconDark: string) {
+  constructor(url: string, icon: string, iconDark?: string) {
     this.url = url
     this.icon = icon
-    this.iconDark = iconDark !== "" ? iconDark : icon
+    this.iconDark = iconDark ? iconDark : icon
   }
 }
 export class Token {
@@ -173,7 +173,7 @@ export const POOL_STATS_URL: { [chainId in ChainId]: string } = {
 
 export const SOCIALS: Social[] = [
   new Social("https://gondola.finance", gondolaLogo, gondolaLogoDark),
-  new Social("https://telegram.com", telegram, ""),
-  new Social("https://twitter.com/GondolaFinance", twitter, ""),
+  new Social("https://telegram.com", telegram),
+  new Social("https://twitter.com/GondolaFinance", twitter),
   new Social("https://github.com/gondola-finance", github, githubDark),
 ]
