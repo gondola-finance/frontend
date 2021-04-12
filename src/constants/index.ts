@@ -1,12 +1,6 @@
 import { BigNumber } from "@ethersproject/bignumber"
 import daiLogo from "../assets/icons/dai.svg"
-import github from "../assets/icons/social/github.png"
-import githubDark from "../assets/icons/social/github_darkmode.png"
 import gondolaLogo from "../assets/icons/brand_logo.png"
-import gondolaLogoDark from "../assets/icons/brand_logo_darkmode.png"
-import telegram from "../assets/icons/social/telegram.png"
-import twitter from "../assets/icons/social/twitter.png"
-
 import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
@@ -25,17 +19,6 @@ export enum ChainId {
   FUJI = 43113,
 }
 
-export class Social {
-  readonly url: string
-  readonly icon: string
-  readonly iconDark: string
-
-  constructor(url: string, icon: string, iconDark?: string) {
-    this.url = url
-    this.icon = icon
-    this.iconDark = iconDark ? iconDark : icon
-  }
-}
 export class Token {
   readonly addresses: { [chainId in ChainId]: string }
   readonly decimals: number
@@ -170,10 +153,3 @@ export const DEPLOYED_BLOCK: { [chainId in ChainId]: number } = {
   [ChainId.AVALANCHE]: 11656944,
   [ChainId.FUJI]: 10000,
 }
-
-export const SOCIALS: Social[] = [
-  new Social("https://gondola.finance", gondolaLogo, gondolaLogoDark),
-  new Social("https://telegram.com", telegram),
-  new Social("https://twitter.com/GondolaFinance", twitter),
-  new Social("https://github.com/gondola-finance", github, githubDark),
-]

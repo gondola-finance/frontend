@@ -2,7 +2,7 @@ import "./Footer.scss"
 
 import React, { ReactElement } from "react"
 import { AppState } from "../state"
-import { SOCIALS } from "../constants"
+import { SOCIALS } from "../constants/socialLinks"
 import { useSelector } from "react-redux"
 
 function Footer(): ReactElement {
