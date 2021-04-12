@@ -6,65 +6,71 @@ import { Zero } from "@ethersproject/constants"
 import { formatBNToString } from "../utils"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
 import { useApproveAndWithdrawLP } from "../hooks/useApproveAndWithdrawLP"
-import { useGDLTokenBalance } from "../hooks/useGDLTokenBalance"
-import { usePoolTokenBalances } from "../state/wallet/hooks"
+import usePoolData from "../hooks/usePoolData"
 import { useStakedTokenBalance } from "../hooks/useStakedTokenBalance"
 import { useTokenFormState } from "../hooks/useTokenFormState"
+import { useUnclaimedGDLBalance } from "../hooks/useUnclaimedGDLBalance"
 
 function Stake(): ReactElement | null {
   const poolName = "Stablecoin Pool"
   const POOL = POOLS_MAP[poolName]
+  const POOL_LPTOKEN = POOL.lpToken
   const approveAndStake = useApproveAndStake(poolName)
   const approveAndWithdrawLP = useApproveAndWithdrawLP(poolName)
   const [tokenDepositState, updateDepositFormState] = useTokenFormState([
-    POOL.lpToken,
+    POOL_LPTOKEN,
   ])
 
   const [tokenWithdrawState, updateWithdrawFormState] = useTokenFormState([
-    POOL.lpToken,
+    POOL_LPTOKEN,
   ])
 
-  const tokenBalances = usePoolTokenBalances(poolName)
-  const lpTokenBalance = tokenBalances?.[POOL.lpToken.symbol] || Zero
-  const stakedTokenBalance = useStakedTokenBalance()
-  const [gdlBalance, gdlUnclaimed] = useGDLTokenBalance()
+  const poolUserJointData = usePoolData(poolName)
+  const userShareData = poolUserJointData[1]
+
+  // stakable pool lp token balance
+  const poolLpTokenBalance = userShareData?.lpTokenBalance || Zero
+  // staked pool lp token balance
+  const stakedTokenBalance = useStakedTokenBalance(POOL.poolId)
+  // unclaimed GDL reward from pool
+  const [gdlBalance, gdlUnclaimed] = useUnclaimedGDLBalance(POOL.poolId)
 
   const lpTokenDeposit = {
-    ...POOL.lpToken,
-    max: formatBNToString(lpTokenBalance, POOL.lpToken.decimals),
-    inputValue: tokenDepositState[POOL.lpToken.symbol].valueRaw,
+    ...POOL_LPTOKEN,
+    max: formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals),
+    inputValue: tokenDepositState[POOL_LPTOKEN.symbol].valueRaw,
   }
 
   const lpTokenWithdraw = {
-    ...POOL.lpToken,
-    max: formatBNToString(stakedTokenBalance, POOL.lpToken.decimals),
-    inputValue: tokenWithdrawState[POOL.lpToken.symbol].valueRaw,
+    ...POOL_LPTOKEN,
+    max: formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals),
+    inputValue: tokenWithdrawState[POOL_LPTOKEN.symbol].valueRaw,
   }
 
-  const exceedsUnstaked = lpTokenBalance.lt(
-    BigNumber.from(tokenDepositState[POOL.lpToken.symbol].valueSafe),
+  const exceedsUnstaked = poolLpTokenBalance.lt(
+    BigNumber.from(tokenDepositState[POOL_LPTOKEN.symbol].valueSafe),
   )
 
   const exceedsStaked = stakedTokenBalance.lt(
-    BigNumber.from(tokenWithdrawState[POOL.lpToken.symbol].valueSafe),
+    BigNumber.from(tokenWithdrawState[POOL_LPTOKEN.symbol].valueSafe),
   )
 
   async function onConfirmStakeLP(): Promise<void> {
     const stakeAmountBN = BigNumber.from(
-      tokenDepositState[POOL.lpToken.symbol].valueSafe,
+      tokenDepositState[POOL_LPTOKEN.symbol].valueSafe,
     )
     await approveAndStake({ lpTokenAmountToStake: stakeAmountBN })
     // Clear input after deposit
-    updateDepositFormState({ [POOL.lpToken.symbol]: "" })
+    updateDepositFormState({ [POOL_LPTOKEN.symbol]: "" })
   }
 
   async function onConfirmWithdrawLP(): Promise<void> {
     const withdrawAmountBN = BigNumber.from(
-      tokenWithdrawState[POOL.lpToken.symbol].valueSafe,
+      tokenWithdrawState[POOL_LPTOKEN.symbol].valueSafe,
     )
     await approveAndWithdrawLP({ lpTokenAmountToWithdraw: withdrawAmountBN })
     // Clear input after deposit
-    updateWithdrawFormState({ [POOL.lpToken.symbol]: "" })
+    updateWithdrawFormState({ [POOL_LPTOKEN.symbol]: "" })
   }
 
   async function onConfirmClaim(): Promise<void> {
@@ -91,13 +97,13 @@ function Stake(): ReactElement | null {
       exceedsUnstaked={exceedsUnstaked}
       exceedsStaked={exceedsStaked}
       lpTokenBalance={formatBNToString(
-        lpTokenBalance,
-        POOL.lpToken.decimals,
+        poolLpTokenBalance,
+        POOL_LPTOKEN.decimals,
         4,
       )}
       stakedAmount={formatBNToString(
         stakedTokenBalance,
-        POOL.lpToken.decimals,
+        POOL_LPTOKEN.decimals,
         4,
       )}
       gdlBalance={formatBNToString(gdlBalance, 18, 4)}

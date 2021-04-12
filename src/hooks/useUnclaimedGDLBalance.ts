@@ -1,5 +1,5 @@
-import { BLOCK_TIME, STABLECOIN_POOL_ID } from "../constants"
 import { useGondolaContract, useMasterChefContract } from "./useContract"
+import { BLOCK_TIME } from "../constants"
 
 import { BigNumber } from "@ethersproject/bignumber"
 import { Zero } from "@ethersproject/constants"
@@ -7,7 +7,7 @@ import { useActiveWeb3React } from "../hooks"
 import usePoller from "./usePoller"
 import { useState } from "react"
 
-export function useGDLTokenBalance(): [BigNumber, BigNumber] {
+export function useUnclaimedGDLBalance(poolId: number): [BigNumber, BigNumber] {
   const { account, chainId } = useActiveWeb3React()
   const [balance, setBalance] = useState<BigNumber>(Zero)
   const [unclaimedBalance, setUnclaimedBalance] = useState<BigNumber>(Zero)
@@ -22,10 +22,7 @@ export function useGDLTokenBalance(): [BigNumber, BigNumber] {
         : Zero
 
       const userUnclaimedBalance = account
-        ? (await masterChefContract?.pendingGondola(
-            STABLECOIN_POOL_ID,
-            account,
-          )) || Zero
+        ? (await masterChefContract?.pendingGondola(poolId, account)) || Zero
         : Zero
 
       if (userBalance !== balance) {

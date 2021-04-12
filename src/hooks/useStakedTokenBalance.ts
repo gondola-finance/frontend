@@ -1,4 +1,4 @@
-import { BLOCK_TIME, STABLECOIN_POOL_ID } from "../constants"
+import { BLOCK_TIME } from "../constants"
 import { BigNumber } from "@ethersproject/bignumber"
 import { Zero } from "@ethersproject/constants"
 import { useActiveWeb3React } from "../hooks"
@@ -6,7 +6,7 @@ import { useMasterChefContract } from "./useContract"
 import usePoller from "./usePoller"
 import { useState } from "react"
 
-export function useStakedTokenBalance(): BigNumber {
+export function useStakedTokenBalance(poolId: number): BigNumber {
   const { account, chainId } = useActiveWeb3React()
   const [balance, setBalance] = useState<BigNumber>(Zero)
 
@@ -15,7 +15,7 @@ export function useStakedTokenBalance(): BigNumber {
   usePoller((): void => {
     async function pollBalance(): Promise<void> {
       const userInfo = account
-        ? await masterChefContract?.userInfo(STABLECOIN_POOL_ID, account)
+        ? await masterChefContract?.userInfo(poolId, account)
         : { amount: Zero }
 
       if (userInfo?.amount !== undefined && userInfo?.amount !== balance) {
