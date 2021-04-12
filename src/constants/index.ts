@@ -4,10 +4,14 @@ import gondolaLogo from "../assets/icons/brand_logo.png"
 import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
+
 export const STABLECOIN_POOL_NAME = "Stablecoin Pool"
 export const STABLECOIN_POOL_ID = 1
+
+export const GDL_POOL_NAME = "GDL Pool"
 export const GDL_POOL_ID = 2
-export type PoolName = typeof STABLECOIN_POOL_NAME
+
+export type PoolName = typeof STABLECOIN_POOL_NAME | typeof GDL_POOL_NAME
 
 export const GAS_PRICE = 470 // in nAVAX
 export const GAS_PRICE_BIGNUMBER = BigNumber.from(GAS_PRICE).mul(
@@ -78,6 +82,15 @@ export const STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES: {
   [ChainId.FUJI]: "0x748e67353306b3183E8Bc9C27fE60a017E99d4D4",
 }
 
+export const GDL_TOKEN = new Token(
+  GONDOLA_ADDRESS,
+  18,
+  "GDL Token",
+  "",
+  "GDL",
+  gondolaLogo,
+)
+
 export const STABLECOIN_SWAP_TOKEN = new Token(
   STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES,
   18,
@@ -119,20 +132,32 @@ export const STABLECOIN_POOL_TOKENS = [DAI, USDT]
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
   [symbol: string]: Token
-} = [...STABLECOIN_POOL_TOKENS, STABLECOIN_SWAP_TOKEN].reduce(
+} = [...STABLECOIN_POOL_TOKENS, STABLECOIN_SWAP_TOKEN, GDL_TOKEN].reduce(
   (acc, token) => ({ ...acc, [token.symbol]: token }),
   {},
 )
 
+// pools
 export const POOLS_MAP: {
   [poolName in PoolName]: {
+    poolId: number
     lpToken: Token
     poolTokens: Token[]
+    isSwapPool: boolean
   }
 } = {
   [STABLECOIN_POOL_NAME]: {
+    poolId: STABLECOIN_POOL_ID,
     lpToken: STABLECOIN_SWAP_TOKEN,
     poolTokens: STABLECOIN_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  // GDL pool for staking, no swapping
+  [GDL_POOL_NAME]: {
+    poolId: GDL_POOL_ID,
+    lpToken: GDL_TOKEN,
+    poolTokens: [],
+    isSwapPool: false,
   },
   /** @todo uncomment when a new pool is added */
   // [NEW_POOL_NAME]: {

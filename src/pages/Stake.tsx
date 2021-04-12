@@ -1,6 +1,6 @@
-import { POOLS_MAP, PoolName } from "../constants"
 import React, { ReactElement } from "react"
 import { BigNumber } from "@ethersproject/bignumber"
+import { POOLS_MAP } from "../constants"
 import StakePage from "../components/StakePage"
 import { Zero } from "@ethersproject/constants"
 import { formatBNToString } from "../utils"
@@ -11,11 +11,8 @@ import { usePoolTokenBalances } from "../state/wallet/hooks"
 import { useStakedTokenBalance } from "../hooks/useStakedTokenBalance"
 import { useTokenFormState } from "../hooks/useTokenFormState"
 
-interface Props {
-  poolName: PoolName
-}
-
-function Stake({ poolName }: Props): ReactElement | null {
+function Stake(): ReactElement | null {
+  const poolName = "Stablecoin Pool"
   const POOL = POOLS_MAP[poolName]
   const approveAndStake = useApproveAndStake(poolName)
   const approveAndWithdrawLP = useApproveAndWithdrawLP(poolName)
