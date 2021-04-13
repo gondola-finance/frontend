@@ -85,7 +85,7 @@ export const STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES: {
 export const GDL_TOKEN = new Token(
   GONDOLA_ADDRESS,
   18,
-  "GDL Token",
+  "GDL",
   "",
   "GDL",
   gondolaLogo,
@@ -137,14 +137,16 @@ export const TOKENS_MAP: {
   {},
 )
 
+export type POOL = {
+  poolId: number
+  lpToken: Token
+  poolTokens: Token[]
+  isSwapPool: boolean
+}
+
 // pools
 export const POOLS_MAP: {
-  [poolName in PoolName]: {
-    poolId: number
-    lpToken: Token
-    poolTokens: Token[]
-    isSwapPool: boolean
-  }
+  [poolName in PoolName]: POOL
 } = {
   [STABLECOIN_POOL_NAME]: {
     poolId: STABLECOIN_POOL_ID,

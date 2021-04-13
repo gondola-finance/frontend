@@ -1,10 +1,14 @@
 import {
   GAS_PRICE_BIGNUMBER,
+  POOLS_MAP,
   PoolName,
-  STABLECOIN_POOL_ID,
   TRANSACTION_TYPES,
 } from "../constants"
-import { useLPTokenContract, useMasterChefContract } from "./useContract"
+import {
+  useGondolaContract,
+  useLPTokenContract,
+  useMasterChefContract,
+} from "./useContract"
 
 import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
@@ -23,9 +27,14 @@ interface ApproveAndStakeStateArgument {
 export function useApproveAndStake(
   poolName: PoolName,
 ): (state: ApproveAndStakeStateArgument) => Promise<void> {
+  const POOL = POOLS_MAP[poolName]
+
   const dispatch = useDispatch()
   const masterChefContract = useMasterChefContract()
-  const lpTokenContract = useLPTokenContract(poolName)
+  const swapLpTokenContract = useLPTokenContract(poolName)
+  const gdlContract = useGondolaContract()
+
+  const lpTokenContract = POOL.isSwapPool ? swapLpTokenContract : gdlContract
 
   const { account } = useActiveWeb3React()
   const { addToast, clearToasts } = useToast()
@@ -78,7 +87,7 @@ export function useApproveAndStake(
       })
 
       const spendTransaction = await masterChefContract.deposit(
-        STABLECOIN_POOL_ID,
+        POOL.poolId,
         state.lpTokenAmountToStake._hex,
         {
           gasPrice: GAS_PRICE_BIGNUMBER,

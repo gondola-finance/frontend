@@ -16,7 +16,6 @@ import { Contract } from "@ethersproject/contracts"
 import ERC20_ABI from "../constants/abis/erc20.json"
 import { Erc20 } from "../../types/ethers-contracts/Erc20"
 import GONDOLA_ABI from "../constants/abis/gondola.json"
-import { Gondola } from "../../types/ethers-contracts/Gondola"
 import LPTOKEN_ABI from "../constants/abis/lpToken.json"
 import { LpToken } from "../../types/ethers-contracts/LpToken"
 import MASTERCHEF_ABI from "../constants/abis/masterchef.json"
@@ -124,15 +123,13 @@ export function useMasterChefContract(
   ) as Masterchef
 }
 
-export function useGondolaContract(
-  withSignerIfPossible = true,
-): Gondola | null {
+export function useGondolaContract(withSignerIfPossible = true): Erc20 | null {
   const { chainId } = useActiveWeb3React()
   return useContract(
     chainId && GONDOLA_ADDRESS[chainId],
     GONDOLA_ABI,
     withSignerIfPossible,
-  ) as Gondola
+  ) as Erc20
 }
 
 export function useMulticallContract(): Contract | null {
