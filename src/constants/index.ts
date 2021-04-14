@@ -52,7 +52,7 @@ export const BLOCK_TIME = 3000
 
 export const MASTERCHEF_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0x34C8712Cc527a8E6834787Bd9e3AD4F2537B0f50",
-  [ChainId.FUJI]: "0x18D45d68de514cC81e822a2B6568289668B17267",
+  [ChainId.FUJI]: "0x1C6AfEbb1621a35572C4cfBce00ccfB88B047509",
 }
 
 export const MULTICALL_NETWORKS: { [chainId in ChainId]: string } = {
@@ -62,7 +62,7 @@ export const MULTICALL_NETWORKS: { [chainId in ChainId]: string } = {
 
 export const GONDOLA_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0xD606199557c8Ab6F4Cc70bD03FaCc96ca576f142",
-  [ChainId.FUJI]: "0xe9eAdD6873EacCF1b88c9eeC4dC9957FA88840c7",
+  [ChainId.FUJI]: "0x899A5336c9F9335f387cdFCC59aB02a7c6A3128F",
 }
 
 export const STABLECOIN_SWAP_ADDRESSES: { [chainId in ChainId]: string } = {
