@@ -54,13 +54,7 @@ export default function App(): ReactElement {
                 <Withdraw {...props} poolName={STABLECOIN_POOL_NAME} />
               )}
             />
-            <Route
-              exact
-              path="/stake"
-              render={(props) => (
-                <Stake {...props} poolName={STABLECOIN_POOL_NAME} />
-              )}
-            />
+            <Route exact path="/stake" render={() => <Stake />} />
             <Route exact path="/risk" component={Risk} />
           </Switch>
         </ToastsProvider>

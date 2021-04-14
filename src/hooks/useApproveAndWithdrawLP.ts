@@ -1,10 +1,14 @@
 import {
   GAS_PRICE_BIGNUMBER,
+  POOLS_MAP,
   PoolName,
-  STABLECOIN_POOL_ID,
   TRANSACTION_TYPES,
 } from "../constants"
-import { useLPTokenContract, useMasterChefContract } from "./useContract"
+import {
+  useGondolaContract,
+  useLPTokenContract,
+  useMasterChefContract,
+} from "./useContract"
 
 import { BigNumber } from "@ethersproject/bignumber"
 import { getFormattedTimeString } from "../utils/dateTime"
@@ -20,9 +24,14 @@ interface ApproveAndWithdrawLPStateArgument {
 export function useApproveAndWithdrawLP(
   poolName: PoolName,
 ): (state: ApproveAndWithdrawLPStateArgument) => Promise<void> {
+  const POOL = POOLS_MAP[poolName]
+
   const dispatch = useDispatch()
   const masterChefContract = useMasterChefContract()
-  const lpTokenContract = useLPTokenContract(poolName)
+  const swapLpTokenContract = useLPTokenContract(poolName)
+  const gdlContract = useGondolaContract()
+
+  const lpTokenContract = POOL.isSwapPool ? swapLpTokenContract : gdlContract
 
   const { account } = useActiveWeb3React()
   const { addToast, clearToasts } = useToast()
@@ -42,7 +51,7 @@ export function useApproveAndWithdrawLP(
       })
 
       const withdrawTransaction = await masterChefContract.withdraw(
-        STABLECOIN_POOL_ID,
+        POOL.poolId,
         state.lpTokenAmountToWithdraw._hex,
         {
           gasPrice: GAS_PRICE_BIGNUMBER,

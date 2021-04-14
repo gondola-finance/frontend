@@ -1,7 +1,14 @@
-import { POOLS_MAP, PoolName, TRANSACTION_TYPES } from "../constants"
+import {
+  GDL_POOL_NAME,
+  GDL_TOKEN,
+  POOLS_MAP,
+  PoolName,
+  TRANSACTION_TYPES,
+} from "../constants"
 import { formatBNToPercentString, getContract } from "../utils"
 import { useEffect, useState } from "react"
 
+import { useGondolaContract, useSwapContract } from "./useContract"
 import { AddressZero } from "@ethersproject/constants"
 import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
@@ -11,7 +18,6 @@ import { Zero } from "@ethersproject/constants"
 import { parseUnits } from "@ethersproject/units"
 import { useActiveWeb3React } from "."
 import { useSelector } from "react-redux"
-import { useSwapContract } from "./useContract"
 
 interface TokenShareType {
   percent: string
@@ -56,6 +62,8 @@ export default function usePoolData(
   const { tokenPricesUSD, lastTransactionTimes } = useSelector(
     (state: AppState) => state.application,
   )
+  const gondolaContract = useGondolaContract()
+
   const lastDepositTime = lastTransactionTimes[TRANSACTION_TYPES.DEPOSIT]
   const lastWithdrawTime = lastTransactionTimes[TRANSACTION_TYPES.WITHDRAW]
   const lastSwapTime = lastTransactionTimes[TRANSACTION_TYPES.SWAP]
@@ -64,7 +72,7 @@ export default function usePoolData(
     async function getSwapData(): Promise<void> {
       if (
         poolName == null ||
-        swapContract == null ||
+        // swapContract == null ||
         tokenPricesUSD == null ||
         library == null ||
         account == null
@@ -73,17 +81,32 @@ export default function usePoolData(
       const POOL = POOLS_MAP[poolName]
       // Swap fees, price, and LP Token data
       const [userCurrentWithdrawFee, swapStorage] = await Promise.all([
-        swapContract.calculateCurrentWithdrawFee(account || AddressZero),
-        swapContract.swapStorage(),
+        swapContract?.calculateCurrentWithdrawFee(account || AddressZero) ||
+          Zero,
+        swapContract?.swapStorage(),
       ])
 
-      const { adminFee, lpToken: lpTokenAddress, swapFee } = swapStorage
-      const lpTokenContract = getContract(
-        lpTokenAddress,
-        LPTOKEN_ABI,
-        library,
-        account ?? undefined,
-      ) as LpToken
+      const { adminFee, lpToken: lpTokenAddress, swapFee } = swapStorage || {
+        adminFee: Zero,
+        lpToken: "",
+        swapFee: Zero,
+      }
+
+      const lpTokenContract =
+        poolName === GDL_POOL_NAME
+          ? gondolaContract ||
+            (getContract(
+              lpTokenAddress,
+              LPTOKEN_ABI,
+              library,
+              account ?? undefined,
+            ) as LpToken)
+          : (getContract(
+              lpTokenAddress,
+              LPTOKEN_ABI,
+              library,
+              account ?? undefined,
+            ) as LpToken)
 
       const [userLpTokenBalance, totalLpTokenBalance] = await Promise.all([
         lpTokenContract.balanceOf(account || AddressZero),
@@ -91,19 +114,20 @@ export default function usePoolData(
       ])
       const virtualPrice = totalLpTokenBalance.isZero()
         ? BigNumber.from(10).pow(18)
-        : await swapContract.getVirtualPrice()
+        : (await swapContract?.getVirtualPrice()) || Zero
 
       // Pool token data
       const tokenBalances: BigNumber[] = await Promise.all(
         POOL.poolTokens.map(async (token, i) => {
-          const balance = await swapContract.getTokenBalance(i)
+          const balance = await swapContract?.getTokenBalance(i)
           return BigNumber.from(10)
             .pow(18 - token.decimals) // cast all to 18 decimals
-            .mul(balance)
+            .mul(balance || 0)
         }),
       )
-      const tokenBalancesSum: BigNumber = tokenBalances.reduce((sum, b) =>
-        sum.add(b),
+      const tokenBalancesSum: BigNumber = tokenBalances.reduce(
+        (sum, b) => sum.add(b),
+        Zero,
       )
       const tokenBalancesUSD = POOL.poolTokens.map((token, i) => {
         const balance = tokenBalances[i]
@@ -112,8 +136,9 @@ export default function usePoolData(
           .mul(parseUnits(String(tokenPricesUSD[token.symbol] || 0), 18))
           .div(BigNumber.from(10).pow(18))
       })
-      const tokenBalancesUSDSum: BigNumber = tokenBalancesUSD.reduce((sum, b) =>
-        sum.add(b),
+      const tokenBalancesUSDSum: BigNumber = tokenBalancesUSD.reduce(
+        (sum, b) => sum.add(b),
+        Zero,
       )
       const lpTokenPriceUSD = tokenBalancesSum.isZero()
         ? Zero
@@ -122,17 +147,24 @@ export default function usePoolData(
             .div(tokenBalancesSum)
 
       // (weeksPerYear * KEEPPerWeek * KEEPPrice) / (BTCPrice * BTCInPool)
-      const comparisonPoolToken = POOL.poolTokens[0]
+      const comparisonPoolToken = POOL.poolTokens[0] || GDL_TOKEN
       const keepAPRNumerator = BigNumber.from(52 * 250000)
         .mul(BigNumber.from(10).pow(18))
         .mul(parseUnits(String(tokenPricesUSD.KEEP), 18))
       const keepAPRDenominator = totalLpTokenBalance
-        .mul(parseUnits(String(tokenPricesUSD[comparisonPoolToken.symbol]), 6))
+        .mul(
+          parseUnits(
+            String(tokenPricesUSD[comparisonPoolToken.symbol] || 0),
+            6,
+          ),
+        )
         .div(1e6)
 
       const keepApr = totalLpTokenBalance.isZero()
         ? keepAPRNumerator
-        : keepAPRNumerator.div(keepAPRDenominator)
+        : keepAPRNumerator.div(
+            keepAPRDenominator.isZero() ? 1 : keepAPRDenominator,
+          )
 
       // User share data
       const userShare = userLpTokenBalance
@@ -147,15 +179,15 @@ export default function usePoolData(
       })
       const userPoolTokenBalancesSum: BigNumber = userPoolTokenBalances.reduce(
         (sum, b) => sum.add(b),
+        Zero,
       )
       const userPoolTokenBalancesUSD = tokenBalancesUSD.map((balance) => {
         return userShare.mul(balance).div(BigNumber.from(10).pow(18))
       })
       const userPoolTokenBalancesUSDSum: BigNumber = userPoolTokenBalancesUSD.reduce(
         (sum, b) => sum.add(b),
+        Zero,
       )
-
-      console.log("poolData")
 
       const poolTokens = POOL.poolTokens.map((token, i) => ({
         symbol: token.symbol,
@@ -212,12 +244,11 @@ export default function usePoolData(
           }
         : null
 
-      console.log("poolData", poolData, userShareData)
-
       setPoolData([poolData, userShareData])
     }
     void getSwapData()
   }, [
+    gondolaContract,
     lastDepositTime,
     lastWithdrawTime,
     lastSwapTime,

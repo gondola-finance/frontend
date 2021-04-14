@@ -1,18 +1,17 @@
 import { BigNumber } from "@ethersproject/bignumber"
 import daiLogo from "../assets/icons/dai.svg"
-import github from "../assets/icons/social/github.png"
-import githubDark from "../assets/icons/social/github_darkmode.png"
 import gondolaLogo from "../assets/icons/brand_logo.png"
-import gondolaLogoDark from "../assets/icons/brand_logo_darkmode.png"
-import telegram from "../assets/icons/social/telegram.png"
-import twitter from "../assets/icons/social/twitter.png"
-
 import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
+
 export const STABLECOIN_POOL_NAME = "Stablecoin Pool"
 export const STABLECOIN_POOL_ID = 1
-export type PoolName = typeof STABLECOIN_POOL_NAME
+
+export const GDL_POOL_NAME = "GDL Pool"
+export const GDL_POOL_ID = 2
+
+export type PoolName = typeof STABLECOIN_POOL_NAME | typeof GDL_POOL_NAME
 
 export const GAS_PRICE = 470 // in nAVAX
 export const GAS_PRICE_BIGNUMBER = BigNumber.from(GAS_PRICE).mul(
@@ -24,17 +23,6 @@ export enum ChainId {
   FUJI = 43113,
 }
 
-export class Social {
-  readonly url: string
-  readonly icon: string
-  readonly iconDark: string
-
-  constructor(url: string, icon: string, iconDark?: string) {
-    this.url = url
-    this.icon = icon
-    this.iconDark = iconDark ? iconDark : icon
-  }
-}
 export class Token {
   readonly addresses: { [chainId in ChainId]: string }
   readonly decimals: number
@@ -94,6 +82,15 @@ export const STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES: {
   [ChainId.FUJI]: "0xa19dd3Cd4E2C476802eDF6Ae04F21f4a68D0fc0F",
 }
 
+export const GDL_TOKEN = new Token(
+  GONDOLA_ADDRESS,
+  18,
+  "GDL",
+  "",
+  "GDL",
+  gondolaLogo,
+)
+
 export const STABLECOIN_SWAP_TOKEN = new Token(
   STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES,
   18,
@@ -135,21 +132,40 @@ export const STABLECOIN_POOL_TOKENS = [DAI, USDT]
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
   [symbol: string]: Token
-} = [...STABLECOIN_POOL_TOKENS, STABLECOIN_SWAP_TOKEN].reduce(
+} = [...STABLECOIN_POOL_TOKENS, STABLECOIN_SWAP_TOKEN, GDL_TOKEN].reduce(
   (acc, token) => ({ ...acc, [token.symbol]: token }),
   {},
 )
 
+export type POOL = {
+  poolId: number
+  lpToken: Token
+  poolTokens: Token[]
+  isSwapPool: boolean
+}
+
+// pools
 export const POOLS_MAP: {
-  [poolName in PoolName]: {
-    lpToken: Token
-    poolTokens: Token[]
-  }
+  [poolName in PoolName]: POOL
 } = {
   [STABLECOIN_POOL_NAME]: {
+    poolId: STABLECOIN_POOL_ID,
     lpToken: STABLECOIN_SWAP_TOKEN,
     poolTokens: STABLECOIN_POOL_TOKENS,
+    isSwapPool: true,
   },
+  // GDL pool for staking, no swapping
+  [GDL_POOL_NAME]: {
+    poolId: GDL_POOL_ID,
+    lpToken: GDL_TOKEN,
+    poolTokens: [],
+    isSwapPool: false,
+  },
+  /** @todo uncomment when a new pool is added */
+  // [NEW_POOL_NAME]: {
+  //   lpToken: POOL_LP_TOKEN,
+  //   poolTokens: POOL_TOKENS,
+  // },
 }
 
 export const TRANSACTION_TYPES = {
@@ -164,16 +180,3 @@ export const DEPLOYED_BLOCK: { [chainId in ChainId]: number } = {
   [ChainId.AVALANCHE]: 11656944,
   [ChainId.FUJI]: 10000,
 }
-
-export const POOL_STATS_URL: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "https://ipfs.saddle.exchange/pool-stats.json",
-  [ChainId.FUJI]:
-    "https://mehmeta-team-bucket.storage.fleek.co/pool-stats-dev.json",
-}
-
-export const SOCIALS: Social[] = [
-  new Social("https://gondola.finance", gondolaLogo, gondolaLogoDark),
-  new Social("https://telegram.com", telegram),
-  new Social("https://twitter.com/GondolaFinance", twitter),
-  new Social("https://github.com/gondola-finance", github, githubDark),
-]

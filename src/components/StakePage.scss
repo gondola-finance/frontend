@@ -12,10 +12,6 @@ div.stake {
   .content {
     width: 888px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 20px;
-    align-items: start;
     @include breakpoint(lg) {
       display: flex;
       flex-flow: column nowrap;
@@ -23,22 +19,6 @@ div.stake {
       justify-content: center;
       margin: 0 auto;
       width: 100vw;
-    }
-
-    .infoPanels {
-      margin-top: 40px;
-      width: 434px;
-      padding: 24px 32px;
-      border: 1px solid var(--outline);
-      border-radius: 10px;
-      background: var(--background-element);
-      box-sizing: border-box;
-      @include breakpoint(lg) {
-        margin: 40px auto 0;
-      }
-      @include breakpoint(md) {
-        max-width: 90%;
-      }
     }
 
     .left {

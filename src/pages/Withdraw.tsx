@@ -146,7 +146,6 @@ function Withdraw({ poolName }: Props): ReactElement {
       reviewData={reviewWithdrawData}
       tokensData={tokensData}
       poolData={poolData}
-      historicalPoolData={null}
       myShareData={userShareData}
       formStateData={withdrawFormState}
       onConfirmTransaction={onConfirmTransaction}
