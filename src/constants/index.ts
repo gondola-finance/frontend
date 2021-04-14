@@ -79,7 +79,7 @@ export const GONDOLA_ADDRESS: { [chainId in ChainId]: string } = {
 
 export const STABLECOIN_SWAP_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0x898B76a2F6755caecC661de8cf1f789611d50B6c",
-  [ChainId.FUJI]: "0xa818a4E693132CFf3E9677474a1F57f0F7D2fe8d",
+  [ChainId.FUJI]: "0xC4eB028913cF54e6428c3dE3CfE7001c34025b08",
 }
 
 export const MERKLETREE_DATA: { [chainId in ChainId]: string } = {
@@ -91,7 +91,7 @@ export const STABLECOIN_SWAP_TOKEN_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
   [ChainId.AVALANCHE]: "0xDd7b883dF594BFBca3779f75999D5a7D3DD39BBe",
-  [ChainId.FUJI]: "0x748e67353306b3183E8Bc9C27fE60a017E99d4D4",
+  [ChainId.FUJI]: "0xa19dd3Cd4E2C476802eDF6Ae04F21f4a68D0fc0F",
 }
 
 export const STABLECOIN_SWAP_TOKEN = new Token(
@@ -106,7 +106,7 @@ export const STABLECOIN_SWAP_TOKEN = new Token(
 // Stablecoins
 const DAI_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0xba7deebbfc5fa1100fb055a87773e1e99cd3507a",
-  [ChainId.FUJI]: "0xBF967f44dB44380CD38B76AaD850f8B2f98a29aD",
+  [ChainId.FUJI]: "0x4D0e868E77895B697DBa91cb969C26E1fA2F111c",
 }
 export const DAI = new Token(
   DAI_CONTRACT_ADDRESSES,
@@ -119,7 +119,7 @@ export const DAI = new Token(
 
 const USDT_CONTRACT_ADDRESSES: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0xde3a24028580884448a5397872046a019649b084",
-  [ChainId.FUJI]: "0xa6c062F1F8EAbEC4384bB2c2f65abBf710cd2998",
+  [ChainId.FUJI]: "0x9ccCC500A9E025450D1823af61fbc2e6586A4Ce3",
 }
 export const USDT = new Token(
   USDT_CONTRACT_ADDRESSES,
