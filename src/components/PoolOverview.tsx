@@ -5,9 +5,7 @@ import React, { ReactElement } from "react"
 import { Link } from "react-router-dom"
 import { PoolDataType } from "../hooks/usePoolData"
 import { TOKENS_MAP } from "../constants"
-import classNames from "classnames"
 import { formatUnits } from "@ethersproject/units"
-import { useTranslation } from "react-i18next"
 
 interface Props {
   to: string
@@ -15,7 +13,7 @@ interface Props {
 }
 
 function PoolOverview({ data, to }: Props): ReactElement | null {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   if (data == null) return null
   const formattedData = {
     name: data.name,
@@ -49,7 +47,8 @@ function PoolOverview({ data, to }: Props): ReactElement | null {
           </div>
 
           <div className="right">
-            <div className="Apy">
+            {/** @todo uncomment after apy and volumn is implemented */}
+            {/* <div className="Apy">
               <span className="label">{t("apy")}</span>
               <span
                 className={
@@ -63,7 +62,7 @@ function PoolOverview({ data, to }: Props): ReactElement | null {
             <div className="volume">
               <span className="label">{t("volume")}</span>
               <span>${formattedData.volume}</span>
-            </div>
+            </div>*/}
           </div>
         </div>
       </Link>
