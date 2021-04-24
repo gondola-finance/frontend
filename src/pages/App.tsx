@@ -6,6 +6,7 @@ import { Route, Switch } from "react-router-dom"
 
 import { AppDispatch } from "../state"
 import Deposit from "./Deposit"
+import Pools from "./Pools"
 import Risk from "./Risk"
 import Stake from "./Stake"
 import Swap from "./Swap"
@@ -39,6 +40,11 @@ export default function App(): ReactElement {
               render={(props) => (
                 <Swap {...props} poolName={STABLECOIN_POOL_NAME} />
               )}
+            />
+            <Route
+              exact
+              path="/pools"
+              render={(props) => <Pools action="deposit" {...props} />}
             />
             <Route
               exact
