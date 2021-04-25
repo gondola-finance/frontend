@@ -169,9 +169,9 @@ export const ZUSDT_USDT_SWAP_TOKEN = new Token(
     [ChainId.FUJI]: "",
   },
   18,
-  "Gondola ZUSDT/USDT",
+  "Gondola zUSDT/USDT",
   "gondolaUSDT",
-  "Gondola ZUSDT/USDT",
+  "Gondola zUSDT/USDT",
   gondolaLogo,
 )
 
@@ -181,9 +181,9 @@ export const ZDAI_DAI_SWAP_TOKEN = new Token(
     [ChainId.FUJI]: "",
   },
   18,
-  "Gondola ZDAI/DAI",
+  "Gondola zDAI/DAI",
   "gondolaDAI",
-  "Gondola ZDAI/DAI",
+  "Gondola zDAI/DAI",
   gondolaLogo,
 )
 
@@ -193,9 +193,9 @@ export const ZETH_ETH_SWAP_TOKEN = new Token(
     [ChainId.FUJI]: "",
   },
   18,
-  "Gondola ZETH/ETH",
+  "Gondola zETH/ETH",
   "gondolaETH",
-  "Gondola ZETH/ETH",
+  "Gondola zETH/ETH",
   gondolaLogo,
 )
 
