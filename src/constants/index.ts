@@ -1,5 +1,6 @@
 import { BigNumber } from "@ethersproject/bignumber"
 import daiLogo from "../assets/icons/dai.svg"
+import ethLogo from "../assets/icons/eth.svg"
 import gondolaLogo from "../assets/icons/brand_logo.png"
 import usdtLogo from "../assets/icons/usdt.svg"
 
@@ -68,7 +69,7 @@ export const ETH = new Token(
   "ETH",
   "eth",
   "Ether",
-  daiLogo /** @todo use eth logo */,
+  ethLogo,
 )
 
 export const ZETH = new Token(
@@ -80,7 +81,7 @@ export const ZETH = new Token(
   "zETH",
   "zeth",
   "zETH",
-  daiLogo /** @todo use zeth logo */,
+  ethLogo,
 )
 
 export const DAI = new Token(
