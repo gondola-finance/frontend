@@ -64,7 +64,7 @@ export const GONDOLA_ADDRESS: { [chainId in ChainId]: string } = {
 
 export const ETH = new Token(
   {
-    [ChainId.AVALANCHE]: "",
+    [ChainId.AVALANCHE]: "0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15",
     [ChainId.FUJI]: "",
   },
   18,
@@ -76,7 +76,7 @@ export const ETH = new Token(
 
 export const ZETH = new Token(
   {
-    [ChainId.AVALANCHE]: "",
+    [ChainId.AVALANCHE]: "0xf6f3eea905ac1da6f6dd37d06810c6fcb0ef5183",
     [ChainId.FUJI]: "",
   },
   18,
@@ -100,7 +100,7 @@ export const DAI = new Token(
 
 export const ZDAI = new Token(
   {
-    [ChainId.AVALANCHE]: "",
+    [ChainId.AVALANCHE]: "0x12f108e6138d4a9c58511e042399cf8f90d5673f",
     [ChainId.FUJI]: "",
   },
   18,
@@ -124,7 +124,7 @@ export const USDT = new Token(
 
 export const ZUSDT = new Token(
   {
-    [ChainId.AVALANCHE]: "",
+    [ChainId.AVALANCHE]: "0x650cecafe61f3f65edd21efacca18cc905eef0b7",
     [ChainId.FUJI]: "",
   },
   6,
@@ -139,7 +139,7 @@ export const ZUSDT = new Token(
 export const ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.AVALANCHE]: "0x722763260a6AfF803CA21f07781FA1D3E16a14CC",
+  [ChainId.AVALANCHE]: "0x753E5e78e3B16DE7F3C415D2bF685808348831a9",
   [ChainId.FUJI]: "",
 }
 
