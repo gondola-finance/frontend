@@ -18,7 +18,7 @@ export class Social {
 }
 export const SOCIALS: Social[] = [
   new Social("https://gondola.finance", gondolaLogo, gondolaLogoDark),
-  new Social("https://telegram.com", telegram),
+  new Social("https://t.me/gondola_finance", telegram),
   new Social("https://twitter.com/GondolaFinance", twitter),
   new Social("https://github.com/gondola-finance", github, githubDark),
 ]
