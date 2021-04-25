@@ -2,7 +2,6 @@ import "../styles/global.scss"
 
 import {
   BLOCK_TIME,
-  STABLECOIN_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZETH_ETH_POOL_NAME,
   ZUSDT_USDT_POOL_NAME,
@@ -92,18 +91,30 @@ export default function App(): ReactElement {
                 <Deposit {...props} poolName={ZUSDT_USDT_POOL_NAME} />
               )}
             />
-            {/* <Route
-              exact
-              path="/deposit/usd"
-              render={(props) => (
-                <Deposit {...props} poolName={STABLECOIN_POOL_NAME} />
-              )}
-            /> */}
             <Route
               exact
               path="/withdraw"
+              render={(props) => <Pools action="withdraw" {...props} />}
+            />
+            <Route
+              exact
+              path="/withdraw/dai"
               render={(props) => (
-                <Withdraw {...props} poolName={STABLECOIN_POOL_NAME} />
+                <Withdraw {...props} poolName={ZDAI_DAI_POOL_NAME} />
+              )}
+            />
+            <Route
+              exact
+              path="/withdraw/eth"
+              render={(props) => (
+                <Withdraw {...props} poolName={ZETH_ETH_POOL_NAME} />
+              )}
+            />
+            <Route
+              exact
+              path="/withdraw/usdt"
+              render={(props) => (
+                <Withdraw {...props} poolName={ZUSDT_USDT_POOL_NAME} />
               )}
             />
             <Route exact path="/stake" render={() => <Stake />} />

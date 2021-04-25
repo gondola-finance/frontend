@@ -68,7 +68,7 @@ export const ETH = new Token(
   18,
   "ETH",
   "eth",
-  "Ether",
+  "ETH",
   ethLogo,
 )
 
