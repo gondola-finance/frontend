@@ -5,9 +5,6 @@ import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
 
-export const STABLECOIN_POOL_NAME = "Stablecoin Pool"
-export const STABLECOIN_POOL_ID = 1
-
 export const GAS_PRICE = 470 // in nAVAX
 export const GAS_PRICE_BIGNUMBER = BigNumber.from(GAS_PRICE).mul(
   BigNumber.from(10).pow(9),
@@ -70,7 +67,7 @@ export const ETH = new Token(
   18,
   "ETH",
   "eth",
-  "Eth",
+  "Ether",
   daiLogo /** @todo use eth logo */,
 )
 
@@ -80,9 +77,9 @@ export const ZETH = new Token(
     [ChainId.FUJI]: "",
   },
   18,
-  "ZETH",
+  "zETH",
   "zeth",
-  "ZETH",
+  "zETH",
   daiLogo /** @todo use zeth logo */,
 )
 
@@ -104,9 +101,9 @@ export const ZDAI = new Token(
     [ChainId.FUJI]: "",
   },
   18,
-  "ZDAI",
+  "zDAI",
   "zdai",
-  "ZDAI",
+  "zDAI",
   daiLogo,
 )
 
@@ -128,9 +125,9 @@ export const ZUSDT = new Token(
     [ChainId.FUJI]: "",
   },
   6,
-  "ZUSDT",
+  "zUSDT",
   "tether",
-  "ZUSDT",
+  "zUSDT",
   usdtLogo,
 )
 
@@ -223,6 +220,32 @@ export const GDL_TOKEN = new Token(
   gondolaLogo,
 )
 
+export const STABLECOIN_POOL_NAME = "Stablecoin Pool"
+export const STABLECOIN_POOL_ID = 1
+
+export const GDL_POOL_NAME = "GDL Pool"
+export const GDL_POOL_ID = 2
+
+export const ZDAI_DAI_POOL_NAME = "zDAI-DAI Pool"
+export const ZDAI_DAI_POOL_ID = 5
+
+export const ZUSDT_USDT_POOL_NAME = "zUSDT-USDT Pool"
+export const ZUSDT_USDT_POOL_ID = 4
+
+export const ZETH_ETH_POOL_NAME = "zETH-ETH Pool"
+export const ZETH_ETH_POOL_ID = 3
+
+export const AVAX_GDL_POOL_NAME = "AVAX-GDL Pool"
+export const AVAX_GDL_POOL_ID = 6
+
+export type PoolName =
+  | typeof STABLECOIN_POOL_NAME
+  | typeof GDL_POOL_NAME
+  | typeof ZDAI_DAI_POOL_NAME
+  | typeof ZUSDT_USDT_POOL_NAME
+  | typeof ZETH_ETH_POOL_NAME
+  | typeof AVAX_GDL_POOL_NAME
+
 export const STABLECOIN_POOL_TOKENS = [DAI, USDT] /** @todo remove */
 export const ZUSDT_USDT_POOL_TOKENS = [ZUSDT, USDT]
 export const ZDAI_DAI_POOL_TOKENS = [ZDAI, DAI]
@@ -250,29 +273,6 @@ export type POOL = {
   isSwapPool: boolean
 }
 
-export const GDL_POOL_NAME = "GDL Pool"
-export const GDL_POOL_ID = 2
-
-export const ZDAI_DAI_POOL_NAME = "ZDAI-DAI Pool"
-export const ZDAI_DAI_POOL_ID = 5
-
-export const ZUSDT_USDT_POOL_NAME = "ZUSDT-USDT Pool"
-export const ZUSDT_USDT_POOL_ID = 4
-
-export const ZETH_ETH_POOL_NAME = "ZETH-ETH Pool"
-export const ZETH_ETH_POOL_ID = 3
-
-export const AVAX_GDL_POOL_NAME = "AVAX-GDL Pool"
-export const AVAX_GDL_POOL_ID = 6
-
-export type PoolName =
-  | typeof STABLECOIN_POOL_NAME
-  | typeof GDL_POOL_NAME
-  | typeof ZDAI_DAI_POOL_NAME
-  | typeof ZUSDT_USDT_POOL_NAME
-  | typeof ZETH_ETH_POOL_NAME
-  | typeof AVAX_GDL_POOL_NAME
-
 // pools
 export const POOLS_MAP: {
   [poolName in PoolName]: POOL
@@ -293,19 +293,19 @@ export const POOLS_MAP: {
   [ZDAI_DAI_POOL_NAME]: {
     poolId: ZDAI_DAI_POOL_ID,
     lpToken: ZDAI_DAI_SWAP_TOKEN,
-    poolTokens: STABLECOIN_POOL_TOKENS,
+    poolTokens: ZDAI_DAI_POOL_TOKENS,
     isSwapPool: true,
   },
   [ZUSDT_USDT_POOL_NAME]: {
     poolId: ZUSDT_USDT_POOL_ID,
     lpToken: ZUSDT_USDT_SWAP_TOKEN,
-    poolTokens: [],
+    poolTokens: ZUSDT_USDT_POOL_TOKENS,
     isSwapPool: true,
   },
   [ZETH_ETH_POOL_NAME]: {
     poolId: ZETH_ETH_POOL_ID,
     lpToken: ZETH_ETH_SWAP_TOKEN,
-    poolTokens: [],
+    poolTokens: ZETH_ETH_POOL_TOKENS,
     isSwapPool: true,
   },
   [AVAX_GDL_POOL_NAME]: {
