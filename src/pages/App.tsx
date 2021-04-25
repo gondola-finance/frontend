@@ -43,8 +43,27 @@ export default function App(): ReactElement {
             <Route
               exact
               path="/"
+              render={(props) => <Pools action="swap" {...props} />}
+            />
+            <Route
+              exact
+              path="/swap/dai"
               render={(props) => (
-                <Swap {...props} poolName={STABLECOIN_POOL_NAME} />
+                <Swap {...props} poolName={ZDAI_DAI_POOL_NAME} />
+              )}
+            />
+            <Route
+              exact
+              path="/swap/eth"
+              render={(props) => (
+                <Swap {...props} poolName={ZETH_ETH_POOL_NAME} />
+              )}
+            />
+            <Route
+              exact
+              path="/swap/usdt"
+              render={(props) => (
+                <Swap {...props} poolName={ZUSDT_USDT_POOL_NAME} />
               )}
             />
             <Route
@@ -73,13 +92,13 @@ export default function App(): ReactElement {
                 <Deposit {...props} poolName={ZUSDT_USDT_POOL_NAME} />
               )}
             />
-            <Route
+            {/* <Route
               exact
               path="/deposit/usd"
               render={(props) => (
                 <Deposit {...props} poolName={STABLECOIN_POOL_NAME} />
               )}
-            />
+            /> */}
             <Route
               exact
               path="/withdraw"

@@ -6,6 +6,12 @@ import {
   TOKENS_MAP,
   TRANSACTION_TYPES,
   Token,
+  ZDAI_DAI_POOL_NAME,
+  ZDAI_DAI_POOL_TOKENS,
+  ZETH_ETH_POOL_NAME,
+  ZETH_ETH_POOL_TOKENS,
+  ZUSDT_USDT_POOL_NAME,
+  ZUSDT_USDT_POOL_TOKENS,
 } from "../constants"
 import { useAllContracts, useSwapContract } from "./useContract"
 
@@ -47,6 +53,12 @@ export function useApproveAndSwap(
   let POOL_TOKENS: Token[]
   if (poolName === STABLECOIN_POOL_NAME) {
     POOL_TOKENS = STABLECOIN_POOL_TOKENS
+  } else if (poolName === ZETH_ETH_POOL_NAME) {
+    POOL_TOKENS = ZETH_ETH_POOL_TOKENS
+  } else if (poolName === ZDAI_DAI_POOL_NAME) {
+    POOL_TOKENS = ZDAI_DAI_POOL_TOKENS
+  } else if (poolName === ZUSDT_USDT_POOL_NAME) {
+    POOL_TOKENS = ZUSDT_USDT_POOL_TOKENS
   } else {
     throw new Error("useApproveAndSwap requires a valid pool name")
   }
