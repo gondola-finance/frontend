@@ -52,10 +52,10 @@ img {
 
 // Dark mode themes
 body.dark {
-  --background: #000;
-  --background-element: rgba(0, 0, 0, 0.56);
+  --background: #20202d;
+  --background-element: rgba(13, 9, 32, 0.486);
   --background-element-hover: rgba(0, 0, 0, 0.8);
-  --background-main: #000 center/auto 60% no-repeat fixed;
+  --background-main: rgb(9, 9, 29) center/auto 60% no-repeat fixed;
   --background-logo: #e9e9e9;
   --outline: rgb(161, 152, 152);
 
