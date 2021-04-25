@@ -7,6 +7,7 @@ import {
   ZETH_ETH_POOL_NAME,
   ZUSDT_USDT_POOL_NAME,
 } from "../constants"
+import Footer from "../components/Footer"
 import PoolOverview from "../components/PoolOverview"
 
 import TopMenu from "../components/TopMenu"
@@ -33,6 +34,9 @@ function Pools({
         <PoolOverview data={daiPoolData} to={`/${action}/dai`} />
         <PoolOverview data={ethPoolData} to={`/${action}/eth`} />
         <PoolOverview data={usdtPoolData} to={`/${action}/usdt`} />
+      </div>
+      <div className="footerDiv">
+        <Footer />
       </div>
     </div>
   )
