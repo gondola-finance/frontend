@@ -1,8 +1,8 @@
+import { GAS_PRICE_BIGNUMBER, GAS_PRICE_DEFAULT } from "../constants"
 import { BigNumber } from "@ethersproject/bignumber"
 import { ContractReceipt } from "ethers"
 import { ContractTransaction } from "@ethersproject/contracts"
 import { Erc20 } from "../../types/ethers-contracts/Erc20"
-import { GAS_PRICE_BIGNUMBER } from "../constants"
 import { LpToken } from "../../types/ethers-contracts/LpToken"
 import { MaxUint256 } from "@ethersproject/constants"
 import { Zero } from "@ethersproject/constants"
@@ -49,7 +49,11 @@ export default async function checkAndApproveTokenForTrade(
       const approvalTransaction = await srcTokenContract.approve(
         swapAddress,
         amount,
-        { gasPrice: GAS_PRICE_BIGNUMBER },
+        GAS_PRICE_DEFAULT
+          ? {}
+          : {
+              gasPrice: GAS_PRICE_BIGNUMBER,
+            },
       )
       const confirmedTransaction = await approvalTransaction.wait()
       cleanupOnStart?.()

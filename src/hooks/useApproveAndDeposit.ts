@@ -1,5 +1,6 @@
 import {
   GAS_PRICE_BIGNUMBER,
+  GAS_PRICE_DEFAULT,
   POOLS_MAP,
   PoolName,
   TRANSACTION_TYPES,
@@ -126,9 +127,11 @@ export function useApproveAndDeposit(
         POOL.poolTokens.map(({ symbol }) => state[symbol].valueSafe),
         minToMint,
         Math.round(new Date().getTime() / 1000 + 60 * deadline),
-        {
-          gasPrice: GAS_PRICE_BIGNUMBER,
-        },
+        GAS_PRICE_DEFAULT
+          ? {}
+          : {
+              gasPrice: GAS_PRICE_BIGNUMBER,
+            },
       )
       await spendTransaction.wait()
       dispatch(
