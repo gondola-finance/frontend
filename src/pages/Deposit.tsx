@@ -31,7 +31,7 @@ function Deposit({ poolName }: Props): ReactElement | null {
   const [tokenFormState, updateTokenFormState] = useTokenFormState(
     POOL.poolTokens,
   )
-  const tokenBalances = usePoolTokenBalances(poolName)
+  const tokenBalances = usePoolTokenBalances()
   const { tokenPricesUSD } = useSelector((state: AppState) => state.application)
   const [estDepositLPTokenAmount, setEstDepositLPTokenAmount] = useState(Zero)
   const [priceImpact, setPriceImpact] = useState(Zero)

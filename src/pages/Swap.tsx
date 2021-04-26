@@ -33,7 +33,7 @@ function Swap({ poolName }: Props): ReactElement {
   const { t } = useTranslation()
   const [poolData] = usePoolData(poolName)
   const approveAndSwap = useApproveAndSwap(poolName)
-  const tokenBalances = usePoolTokenBalances(poolName)
+  const tokenBalances = usePoolTokenBalances()
   const swapContract = useSwapContract(poolName)
   const POOL = POOLS_MAP[poolName]
   const [formState, setFormState] = useState<FormState>({
