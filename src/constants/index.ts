@@ -237,9 +237,9 @@ export type PoolName =
   | typeof ZETH_ETH_POOL_NAME
   | typeof AVAX_GDL_POOL_NAME
 
-export const ZUSDT_USDT_POOL_TOKENS = [ZUSDT, USDT]
-export const ZDAI_DAI_POOL_TOKENS = [ZDAI, DAI]
-export const ZETH_ETH_POOL_TOKENS = [ZETH, ETH]
+export const ZUSDT_USDT_POOL_TOKENS = [USDT, ZUSDT]
+export const ZDAI_DAI_POOL_TOKENS = [DAI, ZDAI]
+export const ZETH_ETH_POOL_TOKENS = [ETH, ZETH]
 
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
