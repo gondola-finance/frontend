@@ -202,6 +202,19 @@ export const GDL_TOKEN = new Token(
   gondolaLogo,
 )
 
+// pangolin AVAX-GDL
+export const AVAX_GDL_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xc5ab0c94bc88b98f55f4e21c1474f67ab2329cfd",
+    [ChainId.FUJI]: "",
+  },
+  18,
+  "AVAX-GDL",
+  "",
+  "AVAX-GDL",
+  gondolaLogo,
+)
+
 export const GDL_POOL_NAME = "GDL Pool"
 export const GDL_POOL_ID = 2
 
@@ -279,7 +292,7 @@ export const POOLS_MAP: {
   },
   [AVAX_GDL_POOL_NAME]: {
     poolId: AVAX_GDL_POOL_ID,
-    lpToken: GDL_TOKEN /** @todo update lp token */,
+    lpToken: AVAX_GDL_TOKEN,
     poolTokens: [],
     isSwapPool: false,
   },
