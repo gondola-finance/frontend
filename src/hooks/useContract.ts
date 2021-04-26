@@ -1,20 +1,24 @@
 import {
   DAI,
+  ETH,
   GONDOLA_ADDRESS,
   MASTERCHEF_ADDRESS,
   MULTICALL_NETWORKS,
   PoolName,
-  STABLECOIN_POOL_NAME,
-  STABLECOIN_SWAP_ADDRESSES,
-  STABLECOIN_SWAP_TOKEN,
   Token,
   USDT,
+  ZDAI,
   ZDAI_DAI_POOL_NAME,
   ZDAI_DAI_SWAP_CONTRACT_ADDRESSES,
+  ZDAI_DAI_SWAP_TOKEN,
+  ZETH,
   ZETH_ETH_POOL_NAME,
   ZETH_ETH_SWAP_CONTRACT_ADDRESSES,
+  ZETH_ETH_SWAP_TOKEN,
+  ZUSDT,
   ZUSDT_USDT_POOL_NAME,
   ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES,
+  ZUSDT_USDT_SWAP_TOKEN,
 } from "../constants"
 import { useMemo, useState } from "react"
 
@@ -69,13 +73,6 @@ export function useSwapContract(poolName: PoolName): Swap | null {
   const withSignerIfPossible = true
   const { chainId } = useActiveWeb3React()
 
-  /** @todo remove */
-  const stablecoinSwapContract = useContract(
-    chainId ? STABLECOIN_SWAP_ADDRESSES[chainId] : undefined,
-    SWAP_ABI,
-    withSignerIfPossible,
-  )
-
   const zdaiDaiSwapContract = useContract(
     chainId ? ZDAI_DAI_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
     SWAP_ABI,
@@ -95,9 +92,7 @@ export function useSwapContract(poolName: PoolName): Swap | null {
   )
 
   return useMemo(() => {
-    if (poolName === STABLECOIN_POOL_NAME) {
-      return stablecoinSwapContract as Swap
-    } else if (poolName === ZDAI_DAI_POOL_NAME) {
+    if (poolName === ZDAI_DAI_POOL_NAME) {
       return zdaiDaiSwapContract as Swap
     } else if (poolName === ZETH_ETH_POOL_NAME) {
       return zethEthSwapContract as Swap
@@ -106,7 +101,6 @@ export function useSwapContract(poolName: PoolName): Swap | null {
     }
     return null
   }, [
-    stablecoinSwapContract,
     zdaiDaiSwapContract,
     zethEthSwapContract,
     zusdtUsdtSwapContract,
@@ -127,11 +121,17 @@ interface AllContractsObject {
   [x: string]: Swap | Erc20 | null
 }
 export function useAllContracts(): AllContractsObject | null {
-  /** @todo add contracts for eth, ... */
   const daiContract = useTokenContract(DAI) as Erc20
+  const ethContract = useTokenContract(ETH) as Erc20
   const usdtContract = useTokenContract(USDT) as Erc20
-  const stablecoinSwapTokenContract = useTokenContract(
-    STABLECOIN_SWAP_TOKEN,
+  const zdaiContract = useTokenContract(ZDAI) as Erc20
+  const zethContract = useTokenContract(ZETH) as Erc20
+  const zusdtContract = useTokenContract(ZUSDT) as Erc20
+
+  const zdaiDaiSwapTokenContract = useTokenContract(ZDAI_DAI_SWAP_TOKEN) as Swap
+  const zethEthSwapTokenContract = useTokenContract(ZETH_ETH_SWAP_TOKEN) as Swap
+  const zusdtUsdtSwapTokenContract = useTokenContract(
+    ZUSDT_USDT_SWAP_TOKEN,
   ) as Swap
 
   return useMemo(() => {
@@ -145,10 +145,26 @@ export function useAllContracts(): AllContractsObject | null {
       return null
     return {
       [DAI.symbol]: daiContract,
+      [ETH.symbol]: ethContract,
       [USDT.symbol]: usdtContract,
-      [STABLECOIN_SWAP_TOKEN.symbol]: stablecoinSwapTokenContract,
+      [ZDAI.symbol]: zdaiContract,
+      [ZETH.symbol]: zethContract,
+      [ZUSDT.symbol]: zusdtContract,
+      [ZDAI_DAI_SWAP_TOKEN.symbol]: zdaiDaiSwapTokenContract,
+      [ZETH_ETH_SWAP_TOKEN.symbol]: zethEthSwapTokenContract,
+      [ZUSDT_USDT_SWAP_TOKEN.symbol]: zusdtUsdtSwapTokenContract,
     }
-  }, [daiContract, usdtContract, stablecoinSwapTokenContract])
+  }, [
+    daiContract,
+    ethContract,
+    usdtContract,
+    zdaiContract,
+    zethContract,
+    zusdtContract,
+    zdaiDaiSwapTokenContract,
+    zethEthSwapTokenContract,
+    zusdtUsdtSwapTokenContract,
+  ])
 }
 
 export function useMasterChefContract(
