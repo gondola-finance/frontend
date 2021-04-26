@@ -31,6 +31,7 @@ import { LpToken } from "../../types/ethers-contracts/LpToken"
 import MASTERCHEF_ABI from "../constants/abis/masterchef.json"
 import MULTICALL_ABI from "../constants/abis/multicall.json"
 import { Masterchef } from "../../types/ethers-contracts/Masterchef"
+import PANGOLIN_AVAX_GDL_ABI from "../constants/abis/pangolinPoolLpToken.json"
 import SWAP_ABI from "../constants/abis/swap.json"
 import { Swap } from "../../types/ethers-contracts/Swap"
 import { getContract } from "../utils"
@@ -186,6 +187,17 @@ export function useGondolaContract(withSignerIfPossible = true): Erc20 | null {
   return useContract(
     chainId && GONDOLA_ADDRESS[chainId],
     GONDOLA_ABI,
+    withSignerIfPossible,
+  ) as Erc20
+}
+
+export function usePangolinLpContract(
+  withSignerIfPossible = true,
+): Erc20 | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(
+    chainId && GONDOLA_ADDRESS[chainId],
+    PANGOLIN_AVAX_GDL_ABI,
     withSignerIfPossible,
   ) as Erc20
 }

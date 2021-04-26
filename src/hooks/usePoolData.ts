@@ -1,6 +1,7 @@
 import {
   GDL_POOL_NAME,
   GDL_TOKEN,
+  PANGOLIN_AVAX_GDL_POOL_NAME,
   POOLS_MAP,
   PoolName,
   TRANSACTION_TYPES,
@@ -8,7 +9,11 @@ import {
 import { formatBNToPercentString, getContract } from "../utils"
 import { useEffect, useState } from "react"
 
-import { useGondolaContract, useSwapContract } from "./useContract"
+import {
+  useGondolaContract,
+  usePangolinLpContract,
+  useSwapContract,
+} from "./useContract"
 import { AddressZero } from "@ethersproject/constants"
 import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
@@ -63,6 +68,7 @@ export default function usePoolData(
     (state: AppState) => state.application,
   )
   const gondolaContract = useGondolaContract()
+  const pangolinLpContract = usePangolinLpContract()
 
   const lastDepositTime = lastTransactionTimes[TRANSACTION_TYPES.DEPOSIT]
   const lastWithdrawTime = lastTransactionTimes[TRANSACTION_TYPES.WITHDRAW]
@@ -95,6 +101,14 @@ export default function usePoolData(
       const lpTokenContract =
         poolName === GDL_POOL_NAME
           ? gondolaContract ||
+            (getContract(
+              lpTokenAddress,
+              LPTOKEN_ABI,
+              library,
+              account ?? undefined,
+            ) as LpToken)
+          : poolName === PANGOLIN_AVAX_GDL_POOL_NAME
+          ? pangolinLpContract ||
             (getContract(
               lpTokenAddress,
               LPTOKEN_ABI,
@@ -249,6 +263,7 @@ export default function usePoolData(
     void getSwapData()
   }, [
     gondolaContract,
+    pangolinLpContract,
     lastDepositTime,
     lastWithdrawTime,
     lastSwapTime,
