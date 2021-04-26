@@ -67,7 +67,7 @@ export const ETH = new Token(
   },
   18,
   "ETH",
-  "eth",
+  "ethereum",
   "ETH",
   ethLogo,
 )
@@ -79,7 +79,7 @@ export const ZETH = new Token(
   },
   18,
   "zETH",
-  "zeth",
+  "ethereum",
   "zETH",
   ethLogo,
 )
@@ -103,7 +103,7 @@ export const ZDAI = new Token(
   },
   18,
   "zDAI",
-  "zdai",
+  "dai",
   "zDAI",
   daiLogo,
 )
