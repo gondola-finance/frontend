@@ -1,5 +1,9 @@
+import {
+  ZDAI_DAI_POOL_TOKENS,
+  ZETH_ETH_POOL_TOKENS,
+  ZUSDT_USDT_POOL_TOKENS,
+} from "../constants"
 import { AppDispatch } from "../state"
-import { STABLECOIN_POOL_TOKENS } from "../constants"
 import retry from "async-retry"
 import { updateTokensPricesUSD } from "../state/application"
 
@@ -12,7 +16,11 @@ interface CoinGeckoReponse {
 }
 
 export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
-  const tokens = STABLECOIN_POOL_TOKENS
+  const tokens = [
+    ...ZUSDT_USDT_POOL_TOKENS,
+    ...ZDAI_DAI_POOL_TOKENS,
+    ...ZETH_ETH_POOL_TOKENS,
+  ]
   const tokenIds = tokens
     .map(({ geckoId }) => geckoId)
     .concat(["ethereum", "bitcoin", "keep-network"])

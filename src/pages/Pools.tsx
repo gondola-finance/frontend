@@ -2,7 +2,6 @@ import "./Pools.scss"
 
 import React, { ReactElement } from "react"
 import {
-  // STABLECOIN_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZETH_ETH_POOL_NAME,
   ZUSDT_USDT_POOL_NAME,
@@ -19,7 +18,6 @@ function Pools({
 }: {
   action: "deposit" | "withdraw" | "swap"
 }): ReactElement | null {
-  // const [usdPoolData] = usePoolData(STABLECOIN_POOL_NAME)
   const [daiPoolData] = usePoolData(ZDAI_DAI_POOL_NAME)
   const [ethPoolData] = usePoolData(ZETH_ETH_POOL_NAME)
   const [usdtPoolData] = usePoolData(ZUSDT_USDT_POOL_NAME)
@@ -30,7 +28,6 @@ function Pools({
       <TopMenu activeTab={action} />
       <div className="content">
         <h3 className="title">{t("Select a Pool")}</h3>
-        {/* <PoolOverview data={usdPoolData} to={`/${action}/usd`} /> */}
         <PoolOverview data={daiPoolData} to={`/${action}/dai`} />
         <PoolOverview data={ethPoolData} to={`/${action}/eth`} />
         <PoolOverview data={usdtPoolData} to={`/${action}/usdt`} />

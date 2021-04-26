@@ -1,11 +1,15 @@
 import {
   BLOCK_TIME,
   DAI,
-  PoolName,
-  STABLECOIN_POOL_NAME,
-  STABLECOIN_SWAP_TOKEN,
+  ETH,
   Token,
   USDT,
+  ZDAI,
+  ZDAI_DAI_SWAP_TOKEN,
+  ZETH,
+  ZETH_ETH_SWAP_TOKEN,
+  ZUSDT,
+  ZUSDT_USDT_SWAP_TOKEN,
 } from "../../constants"
 
 import { BigNumber } from "@ethersproject/bignumber"
@@ -39,26 +43,43 @@ export function useTokenBalance(t: Token): BigNumber {
   return balance
 }
 
-export function usePoolTokenBalances(
-  poolName: PoolName,
-): { [token: string]: BigNumber } | null {
+export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   // pool tokens
   const daiTokenBalance = useTokenBalance(DAI)
+  const ethTokenBalance = useTokenBalance(ETH)
   const usdtTokenBalance = useTokenBalance(USDT)
-  // lpToken
-  const lpTokenBalance = useTokenBalance(STABLECOIN_SWAP_TOKEN)
+  const zdaiTokenBalance = useTokenBalance(ZDAI)
+  const zethTokenBalance = useTokenBalance(ZETH)
+  const zusdtTokenBalance = useTokenBalance(ZUSDT)
+  // lpTokens
+  const zdaiDaiSwapTokenBalance = useTokenBalance(ZDAI_DAI_SWAP_TOKEN)
+  const zethEthSwapTokenBalance = useTokenBalance(ZETH_ETH_SWAP_TOKEN)
+  const zusdtUsdtSwapTokenBalance = useTokenBalance(ZUSDT_USDT_SWAP_TOKEN)
 
-  const stablecoinPoolTokenBalances = useMemo(
+  const poolTokensBalances = useMemo(
     () => ({
       [DAI.symbol]: daiTokenBalance,
+      [ETH.symbol]: ethTokenBalance,
       [USDT.symbol]: usdtTokenBalance,
-      [STABLECOIN_SWAP_TOKEN.symbol]: lpTokenBalance,
+      [ZDAI.symbol]: zdaiTokenBalance,
+      [ZETH.symbol]: zethTokenBalance,
+      [ZUSDT.symbol]: zusdtTokenBalance,
+      [ZDAI_DAI_SWAP_TOKEN.symbol]: zdaiDaiSwapTokenBalance,
+      [ZETH_ETH_SWAP_TOKEN.symbol]: zethEthSwapTokenBalance,
+      [ZUSDT_USDT_SWAP_TOKEN.symbol]: zusdtUsdtSwapTokenBalance,
     }),
-    [daiTokenBalance, usdtTokenBalance, lpTokenBalance],
+    [
+      daiTokenBalance,
+      ethTokenBalance,
+      usdtTokenBalance,
+      zdaiTokenBalance,
+      zethTokenBalance,
+      zusdtTokenBalance,
+      zdaiDaiSwapTokenBalance,
+      zethEthSwapTokenBalance,
+      zusdtUsdtSwapTokenBalance,
+    ],
   )
 
-  if (poolName === STABLECOIN_POOL_NAME) {
-    return stablecoinPoolTokenBalances
-  }
-  return null
+  return poolTokensBalances
 }

@@ -3,7 +3,7 @@ import parseStringToBigNumber, {
 } from "../parseStringToBigNumber"
 
 import { BigNumber } from "@ethersproject/bignumber"
-import { STABLECOIN_SWAP_TOKEN } from "../../constants"
+import { ZUSDT_USDT_SWAP_TOKEN } from "../../constants"
 import { Zero } from "@ethersproject/constants"
 
 describe("parseStringToBigNumber", () => {
@@ -38,10 +38,13 @@ describe("parseStringAndTokenToBigNumber", () => {
   it("returns the correct precision for a token", () => {
     const input = 1.23
     expect(
-      parseStringAndTokenToBigNumber(input.toString(), "STABLECOIN_SWAP_TOKEN"),
+      parseStringAndTokenToBigNumber(
+        input.toString(),
+        ZUSDT_USDT_SWAP_TOKEN.symbol,
+      ),
     ).toEqual({
       value: BigNumber.from(
-        (input * 10 ** STABLECOIN_SWAP_TOKEN.decimals).toString(),
+        (input * 10 ** ZUSDT_USDT_SWAP_TOKEN.decimals).toString(),
       ),
       isFallback: false,
     })
