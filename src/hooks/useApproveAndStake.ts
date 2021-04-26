@@ -1,5 +1,6 @@
 import {
   GAS_PRICE_BIGNUMBER,
+  GAS_PRICE_DEFAULT,
   POOLS_MAP,
   PoolName,
   TRANSACTION_TYPES,
@@ -89,9 +90,11 @@ export function useApproveAndStake(
       const spendTransaction = await masterChefContract.deposit(
         POOL.poolId,
         state.lpTokenAmountToStake._hex,
-        {
-          gasPrice: GAS_PRICE_BIGNUMBER,
-        },
+        GAS_PRICE_DEFAULT
+          ? {}
+          : {
+              gasPrice: GAS_PRICE_BIGNUMBER,
+            },
       )
       await spendTransaction.wait()
       dispatch(

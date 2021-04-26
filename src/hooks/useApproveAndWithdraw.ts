@@ -1,5 +1,6 @@
 import {
   GAS_PRICE_BIGNUMBER,
+  GAS_PRICE_DEFAULT,
   POOLS_MAP,
   PoolName,
   TRANSACTION_TYPES,
@@ -116,9 +117,11 @@ export function useApproveAndWithdraw(
             ),
           ),
           deadline,
-          {
-            gasPrice: GAS_PRICE_BIGNUMBER,
-          },
+          GAS_PRICE_DEFAULT
+            ? {}
+            : {
+                gasPrice: GAS_PRICE_BIGNUMBER,
+              },
         )
       } else if (state.withdrawType === "IMBALANCE") {
         spendTransaction = await swapContract.removeLiquidityImbalance(
@@ -131,9 +134,11 @@ export function useApproveAndWithdraw(
             slippageCustom,
           ),
           deadline,
-          {
-            gasPrice: GAS_PRICE_BIGNUMBER,
-          },
+          GAS_PRICE_DEFAULT
+            ? {}
+            : {
+                gasPrice: GAS_PRICE_BIGNUMBER,
+              },
         )
       } else {
         // state.withdrawType === [TokenSymbol]
@@ -150,9 +155,11 @@ export function useApproveAndWithdraw(
             slippageCustom,
           ),
           deadline,
-          {
-            gasPrice: GAS_PRICE_BIGNUMBER,
-          },
+          GAS_PRICE_DEFAULT
+            ? {}
+            : {
+                gasPrice: GAS_PRICE_BIGNUMBER,
+              },
         )
       }
 
