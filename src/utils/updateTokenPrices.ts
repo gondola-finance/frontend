@@ -40,6 +40,7 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
               ETH: body?.ethereum?.usd,
               BTC: body?.bitcoin?.usd,
               KEEP: body?.["keep-network"].usd,
+              GDL: 10.4 /** @todo retrieve from api */,
             },
           )
           dispatch(updateTokensPricesUSD(result))
