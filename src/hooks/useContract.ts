@@ -138,8 +138,11 @@ export function useAllContracts(): AllContractsObject | null {
     if (
       ![
         daiContract,
+        ethContract,
         usdtContract,
-        // stablecoinSwapTokenContract, // TODO: add back when contract deployed
+        zdaiContract,
+        zethContract,
+        zusdtContract,
       ].some(Boolean)
     )
       return null

@@ -155,12 +155,6 @@ export const ZETH_ETH_SWAP_CONTRACT_ADDRESSES: {
   [ChainId.FUJI]: "",
 }
 
-/** @todo remove */
-export const STABLECOIN_SWAP_ADDRESSES: { [chainId in ChainId]: string } = {
-  [ChainId.AVALANCHE]: "0x898B76a2F6755caecC661de8cf1f789611d50B6c",
-  [ChainId.FUJI]: "0xC4eB028913cF54e6428c3dE3CfE7001c34025b08",
-}
-
 // pool lp tokens
 
 export const ZUSDT_USDT_SWAP_TOKEN = new Token(
@@ -199,19 +193,6 @@ export const ZETH_ETH_SWAP_TOKEN = new Token(
   gondolaLogo,
 )
 
-/** @todo remove */
-export const STABLECOIN_SWAP_TOKEN = new Token(
-  {
-    [ChainId.AVALANCHE]: "0xDd7b883dF594BFBca3779f75999D5a7D3DD39BBe",
-    [ChainId.FUJI]: "0xa19dd3Cd4E2C476802eDF6Ae04F21f4a68D0fc0F",
-  },
-  18,
-  "gondolaUSD",
-  "gondolausd",
-  "Gondola DAI/USDT",
-  gondolaLogo,
-)
-
 export const GDL_TOKEN = new Token(
   GONDOLA_ADDRESS,
   18,
@@ -220,9 +201,6 @@ export const GDL_TOKEN = new Token(
   "GDL",
   gondolaLogo,
 )
-
-export const STABLECOIN_POOL_NAME = "Stablecoin Pool"
-export const STABLECOIN_POOL_ID = 1
 
 export const GDL_POOL_NAME = "GDL Pool"
 export const GDL_POOL_ID = 2
@@ -240,14 +218,12 @@ export const AVAX_GDL_POOL_NAME = "AVAX-GDL Pool"
 export const AVAX_GDL_POOL_ID = 6
 
 export type PoolName =
-  | typeof STABLECOIN_POOL_NAME
   | typeof GDL_POOL_NAME
   | typeof ZDAI_DAI_POOL_NAME
   | typeof ZUSDT_USDT_POOL_NAME
   | typeof ZETH_ETH_POOL_NAME
   | typeof AVAX_GDL_POOL_NAME
 
-export const STABLECOIN_POOL_TOKENS = [DAI, USDT] /** @todo remove */
 export const ZUSDT_USDT_POOL_TOKENS = [ZUSDT, USDT]
 export const ZDAI_DAI_POOL_TOKENS = [ZDAI, DAI]
 export const ZETH_ETH_POOL_TOKENS = [ZETH, ETH]
@@ -257,8 +233,6 @@ export const TOKENS_MAP: {
   [symbol: string]: Token
 } = [
   GDL_TOKEN,
-  ...STABLECOIN_POOL_TOKENS /** @todo remove */,
-  STABLECOIN_SWAP_TOKEN /** @todo remove */,
   ...ZUSDT_USDT_POOL_TOKENS,
   ZUSDT_USDT_SWAP_TOKEN,
   ...ZDAI_DAI_POOL_TOKENS,
@@ -278,12 +252,6 @@ export type POOL = {
 export const POOLS_MAP: {
   [poolName in PoolName]: POOL
 } = {
-  [STABLECOIN_POOL_NAME]: {
-    poolId: STABLECOIN_POOL_ID,
-    lpToken: STABLECOIN_SWAP_TOKEN,
-    poolTokens: STABLECOIN_POOL_TOKENS,
-    isSwapPool: true,
-  },
   // GDL pool for staking, no swapping
   [GDL_POOL_NAME]: {
     poolId: GDL_POOL_ID,
