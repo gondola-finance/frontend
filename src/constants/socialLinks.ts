@@ -23,7 +23,7 @@ export const SOCIALS: Social[] = [
   new Social("https://gondola.finance", gondolaLogo, gondolaLogoDark),
   new Social("https://t.me/gondola_finance", telegram),
   new Social("https://twitter.com/gondola_finance", twitter),
-  new Social("https://discord.com/invite/dED47GAe", discord),
+  new Social("https://discord.gg/u7dHynaqVz", discord),
   new Social("https://github.com/gondola-finance", github, githubDark),
   new Social("https://gondola-finance.medium.com/", medium),
   new Social("https://gondola-finance.gitbook.io/gondola-finance/", gitbook),
