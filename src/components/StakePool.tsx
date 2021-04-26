@@ -81,15 +81,16 @@ const StakePool = (props: Props): ReactElement => {
   return (
     <div className="stakingPool">
       <h3>Staking {poolName}</h3>
-      {exceedsStakable ? (
+      {/** @todo add warning message */}
+      {/* {exceedsStakable ? (
         <div className="error">Amount exceeds stakable {POOL_LPTOKEN.name}</div>
-      ) : null}
+      ) : null} */}
       <div className="info">
         <span style={{ fontWeight: "bold" }}>
           Staked {POOL_LPTOKEN.symbol}: &nbsp;
         </span>
         <span className="value">
-          {formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 4)}
+          {formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 10)}
         </span>
       </div>
       <div className="info">
@@ -97,11 +98,23 @@ const StakePool = (props: Props): ReactElement => {
           Stakable {POOL_LPTOKEN.symbol}: &nbsp;
         </span>
         <span className="value">
-          {formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 4)}
+          {formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 10)}
         </span>
       </div>
       <TokenInput
         {...amountInput}
+        max={formatBNToString(
+          poolLpTokenBalance || Zero,
+          POOL_LPTOKEN.decimals,
+          10,
+        )}
+        max2={formatBNToString(
+          stakedTokenBalance || Zero,
+          POOL_LPTOKEN.decimals,
+          10,
+        )}
+        maxButton1Name="stake max"
+        maxButton2Name="withdraw max"
         onChange={(value): void => updateFormAmountValue(value)}
       />
       <Center width="100%" pt={3} pb={6}>

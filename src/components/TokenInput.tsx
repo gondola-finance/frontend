@@ -11,6 +11,9 @@ interface Props {
   symbol: string
   icon: string
   max?: string
+  max2?: string
+  maxButton1Name?: string
+  maxButton2Name?: string
   inputValue: string
   onChange: (value: string) => void
   disabled?: boolean
@@ -20,6 +23,9 @@ function TokenInput({
   symbol,
   icon,
   max,
+  max2,
+  maxButton1Name,
+  maxButton2Name,
   inputValue,
   onChange,
   disabled,
@@ -28,6 +34,10 @@ function TokenInput({
   function onClickMax(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault()
     onChange(String(max))
+  }
+  function onClickMax2(e: React.MouseEvent<HTMLButtonElement>): void {
+    e.preventDefault()
+    onChange(String(max2))
   }
   function onChangeInput(e: React.ChangeEvent<HTMLInputElement>): void {
     const { decimals } = TOKENS_MAP[symbol]
@@ -63,8 +73,20 @@ function TokenInput({
           kind="ternary"
           disabled={disabled}
         >
-          {t("max")}
+          {maxButton1Name || t("max")}
         </Button>
+      )}
+      {max2 != null && (
+        <div style={{ marginLeft: 10 }}>
+          <Button
+            onClick={onClickMax2}
+            size="small"
+            kind="ternary"
+            disabled={disabled}
+          >
+            {maxButton2Name || t("max")}
+          </Button>
+        </div>
       )}
     </div>
   )
