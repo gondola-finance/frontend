@@ -1,7 +1,10 @@
+import discord from "../assets/icons/social/discord.svg"
+import gitbook from "../assets/icons/social/gitbook.png"
 import github from "../assets/icons/social/github.png"
 import githubDark from "../assets/icons/social/github_darkmode.png"
 import gondolaLogo from "../assets/icons/brand_logo.png"
 import gondolaLogoDark from "../assets/icons/brand_logo_darkmode.png"
+import medium from "../assets/icons/social/medium.svg"
 import telegram from "../assets/icons/social/telegram.png"
 import twitter from "../assets/icons/social/twitter.png"
 
@@ -18,7 +21,10 @@ export class Social {
 }
 export const SOCIALS: Social[] = [
   new Social("https://gondola.finance", gondolaLogo, gondolaLogoDark),
-  new Social("https://telegram.com", telegram),
-  new Social("https://twitter.com/GondolaFinance", twitter),
+  new Social("https://t.me/gondola_finance", telegram),
+  new Social("https://twitter.com/gondola_finance", twitter),
+  new Social("https://discord.com/invite/dED47GAe", discord),
   new Social("https://github.com/gondola-finance", github, githubDark),
+  new Social("https://gondola-finance.medium.com/", medium),
+  new Social("https://gondola-finance.gitbook.io/gondola-finance/", gitbook),
 ]

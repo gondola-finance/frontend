@@ -9,6 +9,12 @@ import {
   STABLECOIN_SWAP_TOKEN,
   Token,
   USDT,
+  ZDAI_DAI_POOL_NAME,
+  ZDAI_DAI_SWAP_CONTRACT_ADDRESSES,
+  ZETH_ETH_POOL_NAME,
+  ZETH_ETH_SWAP_CONTRACT_ADDRESSES,
+  ZUSDT_USDT_POOL_NAME,
+  ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES,
 } from "../constants"
 import { useMemo, useState } from "react"
 
@@ -62,8 +68,28 @@ export function useTokenContract(
 export function useSwapContract(poolName: PoolName): Swap | null {
   const withSignerIfPossible = true
   const { chainId } = useActiveWeb3React()
+
+  /** @todo remove */
   const stablecoinSwapContract = useContract(
     chainId ? STABLECOIN_SWAP_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
+
+  const zdaiDaiSwapContract = useContract(
+    chainId ? ZDAI_DAI_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
+
+  const zusdtUsdtSwapContract = useContract(
+    chainId ? ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
+
+  const zethEthSwapContract = useContract(
+    chainId ? ZETH_ETH_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
     SWAP_ABI,
     withSignerIfPossible,
   )
@@ -71,9 +97,21 @@ export function useSwapContract(poolName: PoolName): Swap | null {
   return useMemo(() => {
     if (poolName === STABLECOIN_POOL_NAME) {
       return stablecoinSwapContract as Swap
+    } else if (poolName === ZDAI_DAI_POOL_NAME) {
+      return zdaiDaiSwapContract as Swap
+    } else if (poolName === ZETH_ETH_POOL_NAME) {
+      return zethEthSwapContract as Swap
+    } else if (poolName === ZUSDT_USDT_POOL_NAME) {
+      return zusdtUsdtSwapContract as Swap
     }
     return null
-  }, [stablecoinSwapContract, poolName])
+  }, [
+    stablecoinSwapContract,
+    zdaiDaiSwapContract,
+    zethEthSwapContract,
+    zusdtUsdtSwapContract,
+    poolName,
+  ])
 }
 
 export function useLPTokenContract(poolName: PoolName): LpToken | null {
@@ -89,6 +127,7 @@ interface AllContractsObject {
   [x: string]: Swap | Erc20 | null
 }
 export function useAllContracts(): AllContractsObject | null {
+  /** @todo add contracts for eth, ... */
   const daiContract = useTokenContract(DAI) as Erc20
   const usdtContract = useTokenContract(USDT) as Erc20
   const stablecoinSwapTokenContract = useTokenContract(
