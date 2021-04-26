@@ -137,21 +137,21 @@ export const ZUSDT = new Token(
 export const ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.AVALANCHE]: "0x753E5e78e3B16DE7F3C415D2bF685808348831a9",
+  [ChainId.AVALANCHE]: "0x3CE2B891071054ee10d4b5eD5a9446f9016F90d8",
   [ChainId.FUJI]: "",
 }
 
 export const ZDAI_DAI_SWAP_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.AVALANCHE]: "0xB8d5E2cB8BB971a7FB6EF0C708F91956117415af",
+  [ChainId.AVALANCHE]: "0x9D43f28C5Fce24D0c8B653E5c5859E0421Af7783",
   [ChainId.FUJI]: "",
 }
 
 export const ZETH_ETH_SWAP_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.AVALANCHE]: "0x62824F7f7367474Ce769060d7865632225eD5Ff5",
+  [ChainId.AVALANCHE]: "0xed986f982269e0319F710EC270875dE2b2A443d2",
   [ChainId.FUJI]: "",
 }
 
@@ -159,7 +159,7 @@ export const ZETH_ETH_SWAP_CONTRACT_ADDRESSES: {
 
 export const ZUSDT_USDT_SWAP_TOKEN = new Token(
   {
-    [ChainId.AVALANCHE]: "0x722763260a6AfF803CA21f07781FA1D3E16a14CC",
+    [ChainId.AVALANCHE]: "0xE586dB7Db75B87A3E84110a73b99960F5f106c6A",
     [ChainId.FUJI]: "",
   },
   18,
@@ -171,7 +171,7 @@ export const ZUSDT_USDT_SWAP_TOKEN = new Token(
 
 export const ZDAI_DAI_SWAP_TOKEN = new Token(
   {
-    [ChainId.AVALANCHE]: "0xF122BcDb02F20278F74dcBBbc094a81BDB885E21",
+    [ChainId.AVALANCHE]: "0x2036C0EB5C42eF7f1ca06dF57D07F79eb3a2e0C8",
     [ChainId.FUJI]: "",
   },
   18,
@@ -183,7 +183,7 @@ export const ZDAI_DAI_SWAP_TOKEN = new Token(
 
 export const ZETH_ETH_SWAP_TOKEN = new Token(
   {
-    [ChainId.AVALANCHE]: "0xBE651acA2C322587bC6012A3231f088748b406F3",
+    [ChainId.AVALANCHE]: "0xc37ECFA7Bbf1dF92Da7C4A3d92d8CF8657D1FF7f",
     [ChainId.FUJI]: "",
   },
   18,
@@ -219,13 +219,13 @@ export const GDL_POOL_NAME = "GDL Pool"
 export const GDL_POOL_ID = 2
 
 export const ZDAI_DAI_POOL_NAME = "zDAI-DAI Pool"
-export const ZDAI_DAI_POOL_ID = 5
+export const ZDAI_DAI_POOL_ID = 9
 
 export const ZUSDT_USDT_POOL_NAME = "zUSDT-USDT Pool"
-export const ZUSDT_USDT_POOL_ID = 4
+export const ZUSDT_USDT_POOL_ID = 8
 
 export const ZETH_ETH_POOL_NAME = "zETH-ETH Pool"
-export const ZETH_ETH_POOL_ID = 3
+export const ZETH_ETH_POOL_ID = 7
 
 export const AVAX_GDL_POOL_NAME = "AVAX-GDL Pool"
 export const AVAX_GDL_POOL_ID = 6
