@@ -6,6 +6,7 @@ import usdtLogo from "../assets/icons/usdt.svg"
 
 export const NetworkContextName = "NETWORK"
 
+export const GAS_PRICE_DEFAULT = true // use default gas price from metamask. if false, use GAS_PRICE_BIGNUMBER
 export const GAS_PRICE = 470 // in nAVAX
 export const GAS_PRICE_BIGNUMBER = BigNumber.from(GAS_PRICE).mul(
   BigNumber.from(10).pow(9),
