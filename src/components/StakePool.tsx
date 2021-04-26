@@ -126,7 +126,11 @@ const StakePool = (props: Props): ReactElement => {
           onClick={(): void => {
             void handleStake()
           }}
-          disabled={exceedsStakable || Number(amountInput.inputValue) === 0}
+          disabled={
+            exceedsStakable ||
+            isNaN(Number(amountInput.inputValue)) ||
+            Number(amountInput.inputValue) <= 0
+          }
         >
           {t("Stake")}
         </Button>
@@ -137,7 +141,11 @@ const StakePool = (props: Props): ReactElement => {
           onClick={(): void => {
             void handleWithdraw()
           }}
-          disabled={exceedsWithdrawable || Number(amountInput.inputValue) === 0}
+          disabled={
+            exceedsWithdrawable ||
+            isNaN(Number(amountInput.inputValue)) ||
+            Number(amountInput.inputValue) <= 0
+          }
         >
           {t("Withdraw")}
         </Button>
