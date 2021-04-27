@@ -213,7 +213,7 @@ export default function usePoolData(
       const totalLpTokenBalanceUSDJs = lpTokenPriceUSDJs * totalLpTokenBalanceJs
 
       const gdlPriceUSDJs =
-        gdlPriceUSD.div(BigNumber.from(10).pow(15)).toNumber() / 1000
+        gdlPriceUSD.div(BigNumber.from(10).pow(10)).toNumber() / 100000000
 
       const poolGDLPerDayJs =
         poolGDLPerDay.div(BigNumber.from(10).pow(15)).toNumber() / 1000
@@ -224,6 +224,18 @@ export default function usePoolData(
         (totalStakedLpAmountUSDJs || totalLpTokenBalanceUSDJs)
 
       const apy = (1 + dailyRate) ** 365
+
+      console.debug({
+        dailyRate,
+        apy,
+        poolName,
+        poolGDLPerDayJs,
+        gdlPriceUSDJs,
+        totalLpTokenBalanceUSDJs,
+        lpTokenPriceUSDJs,
+        totalLpTokenBalanceJs,
+        gdlPriceUSD,
+      })
 
       const poolTokens = POOL.poolTokens.map((token, i) => ({
         symbol: token.symbol,

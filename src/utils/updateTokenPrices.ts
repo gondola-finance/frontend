@@ -1,4 +1,5 @@
 import {
+  GDL_TOKEN,
   ZDAI_DAI_POOL_TOKENS,
   ZETH_ETH_POOL_TOKENS,
   ZUSDT_USDT_POOL_TOKENS,
@@ -40,7 +41,7 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
               ETH: body?.ethereum?.usd,
               BTC: body?.bitcoin?.usd,
               KEEP: body?.["keep-network"].usd,
-              GDL: 10.4 /** @todo retrieve from api */,
+              [GDL_TOKEN.symbol]: 0.0009 /** @todo retrieve from api */,
             },
           )
           dispatch(updateTokensPricesUSD(result))

@@ -59,7 +59,6 @@ const StakePool = (props: Props): ReactElement => {
   }
 
   async function handleStake(): Promise<void> {
-    console.log("staking")
     const stakeAmountBN = BigNumber.from(
       formAmountState[POOL_LPTOKEN.symbol].valueSafe,
     )
@@ -67,7 +66,6 @@ const StakePool = (props: Props): ReactElement => {
   }
 
   async function handleWithdraw(): Promise<void> {
-    console.log("withdrawing")
     const withdrawAmountBN = BigNumber.from(
       formAmountState[POOL_LPTOKEN.symbol].valueSafe,
     )
