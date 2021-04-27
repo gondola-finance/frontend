@@ -6,7 +6,6 @@ import {
   TRANSACTION_TYPES,
 } from "../constants"
 import { One, Zero } from "@ethersproject/constants"
-import { formatBNToPercentString, formatBNToString } from "../utils"
 import { useEffect, useState } from "react"
 
 import {
@@ -17,6 +16,7 @@ import {
 import { AddressZero } from "@ethersproject/constants"
 import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
+import { formatBNToPercentString } from "../utils"
 import { parseUnits } from "@ethersproject/units"
 import { useActiveWeb3React } from "."
 import { useSelector } from "react-redux"
@@ -141,7 +141,6 @@ export default function usePoolData(
       // for stake page: non-swap pool stake GDL
       if (!POOL.isSwapPool) {
         lpTokenPriceUSD = gdlPriceUSD
-        console.log(formatBNToString(lpTokenPriceUSD, 18, 5))
       }
 
       // (weeksPerYear * KEEPPerWeek * KEEPPrice) / (BTCPrice * BTCInPool)
@@ -264,7 +263,7 @@ export default function usePoolData(
         swapFee: swapFee,
         volume: "XXX", // TODO
         utilization: "XXX", // TODO
-        apy: String(apy) + "%",
+        apy: String(apy),
         keepApr,
         lpTokenPriceUSD,
       }

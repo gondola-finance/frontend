@@ -87,7 +87,10 @@ const StakePool = (props: Props): ReactElement => {
       {/* {exceedsStakable ? (
         <div className="error">Amount exceeds stakable {POOL_LPTOKEN.name}</div>
       ) : null} */}
-      <div>api: {poolData?.apy}</div>
+      <div className="info">
+        <span style={{ fontWeight: "bold" }}>Pool APY(%): &nbsp;</span>
+        <span className="value">{poolData?.apy}</span>
+      </div>
       <div className="info">
         <span style={{ fontWeight: "bold" }}>
           Staked {POOL_LPTOKEN.symbol}: &nbsp;
