@@ -202,7 +202,7 @@ export default function usePoolData(
         (await lpTokenContract?.balanceOf(masterAddress)) || Zero
 
       const lpTokenPriceUSDJs =
-        lpTokenPriceUSD.div(BigNumber.from(10).pow(15)).toNumber() / 1000
+        lpTokenPriceUSD.div(BigNumber.from(10).pow(10)).toNumber() / 100000000
 
       const totalStakedLpAmountJs =
         totalStakedLpAmount.div(BigNumber.from(10).pow(15)).toNumber() / 1000
@@ -234,7 +234,6 @@ export default function usePoolData(
         totalLpTokenBalanceUSDJs,
         lpTokenPriceUSDJs,
         totalLpTokenBalanceJs,
-        gdlPriceUSD,
       })
 
       const poolTokens = POOL.poolTokens.map((token, i) => ({
