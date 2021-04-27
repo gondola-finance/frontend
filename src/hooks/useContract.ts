@@ -120,14 +120,6 @@ export function useLPTokenContract(poolName: PoolName): LpToken | null {
     chainId ? poolLp.addresses[chainId] : undefined,
     LPTOKEN_ABI,
   ) as LpToken
-
-  /** alternative way to get lp contract */
-  // const swapContract = useSwapContract(poolName)
-  // const [lpTokenAddress, setLPTokenAddress] = useState("")
-  // void swapContract
-  //   ?.swapStorage()
-  //   .then(({ lpToken }: { lpToken: string }) => setLPTokenAddress(lpToken))
-  // return useContract(lpTokenAddress, LPTOKEN_ABI) as LpToken
 }
 
 interface AllContractsObject {
@@ -194,13 +186,16 @@ export function useMasterChefContract(
   ) as Masterchef
 }
 
-export function useGondolaContract(withSignerIfPossible = true): Erc20 | null {
+/** @todo consider return as LpToken type instead of Erc20 */
+export function useGondolaContract(
+  withSignerIfPossible = true,
+): LpToken | null {
   const { chainId } = useActiveWeb3React()
   return useContract(
     chainId && GONDOLA_ADDRESS[chainId],
     GONDOLA_ABI,
     withSignerIfPossible,
-  ) as Erc20
+  ) as LpToken
 }
 
 export function usePangolinLpContract(

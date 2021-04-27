@@ -5,11 +5,7 @@ import {
   PoolName,
   TRANSACTION_TYPES,
 } from "../constants"
-import {
-  useGondolaContract,
-  useLPTokenContract,
-  useMasterChefContract,
-} from "./useContract"
+import { useLPTokenContract, useMasterChefContract } from "./useContract"
 
 import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
@@ -32,10 +28,7 @@ export function useApproveAndStake(
 
   const dispatch = useDispatch()
   const masterChefContract = useMasterChefContract()
-  const swapLpTokenContract = useLPTokenContract(poolName)
-  const gdlContract = useGondolaContract()
-
-  const lpTokenContract = POOL.isSwapPool ? swapLpTokenContract : gdlContract
+  const lpTokenContract = useLPTokenContract(poolName)
 
   const { account } = useActiveWeb3React()
   const { addToast, clearToasts } = useToast()
