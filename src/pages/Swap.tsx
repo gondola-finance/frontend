@@ -31,7 +31,7 @@ interface Props {
 }
 function Swap({ poolName }: Props): ReactElement {
   const { t } = useTranslation()
-  const [poolData] = usePoolData(poolName)
+  const [poolData] = usePoolData(poolName, false)
   const approveAndSwap = useApproveAndSwap(poolName)
   const tokenBalances = usePoolTokenBalances()
   const swapContract = useSwapContract(poolName)
