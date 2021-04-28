@@ -1,25 +1,22 @@
 import {
-  GDL_POOL_NAME,
   GDL_TOKEN,
-  PANGOLIN_AVAX_GDL_POOL_NAME,
+  MASTERCHEF_ADDRESS,
   POOLS_MAP,
   PoolName,
   TRANSACTION_TYPES,
 } from "../constants"
-import { formatBNToPercentString, getContract } from "../utils"
+import { One, Zero } from "@ethersproject/constants"
 import { useEffect, useState } from "react"
 
 import {
-  useGondolaContract,
-  usePangolinLpContract,
+  useLPTokenContract,
+  useMasterChefContract,
   useSwapContract,
 } from "./useContract"
 import { AddressZero } from "@ethersproject/constants"
 import { AppState } from "../state"
 import { BigNumber } from "@ethersproject/bignumber"
-import LPTOKEN_ABI from "../constants/abis/lpToken.json"
-import { LpToken } from "../../types/ethers-contracts/LpToken"
-import { Zero } from "@ethersproject/constants"
+import { formatBNToPercentString } from "../utils"
 import { parseUnits } from "@ethersproject/units"
 import { useActiveWeb3React } from "."
 import { useSelector } from "react-redux"
@@ -61,14 +58,16 @@ export type PoolDataHookReturnType = [PoolDataType | null, UserShareType | null]
 export default function usePoolData(
   poolName: PoolName,
 ): PoolDataHookReturnType {
-  const { account, library } = useActiveWeb3React()
+  const { account, library, chainId } = useActiveWeb3React()
   const swapContract = useSwapContract(poolName)
   const [poolData, setPoolData] = useState<PoolDataHookReturnType>([null, null])
   const { tokenPricesUSD, lastTransactionTimes } = useSelector(
     (state: AppState) => state.application,
   )
-  const gondolaContract = useGondolaContract()
-  const pangolinLpContract = usePangolinLpContract()
+
+  const POOL = POOLS_MAP[poolName]
+  const masterChefContract = useMasterChefContract()
+  const lpTokenContract = useLPTokenContract(poolName)
 
   const lastDepositTime = lastTransactionTimes[TRANSACTION_TYPES.DEPOSIT]
   const lastWithdrawTime = lastTransactionTimes[TRANSACTION_TYPES.WITHDRAW]
@@ -84,7 +83,6 @@ export default function usePoolData(
         account == null
       )
         return
-      const POOL = POOLS_MAP[poolName]
       // Swap fees, price, and LP Token data
       const [userCurrentWithdrawFee, swapStorage] = await Promise.all([
         swapContract?.calculateCurrentWithdrawFee(account || AddressZero) ||
@@ -92,40 +90,15 @@ export default function usePoolData(
         swapContract?.swapStorage(),
       ])
 
-      const { adminFee, lpToken: lpTokenAddress, swapFee } = swapStorage || {
+      const { adminFee, swapFee } = swapStorage || {
         adminFee: Zero,
-        lpToken: "",
         swapFee: Zero,
       }
 
-      const lpTokenContract =
-        poolName === GDL_POOL_NAME
-          ? gondolaContract ||
-            (getContract(
-              lpTokenAddress,
-              LPTOKEN_ABI,
-              library,
-              account ?? undefined,
-            ) as LpToken)
-          : poolName === PANGOLIN_AVAX_GDL_POOL_NAME
-          ? pangolinLpContract ||
-            (getContract(
-              lpTokenAddress,
-              LPTOKEN_ABI,
-              library,
-              account ?? undefined,
-            ) as LpToken)
-          : (getContract(
-              lpTokenAddress,
-              LPTOKEN_ABI,
-              library,
-              account ?? undefined,
-            ) as LpToken)
+      const userLpTokenBalance =
+        (await lpTokenContract?.balanceOf(account || AddressZero)) || Zero
+      const totalLpTokenBalance = (await lpTokenContract?.totalSupply()) || Zero
 
-      const [userLpTokenBalance, totalLpTokenBalance] = await Promise.all([
-        lpTokenContract.balanceOf(account || AddressZero),
-        lpTokenContract.totalSupply(),
-      ])
       const virtualPrice = totalLpTokenBalance.isZero()
         ? BigNumber.from(10).pow(18)
         : (await swapContract?.getVirtualPrice()) || Zero
@@ -154,11 +127,21 @@ export default function usePoolData(
         (sum, b) => sum.add(b),
         Zero,
       )
-      const lpTokenPriceUSD = tokenBalancesSum.isZero()
+      let lpTokenPriceUSD = tokenBalancesSum.isZero()
         ? Zero
         : tokenBalancesUSDSum
             .mul(BigNumber.from(10).pow(18))
             .div(tokenBalancesSum)
+
+      const gdlPriceUSD = BigNumber.from(
+        // BigNumber.from needs integer
+        Math.ceil(Number(tokenPricesUSD[GDL_TOKEN.symbol]) * 10000),
+      ).mul(BigNumber.from(10).pow(GDL_TOKEN.decimals - 4))
+
+      // for stake page: non-swap pool stake GDL
+      if (!POOL.isSwapPool) {
+        lpTokenPriceUSD = gdlPriceUSD
+      }
 
       // (weeksPerYear * KEEPPerWeek * KEEPPrice) / (BTCPrice * BTCInPool)
       const comparisonPoolToken = POOL.poolTokens[0] || GDL_TOKEN
@@ -203,6 +186,56 @@ export default function usePoolData(
         Zero,
       )
 
+      // calculate apy
+      const totalAllocPoint =
+        (await masterChefContract?.totalAllocPoint()) || One
+      const poolAllocPoint =
+        (await masterChefContract?.poolInfo(POOL.poolId))?.allocPoint || Zero
+      const gondolaPerSec = await (masterChefContract?.gondolaPerSec() || Zero)
+      const poolGDLPerSec = gondolaPerSec
+        .mul(poolAllocPoint)
+        .div(totalAllocPoint)
+      const poolGDLPerDay = poolGDLPerSec.mul(86400)
+
+      const masterAddress = chainId ? MASTERCHEF_ADDRESS[chainId] : AddressZero
+      const totalStakedLpAmount =
+        (await lpTokenContract?.balanceOf(masterAddress)) || Zero
+
+      const lpTokenPriceUSDJs =
+        lpTokenPriceUSD.div(BigNumber.from(10).pow(10)).toNumber() / 100000000
+
+      const totalStakedLpAmountJs =
+        totalStakedLpAmount.div(BigNumber.from(10).pow(15)).toNumber() / 1000
+      const totalStakedLpAmountUSDJs = totalStakedLpAmountJs * lpTokenPriceUSDJs
+
+      const totalLpTokenBalanceJs =
+        totalLpTokenBalance.div(BigNumber.from(10).pow(15)).toNumber() / 1000
+      const totalLpTokenBalanceUSDJs = lpTokenPriceUSDJs * totalLpTokenBalanceJs
+
+      const gdlPriceUSDJs =
+        gdlPriceUSD.div(BigNumber.from(10).pow(10)).toNumber() / 100000000
+
+      const poolGDLPerDayJs =
+        poolGDLPerDay.div(BigNumber.from(10).pow(15)).toNumber() / 1000
+
+      // denominator is totalStakedLpAmountUSDJs. unless its zero then use totalLpTokenBalanceUSDJs
+      const dailyRate =
+        (poolGDLPerDayJs * gdlPriceUSDJs) /
+        (totalStakedLpAmountUSDJs || totalLpTokenBalanceUSDJs)
+
+      const apy = (1 + dailyRate) ** 365
+
+      console.debug({
+        dailyRate,
+        apy,
+        poolName,
+        poolGDLPerDayJs,
+        gdlPriceUSDJs,
+        totalLpTokenBalanceUSDJs,
+        lpTokenPriceUSDJs,
+        totalLpTokenBalanceJs,
+      })
+
       const poolTokens = POOL.poolTokens.map((token, i) => ({
         symbol: token.symbol,
         percent: formatBNToPercentString(
@@ -241,7 +274,7 @@ export default function usePoolData(
         swapFee: swapFee,
         volume: "XXX", // TODO
         utilization: "XXX", // TODO
-        apy: "XXX", // TODO
+        apy: String(apy),
         keepApr,
         lpTokenPriceUSD,
       }
@@ -262,12 +295,14 @@ export default function usePoolData(
     }
     void getSwapData()
   }, [
-    gondolaContract,
-    pangolinLpContract,
+    chainId,
+    lpTokenContract,
+    masterChefContract,
     lastDepositTime,
     lastWithdrawTime,
     lastSwapTime,
     poolName,
+    POOL,
     swapContract,
     tokenPricesUSD,
     account,

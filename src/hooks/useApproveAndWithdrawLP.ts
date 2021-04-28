@@ -5,11 +5,7 @@ import {
   PoolName,
   TRANSACTION_TYPES,
 } from "../constants"
-import {
-  useGondolaContract,
-  useLPTokenContract,
-  useMasterChefContract,
-} from "./useContract"
+import { useLPTokenContract, useMasterChefContract } from "./useContract"
 
 import { BigNumber } from "@ethersproject/bignumber"
 import { getFormattedTimeString } from "../utils/dateTime"
@@ -29,10 +25,7 @@ export function useApproveAndWithdrawLP(
 
   const dispatch = useDispatch()
   const masterChefContract = useMasterChefContract()
-  const swapLpTokenContract = useLPTokenContract(poolName)
-  const gdlContract = useGondolaContract()
-
-  const lpTokenContract = POOL.isSwapPool ? swapLpTokenContract : gdlContract
+  const lpTokenContract = useLPTokenContract(poolName)
 
   const { account } = useActiveWeb3React()
   const { addToast, clearToasts } = useToast()

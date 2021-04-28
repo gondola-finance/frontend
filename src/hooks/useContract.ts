@@ -4,6 +4,7 @@ import {
   GONDOLA_ADDRESS,
   MASTERCHEF_ADDRESS,
   MULTICALL_NETWORKS,
+  POOLS_MAP,
   PoolName,
   Token,
   USDT,
@@ -20,7 +21,7 @@ import {
   ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES,
   ZUSDT_USDT_SWAP_TOKEN,
 } from "../constants"
-import { useMemo, useState } from "react"
+// import { useMemo, useState } from "react"
 
 import { Contract } from "@ethersproject/contracts"
 import ERC20_ABI from "../constants/abis/erc20.json"
@@ -36,6 +37,7 @@ import SWAP_ABI from "../constants/abis/swap.json"
 import { Swap } from "../../types/ethers-contracts/Swap"
 import { getContract } from "../utils"
 import { useActiveWeb3React } from "./index"
+import { useMemo } from "react"
 
 // returns null on errors
 function useContract(
@@ -110,12 +112,14 @@ export function useSwapContract(poolName: PoolName): Swap | null {
 }
 
 export function useLPTokenContract(poolName: PoolName): LpToken | null {
-  const swapContract = useSwapContract(poolName)
-  const [lpTokenAddress, setLPTokenAddress] = useState("")
-  void swapContract
-    ?.swapStorage()
-    .then(({ lpToken }: { lpToken: string }) => setLPTokenAddress(lpToken))
-  return useContract(lpTokenAddress, LPTOKEN_ABI) as LpToken
+  const { chainId } = useActiveWeb3React()
+
+  const pool = POOLS_MAP[poolName]
+  const poolLp = pool.lpToken
+  return useContract(
+    chainId ? poolLp.addresses[chainId] : undefined,
+    LPTOKEN_ABI,
+  ) as LpToken
 }
 
 interface AllContractsObject {
@@ -182,13 +186,16 @@ export function useMasterChefContract(
   ) as Masterchef
 }
 
-export function useGondolaContract(withSignerIfPossible = true): Erc20 | null {
+/** @todo consider return as LpToken type instead of Erc20 */
+export function useGondolaContract(
+  withSignerIfPossible = true,
+): LpToken | null {
   const { chainId } = useActiveWeb3React()
   return useContract(
     chainId && GONDOLA_ADDRESS[chainId],
     GONDOLA_ABI,
     withSignerIfPossible,
-  ) as Erc20
+  ) as LpToken
 }
 
 export function usePangolinLpContract(

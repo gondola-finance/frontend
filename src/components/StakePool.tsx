@@ -26,7 +26,7 @@ const StakePool = (props: Props): ReactElement => {
   const POOL = POOLS_MAP[poolName]
   const POOL_LPTOKEN = POOL.lpToken
 
-  const userShareData = usePoolData(poolName)[1]
+  const [poolData, userShareData] = usePoolData(poolName)
 
   // stakable pool lp token balance = max depositable
   const poolLpTokenBalance = userShareData?.lpTokenBalance || Zero
@@ -59,7 +59,6 @@ const StakePool = (props: Props): ReactElement => {
   }
 
   async function handleStake(): Promise<void> {
-    console.log("staking")
     const stakeAmountBN = BigNumber.from(
       formAmountState[POOL_LPTOKEN.symbol].valueSafe,
     )
@@ -67,7 +66,6 @@ const StakePool = (props: Props): ReactElement => {
   }
 
   async function handleWithdraw(): Promise<void> {
-    console.log("withdrawing")
     const withdrawAmountBN = BigNumber.from(
       formAmountState[POOL_LPTOKEN.symbol].valueSafe,
     )
@@ -78,6 +76,8 @@ const StakePool = (props: Props): ReactElement => {
     await approveAndWithdrawLP({ lpTokenAmountToWithdraw: Zero })
   }
 
+  const hasZeroUnclaimed = gdlUnclaimed.isZero()
+
   return (
     <div className="stakingPool">
       <h3>Staking {poolName}</h3>
@@ -85,6 +85,10 @@ const StakePool = (props: Props): ReactElement => {
       {/* {exceedsStakable ? (
         <div className="error">Amount exceeds stakable {POOL_LPTOKEN.name}</div>
       ) : null} */}
+      <div className="info">
+        <span style={{ fontWeight: "bold" }}>Pool APY(%): &nbsp;</span>
+        <span className="value">{poolData?.apy}</span>
+      </div>
       <div className="info">
         <span style={{ fontWeight: "bold" }}>
           Staked {POOL_LPTOKEN.symbol}: &nbsp;
@@ -160,11 +164,14 @@ const StakePool = (props: Props): ReactElement => {
           variant="primary"
           size="lg"
           width="240px"
-          style={{ marginLeft: 100 }}
+          style={{
+            marginLeft: 100,
+            display: hasZeroUnclaimed ? "none" : "",
+          }}
           onClick={(): void => {
             void handleClaimGDL()
           }}
-          disabled={formatBNToString(gdlUnclaimed, 18, 4) === "0.0"}
+          disabled={hasZeroUnclaimed}
         >
           {t("Claim")}
         </Button>
