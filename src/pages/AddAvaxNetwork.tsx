@@ -41,7 +41,11 @@ function AddAvaxNetwork(): ReactElement {
       <div className="content">
         <Center width="100%" py={6}>
           <div>
-            To use Gondola Dapp, please connect to the Avalanche network.
+            To use Gondola Dapp, please have{" "}
+            <a href="https://metamask.io/" target="__blank">
+              metamask
+            </a>{" "}
+            installed and connect to the Avalanche network.
           </div>
         </Center>
 

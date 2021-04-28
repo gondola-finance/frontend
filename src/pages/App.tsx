@@ -39,10 +39,6 @@ export default function App(): ReactElement {
   const { chainId } = useActiveWeb3React()
 
   let page
-
-  if (!chainId) {
-    console.log("not connected. please install metamask :(")
-  }
   if (chainId && chainId !== ChainId["AVALANCHE"]) {
     // wrong network
     page = <AddAvaxNetwork />
