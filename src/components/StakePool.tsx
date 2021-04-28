@@ -26,7 +26,7 @@ const StakePool = (props: Props): ReactElement => {
   const POOL = POOLS_MAP[poolName]
   const POOL_LPTOKEN = POOL.lpToken
 
-  const [poolData, userShareData] = usePoolData(poolName)
+  const [poolData, userShareData] = usePoolData(poolName, false)
 
   // stakable pool lp token balance = max depositable
   const poolLpTokenBalance = userShareData?.lpTokenBalance || Zero

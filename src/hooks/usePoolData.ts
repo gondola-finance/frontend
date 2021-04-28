@@ -20,6 +20,7 @@ import { formatBNToPercentString } from "../utils"
 import { parseUnits } from "@ethersproject/units"
 import { useActiveWeb3React } from "."
 import { useSelector } from "react-redux"
+import { useStakedTokenBalance } from "../hooks/useStakedTokenBalance"
 
 interface TokenShareType {
   percent: string
@@ -55,8 +56,15 @@ export interface UserShareType {
 
 export type PoolDataHookReturnType = [PoolDataType | null, UserShareType | null]
 
+/**
+ * return pool Data
+ * @param poolName pool name
+ * @param countStakedLp whether stakedLP should be counted toward user lp. useful for displaying user share.
+ * @returns {Array} [PoolDataType, UserShareType]
+ */
 export default function usePoolData(
   poolName: PoolName,
+  countStakedLp: boolean,
 ): PoolDataHookReturnType {
   const { account, library, chainId } = useActiveWeb3React()
   const swapContract = useSwapContract(poolName)
@@ -68,6 +76,8 @@ export default function usePoolData(
   const POOL = POOLS_MAP[poolName]
   const masterChefContract = useMasterChefContract()
   const lpTokenContract = useLPTokenContract(poolName)
+  // For swap pool, staked Lp token also count towards userLpTokenBalance
+  const stakedTokenBalance = useStakedTokenBalance(POOL.poolId)
 
   const lastDepositTime = lastTransactionTimes[TRANSACTION_TYPES.DEPOSIT]
   const lastWithdrawTime = lastTransactionTimes[TRANSACTION_TYPES.WITHDRAW]
@@ -95,8 +105,13 @@ export default function usePoolData(
         swapFee: Zero,
       }
 
-      const userLpTokenBalance =
+      let userLpTokenBalance =
         (await lpTokenContract?.balanceOf(account || AddressZero)) || Zero
+      /** For swap pool, staked Lp token also count towards userLpTokenBalance */
+      if (countStakedLp) {
+        userLpTokenBalance = userLpTokenBalance.add(stakedTokenBalance)
+      }
+
       const totalLpTokenBalance = (await lpTokenContract?.totalSupply()) || Zero
 
       const virtualPrice = totalLpTokenBalance.isZero()
@@ -307,6 +322,8 @@ export default function usePoolData(
     tokenPricesUSD,
     account,
     library,
+    stakedTokenBalance,
+    countStakedLp,
   ])
 
   return poolData

@@ -26,7 +26,7 @@ function Deposit({ poolName }: Props): ReactElement | null {
   const POOL = POOLS_MAP[poolName]
   const { account } = useActiveWeb3React()
   const approveAndDeposit = useApproveAndDeposit(poolName)
-  const [poolData, userShareData] = usePoolData(poolName)
+  const [poolData, userShareData] = usePoolData(poolName, true)
   const swapContract = useSwapContract(poolName)
   const [tokenFormState, updateTokenFormState] = useTokenFormState(
     POOL.poolTokens,
