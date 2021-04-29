@@ -19,16 +19,33 @@ function MyShareCard({ data }: Props): ReactElement | null {
 
   const formattedData = {
     share: formatBNToPercentString(data.share, 18),
+    shareIncludeStaked: formatBNToPercentString(data.shareIncludeStaked, 18),
     usdBalance: commify(formatBNToString(data.usdBalance, 18, 2)),
-    value: commify(formatBNToString(data.value, 18, 6)),
+    usdBalanceIncludeStaked: commify(
+      formatBNToString(data.usdBalanceIncludeStaked, 18, 2),
+    ),
+    usdBalanceStaked: commify(
+      formatBNToString(
+        data.usdBalanceIncludeStaked.sub(data.usdBalance),
+        18,
+        2,
+      ),
+    ),
+    valueIncludeStaked: commify(
+      formatBNToString(data.valueIncludeStaked, 18, 6),
+    ),
     tokens: data.tokens.map((coin) => {
       const token = TOKENS_MAP[coin.symbol]
       return {
         symbol: token.symbol,
         name: token.name,
+        /** all LP tokens have 18 dp */
         value: commify(formatBNToString(coin.value, 18, 6)),
       }
     }),
+    stakedLPTokenBalance: commify(
+      formatBNToString(data.stakedLPTokenBalance, 18, 6),
+    ),
   }
 
   return (
@@ -37,16 +54,18 @@ function MyShareCard({ data }: Props): ReactElement | null {
       <div className="info">
         <div className="poolShare">
           <span>
-            {formattedData.share} {t("ofPool")}
+            {formattedData.shareIncludeStaked} {t("ofPool")}
           </span>
         </div>
         <div className="infoItem">
-          <span className="label bold">{`${t("usdBalance")}: `}</span>
-          <span className="value">{`$${formattedData.usdBalance}`}</span>
+          <span className="label bold">{`${t("totalAmount")}: `}</span>
+          <span className="value">{formattedData.valueIncludeStaked}</span>
+          <span className="value">{` ( = ${formattedData.usdBalanceIncludeStaked} USD)`}</span>
         </div>
         <div className="infoItem">
-          <span className="label bold">{`${t("totalAmount")}: `}</span>
-          <span className="value">{formattedData.value}</span>
+          <span className="label bold">{`${t("totalAmount")} staked:`}</span>
+          <span className="value">{formattedData.stakedLPTokenBalance}</span>
+          <span className="value">{` ( = $${formattedData.usdBalanceStaked} USD)`}</span>
         </div>
       </div>
       <div className="currency">
@@ -56,6 +75,10 @@ function MyShareCard({ data }: Props): ReactElement | null {
             <span>{coin.value}</span>
           </div>
         ))}
+        <div>
+          <span className="tokenName">Staked LP Token</span>
+          <span>{formattedData.stakedLPTokenBalance}</span>
+        </div>
       </div>
     </div>
   )

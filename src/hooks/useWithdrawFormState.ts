@@ -41,7 +41,7 @@ export default function useWithdrawFormState(
 ): [WithdrawFormState, (action: WithdrawFormAction) => void] {
   const POOL = POOLS_MAP[poolName]
   const swapContract = useSwapContract(poolName)
-  const [, userShareData] = usePoolData(poolName, false)
+  const [, userShareData] = usePoolData(poolName)
   const { account } = useActiveWeb3React()
   const tokenInputStateCreators: {
     [tokenSymbol: string]: ReturnType<typeof numberInputStateCreator>

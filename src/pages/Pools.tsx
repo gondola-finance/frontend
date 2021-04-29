@@ -18,9 +18,9 @@ function Pools({
 }: {
   action: "deposit" | "withdraw" | "swap"
 }): ReactElement | null {
-  const [daiPoolData] = usePoolData(ZDAI_DAI_POOL_NAME, false)
-  const [ethPoolData] = usePoolData(ZETH_ETH_POOL_NAME, false)
-  const [usdtPoolData] = usePoolData(ZUSDT_USDT_POOL_NAME, false)
+  const [daiPoolData] = usePoolData(ZDAI_DAI_POOL_NAME)
+  const [ethPoolData] = usePoolData(ZETH_ETH_POOL_NAME)
+  const [usdtPoolData] = usePoolData(ZUSDT_USDT_POOL_NAME)
   const { t } = useTranslation()
 
   return (

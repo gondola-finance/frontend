@@ -45,13 +45,18 @@ export interface PoolDataType {
 
 export interface UserShareType {
   avgBalance: BigNumber
+  avgBalanceIncludeStaked: BigNumber
   currentWithdrawFee: BigNumber
   lpTokenBalance: BigNumber
   name: string // TODO: does this need to be on user share?
   share: BigNumber
+  shareIncludeStaked: BigNumber
   tokens: TokenShareType[]
   usdBalance: BigNumber
+  usdBalanceIncludeStaked: BigNumber
   value: BigNumber
+  valueIncludeStaked: BigNumber
+  stakedLPTokenBalance: BigNumber
 }
 
 export type PoolDataHookReturnType = [PoolDataType | null, UserShareType | null]
@@ -64,7 +69,6 @@ export type PoolDataHookReturnType = [PoolDataType | null, UserShareType | null]
  */
 export default function usePoolData(
   poolName: PoolName,
-  countStakedLp: boolean,
 ): PoolDataHookReturnType {
   const { account, library, chainId } = useActiveWeb3React()
   const swapContract = useSwapContract(poolName)
@@ -105,12 +109,8 @@ export default function usePoolData(
         swapFee: Zero,
       }
 
-      let userLpTokenBalance =
+      const userLpTokenBalance =
         (await lpTokenContract?.balanceOf(account || AddressZero)) || Zero
-      /** For swap pool, staked Lp token also count towards userLpTokenBalance */
-      if (countStakedLp) {
-        userLpTokenBalance = userLpTokenBalance.add(stakedTokenBalance)
-      }
 
       const totalLpTokenBalance = (await lpTokenContract?.totalSupply()) || Zero
 
@@ -197,6 +197,40 @@ export default function usePoolData(
         return userShare.mul(balance).div(BigNumber.from(10).pow(18))
       })
       const userPoolTokenBalancesUSDSum: BigNumber = userPoolTokenBalancesUSD.reduce(
+        (sum, b) => sum.add(b),
+        Zero,
+      )
+
+      /** For swap pool, staked Lp token also count towards userLpTokenBalance */
+      const userLpTokenBalanceIncludeStaked = userLpTokenBalance.add(
+        stakedTokenBalance,
+      )
+      const userShareIncludeStaked = userLpTokenBalanceIncludeStaked
+        .mul(BigNumber.from(10).pow(18))
+        .div(
+          totalLpTokenBalance.isZero()
+            ? BigNumber.from("1")
+            : totalLpTokenBalance,
+        )
+      const userPoolTokenBalancesIncludeStaked = tokenBalances.map(
+        (balance) => {
+          return userShareIncludeStaked
+            .mul(balance)
+            .div(BigNumber.from(10).pow(18))
+        },
+      )
+      const userPoolTokenBalancesSumIncludeStaked: BigNumber = userPoolTokenBalancesIncludeStaked.reduce(
+        (sum, b) => sum.add(b),
+        Zero,
+      )
+      const userPoolTokenBalancesUSDIncludeStaked = tokenBalancesUSD.map(
+        (balance) => {
+          return userShareIncludeStaked
+            .mul(balance)
+            .div(BigNumber.from(10).pow(18))
+        },
+      )
+      const userPoolTokenBalancesUSDSumIncludeStaked: BigNumber = userPoolTokenBalancesUSDIncludeStaked.reduce(
         (sum, b) => sum.add(b),
         Zero,
       )
@@ -297,12 +331,17 @@ export default function usePoolData(
         ? {
             name: poolName,
             share: userShare,
+            shareIncludeStaked: userShareIncludeStaked,
             value: userPoolTokenBalancesSum,
+            valueIncludeStaked: userPoolTokenBalancesSumIncludeStaked,
             usdBalance: userPoolTokenBalancesUSDSum,
+            usdBalanceIncludeStaked: userPoolTokenBalancesUSDSumIncludeStaked,
             avgBalance: userPoolTokenBalancesSum,
+            avgBalanceIncludeStaked: userPoolTokenBalancesSumIncludeStaked,
             tokens: userPoolTokens,
             currentWithdrawFee: userCurrentWithdrawFee,
             lpTokenBalance: userLpTokenBalance,
+            stakedLPTokenBalance: stakedTokenBalance,
           }
         : null
 
@@ -323,7 +362,6 @@ export default function usePoolData(
     account,
     library,
     stakedTokenBalance,
-    countStakedLp,
   ])
 
   return poolData
