@@ -29,6 +29,7 @@ export interface DepositTransaction extends _BaseTransaction {
   from: MultipleItems
   to: SingleItem
   shareOfPool: BigNumber
+  isImbalance: boolean
 }
 
 export interface WithdrawTransaction extends _BaseTransaction {

@@ -159,6 +159,9 @@ function buildTransactionData(
     totalValueUSD: Zero,
   }
   const TOTAL_AMOUNT_DECIMALS = 18
+  let isImbalance = false
+  let firstAmount: BigNumber
+
   poolTokens.forEach((token) => {
     const { symbol, decimals } = token
     const amount = BigNumber.from(tokenFormState[symbol].valueSafe)
@@ -166,12 +169,27 @@ function buildTransactionData(
       (tokenPricesUSD?.[symbol] || 0).toFixed(2),
       18,
     )
+
+    const valueUSD = amount
+      .mul(usdPriceBN)
+      .div(BigNumber.from(10).pow(decimals))
+
+    if (!firstAmount) {
+      firstAmount = valueUSD
+    } else {
+      const diff = firstAmount.sub(valueUSD).abs()
+      if (diff.mul(10).gt(firstAmount)) {
+        isImbalance = true
+      }
+    }
+
     if (amount.lte("0")) return
+
     const item = {
       token,
       amount,
       singleTokenPriceUSD: usdPriceBN,
-      valueUSD: amount.mul(usdPriceBN).div(BigNumber.from(10).pow(decimals)),
+      valueUSD,
     }
     from.items.push(item)
     from.totalAmount = from.totalAmount.add(
@@ -204,6 +222,7 @@ function buildTransactionData(
     to,
     priceImpact,
     shareOfPool,
+    isImbalance,
   }
 }
 

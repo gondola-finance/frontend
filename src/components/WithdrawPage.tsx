@@ -91,12 +91,7 @@ const WithdrawPage = (props: Props): ReactElement => {
     <div className={"withdraw " + classNames({ noShare: noShare })}>
       <TopMenu activeTab={"withdraw"} />
       {noShare ? (
-        <>
-          <NoShareContent />
-          <div className="content">
-            <Footer />
-          </div>
-        </>
+        <NoShareContent />
       ) : (
         <div className="content">
           <div className="left">

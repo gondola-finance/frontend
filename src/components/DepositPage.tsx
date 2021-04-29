@@ -115,6 +115,14 @@ const DepositPage = (props: Props): ReactElement => {
                     )}
                   </span>
                 </div>
+                {transactionData.isImbalance && (
+                  <div className="transactionInfoItem">
+                    <span className="slippage">
+                      ⚠️ Depositing a single asset or a two assets without
+                      balance can lead to impermanent losses
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
