@@ -63,7 +63,7 @@ function MyShareCard({ data }: Props): ReactElement | null {
           <span className="value">{` ( = ${formattedData.usdBalanceIncludeStaked} USD)`}</span>
         </div>
         <div className="infoItem">
-          <span className="label bold">{`${t("totalAmount")} staked:`}</span>
+          <span className="label bold">{`${t("totalAmount")} staked: `}</span>
           <span className="value">{formattedData.stakedLPTokenBalance}</span>
           <span className="value">{` ( = $${formattedData.usdBalanceStaked} USD)`}</span>
         </div>
