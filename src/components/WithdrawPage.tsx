@@ -277,9 +277,11 @@ const WithdrawPage = (props: Props): ReactElement => {
             ) : null}
             {currentModal === "confirm" ? <ConfirmTransaction /> : null}
           </Modal>
-          <Footer />
         </div>
       )}
+      <div className="footerDiv">
+        <Footer />
+      </div>
     </div>
   )
 }

@@ -9,6 +9,11 @@ div.deposit {
   box-sizing: border-box; // Make the padding included in height calculation
   width: 100vw;
 
+  .footerDiv {
+    width: 888px;
+    margin: 0 auto;
+  }
+
   .content {
     width: 888px;
     margin: 0 auto;

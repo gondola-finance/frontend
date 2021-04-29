@@ -200,6 +200,8 @@ const DepositPage = (props: Props): ReactElement => {
           ) : null}
           {currentModal === "confirm" ? <ConfirmTransaction /> : null}
         </Modal>
+      </div>
+      <div className="footerDiv">
         <Footer />
       </div>
     </div>
