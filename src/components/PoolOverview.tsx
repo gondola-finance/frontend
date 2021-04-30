@@ -1,5 +1,6 @@
 import "./PoolOverview.scss"
 
+import { Center, Spinner } from "@chakra-ui/react"
 import React, { ReactElement } from "react"
 
 import { Link } from "react-router-dom"
@@ -13,8 +14,19 @@ interface Props {
 }
 
 function PoolOverview({ data, to }: Props): ReactElement | null {
-  // const { t } = useTranslation()
-  if (data == null) return null
+  if (data == null)
+    return (
+      <Center my={22}>
+        <Spinner
+          thickness="4px"
+          speed="1s"
+          emptyColor="gray.200"
+          color="#41c7cc"
+          size="xl"
+        />
+      </Center>
+    )
+
   const formattedData = {
     name: data.name,
     volume: data.volume,
