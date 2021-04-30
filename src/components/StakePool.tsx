@@ -160,21 +160,19 @@ const StakePool = (props: Props): ReactElement => {
           Your unclaimed GDL reward: &nbsp;
         </span>
         <span className="value">{formatBNToString(gdlUnclaimed, 18, 4)}</span>
-        <Button
-          variant="primary"
-          size="lg"
-          width="240px"
-          style={{
-            marginLeft: 100,
-            display: hasZeroUnclaimed ? "none" : "",
-          }}
-          onClick={(): void => {
-            void handleClaimGDL()
-          }}
-          disabled={hasZeroUnclaimed}
-        >
-          {t("Claim")}
-        </Button>
+        {!hasZeroUnclaimed && (
+          <Button
+            variant="primary"
+            size="lg"
+            width={240}
+            ml={100}
+            onClick={(): void => {
+              void handleClaimGDL()
+            }}
+          >
+            {t("Claim")}
+          </Button>
+        )}
       </div>
     </div>
   )

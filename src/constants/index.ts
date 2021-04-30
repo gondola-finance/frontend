@@ -246,6 +246,7 @@ export const TOKENS_MAP: {
   [symbol: string]: Token
 } = [
   GDL_TOKEN,
+  PANGOLIN_AVAX_GDL_TOKEN,
   ...ZUSDT_USDT_POOL_TOKENS,
   ZUSDT_USDT_SWAP_TOKEN,
   ...ZDAI_DAI_POOL_TOKENS,

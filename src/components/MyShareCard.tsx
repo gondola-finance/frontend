@@ -18,9 +18,7 @@ function MyShareCard({ data }: Props): ReactElement | null {
   if (!data) return null
 
   const formattedData = {
-    share: formatBNToPercentString(data.share, 18),
-    shareIncludeStaked: formatBNToPercentString(data.shareIncludeStaked, 18),
-    usdBalance: commify(formatBNToString(data.usdBalance, 18, 2)),
+    shareIncludeStaked: formatBNToPercentString(data.shareIncludeStaked, 18, 6),
     usdBalanceIncludeStaked: commify(
       formatBNToString(data.usdBalanceIncludeStaked, 18, 2),
     ),
