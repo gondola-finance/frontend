@@ -166,7 +166,7 @@ export const ZUSDT_USDT_SWAP_TOKEN = new Token(
   18,
   "USDT LP",
   "gondolaUSDT",
-  "Gondola zUSDT/USDT",
+  "Gondola zUSDT/USDT LP",
   gondolaLogo,
 )
 
@@ -178,7 +178,7 @@ export const ZDAI_DAI_SWAP_TOKEN = new Token(
   18,
   "DAI LP",
   "gondolaDAI",
-  "Gondola zDAI/DAI",
+  "Gondola zDAI/DAI LP",
   gondolaLogo,
 )
 
@@ -190,7 +190,7 @@ export const ZETH_ETH_SWAP_TOKEN = new Token(
   18,
   "ETH LP",
   "gondolaETH",
-  "Gondola zETH/ETH",
+  "Gondola zETH/ETH LP",
   gondolaLogo,
 )
 
@@ -209,9 +209,9 @@ export const PANGOLIN_AVAX_GDL_TOKEN = new Token(
     [ChainId.FUJI]: "",
   },
   18,
-  "AVAX-GDL",
+  "PANGOLIN AVAX-GDL LP",
   "",
-  "AVAX-GDL",
+  "PANGOLIN AVAX-GDL LP",
   gondolaLogo,
 )
 

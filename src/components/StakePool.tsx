@@ -1,6 +1,6 @@
 import "./StakePool.scss"
 
-import { Button, Center } from "@chakra-ui/react"
+import { Box, Button, Center } from "@chakra-ui/react"
 import { POOLS_MAP, PoolName } from "../constants"
 import React, { ReactElement } from "react"
 import { BigNumber } from "@ethersproject/bignumber"
@@ -77,14 +77,12 @@ const StakePool = (props: Props): ReactElement => {
   }
 
   const hasZeroUnclaimed = gdlUnclaimed.isZero()
+  const isInvalidAmount =
+    isNaN(Number(amountInput.inputValue)) || Number(amountInput.inputValue) <= 0
 
   return (
     <div className="stakingPool">
-      <h3>Staking {poolName}</h3>
-      {/** @todo add warning message */}
-      {/* {exceedsStakable ? (
-        <div className="error">Amount exceeds stakable {POOL_LPTOKEN.name}</div>
-      ) : null} */}
+      <h3>Staking {POOL.lpToken.name}</h3>
       <div className="info">
         <span style={{ fontWeight: "bold" }}>Pool APY(%): &nbsp;</span>
         <span className="value">{poolData?.apy}</span>
@@ -125,55 +123,46 @@ const StakePool = (props: Props): ReactElement => {
         <Button
           variant="primary"
           size="lg"
-          width="240px"
-          style={{ marginRight: 100 }}
+          width={240}
+          mr={100}
           onClick={(): void => {
             void handleStake()
           }}
-          disabled={
-            exceedsStakable ||
-            isNaN(Number(amountInput.inputValue)) ||
-            Number(amountInput.inputValue) <= 0
-          }
+          disabled={exceedsStakable || isInvalidAmount}
         >
           {t("Stake")}
         </Button>
         <Button
           variant="primary"
           size="lg"
-          width="240px"
+          width={240}
           onClick={(): void => {
             void handleWithdraw()
           }}
-          disabled={
-            exceedsWithdrawable ||
-            isNaN(Number(amountInput.inputValue)) ||
-            Number(amountInput.inputValue) <= 0
-          }
+          disabled={exceedsWithdrawable || isInvalidAmount}
         >
           {t("Withdraw")}
         </Button>
       </Center>
 
-      <div className="info">
+      <Box mt={3}>
         <span style={{ fontWeight: "bold" }}>
           Your unclaimed GDL reward: &nbsp;
         </span>
         <span className="value">{formatBNToString(gdlUnclaimed, 18, 4)}</span>
-        {!hasZeroUnclaimed && (
-          <Button
-            variant="primary"
-            size="lg"
-            width={240}
-            ml={100}
-            onClick={(): void => {
-              void handleClaimGDL()
-            }}
-          >
-            {t("Claim")}
-          </Button>
-        )}
-      </div>
+        <Button
+          variant="primary"
+          size="sm"
+          width={160}
+          ml={100}
+          onClick={(): void => {
+            void handleClaimGDL()
+          }}
+          disabled={hasZeroUnclaimed}
+        >
+          {t("Claim")}
+        </Button>
+      </Box>
     </div>
   )
 }
