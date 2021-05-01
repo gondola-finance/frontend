@@ -2,10 +2,14 @@ import "./StakePool.scss"
 
 import { Box, Button, Center } from "@chakra-ui/react"
 import { POOLS_MAP, PoolName } from "../constants"
-import React, { ReactElement } from "react"
+import React, { ReactElement, useState } from "react"
+
 import { BigNumber } from "@ethersproject/bignumber"
+import InfiniteApprovalField from "./InfiniteApprovalField"
 import TokenInput from "./TokenInput"
 import { Zero } from "@ethersproject/constants"
+
+import classNames from "classnames"
 import { formatBNToString } from "../utils"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
 import { useApproveAndWithdrawLP } from "../hooks/useApproveAndWithdrawLP"
@@ -18,6 +22,7 @@ import { useUnclaimedGDLBalance } from "../hooks/useUnclaimedGDLBalance"
 interface Props {
   poolName: PoolName
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 const StakePool = (props: Props): ReactElement => {
   const { t } = useTranslation()
@@ -26,8 +31,13 @@ const StakePool = (props: Props): ReactElement => {
   const POOL = POOLS_MAP[poolName]
   const POOL_LPTOKEN = POOL.lpToken
 
+  // const dispatch = useDispatch<AppDispatch>()
+  // const { userPoolAdvancedMode: advanced } = useSelector(
+  //   (state: AppState) => state.user,
+  // )
   const [poolData, userShareData] = usePoolData(poolName)
 
+  const [advanceMode, setAdvanceMode] = useState(false)
   // stakable pool lp token balance = max depositable
   const poolLpTokenBalance = userShareData?.lpTokenBalance || Zero
   // staked pool lp token balance = max withdrawable
@@ -163,6 +173,37 @@ const StakePool = (props: Props): ReactElement => {
           {t("Claim")}
         </Button>
       </Box>
+      <div className="advancedOptions">
+        <span
+          className="title"
+          onClick={() => {
+            setAdvanceMode(!advanceMode)
+          }}
+        >
+          {t("advancedOptions")}
+          <svg
+            className={classNames("triangle", { upsideDown: advanceMode })}
+            width="16"
+            height="10"
+            viewBox="0 0 16 10"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M14.8252 0C16.077 0 16.3783 0.827943 15.487 1.86207L8.80565 9.61494C8.35999 10.1321 7.63098 10.1246 7.19174 9.61494L0.510262 1.86207C-0.376016 0.833678 -0.0777447 0 1.17205 0L14.8252 0Z"
+              fill="#00f4d7"
+            />
+          </svg>
+        </span>
+        <div className="divider"></div>
+        <div className={"tableContainer" + classNames({ show: advanceMode })}>
+          <div className="parameter">
+            <InfiniteApprovalField />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
