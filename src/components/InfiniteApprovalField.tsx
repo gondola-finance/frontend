@@ -14,13 +14,13 @@ import { useTranslation } from "react-i18next"
 export default function InfiniteApprovalField(): ReactElement {
   const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const { infiniteApproval } = useSelector((state: AppState) => state.user)
+  const { allowInfiniteApproval } = useSelector((state: AppState) => state.user)
   return (
     <div className="infiniteApproval">
       <CheckboxInput
-        checked={infiniteApproval}
+        checked={allowInfiniteApproval}
         onChange={(): PayloadAction<boolean> =>
-          dispatch(updateInfiniteApproval(!infiniteApproval))
+          dispatch(updateInfiniteApproval(!allowInfiniteApproval))
         }
       />
       <ToolTip content={t("infiniteApprovalTooltip")}>

@@ -32,7 +32,7 @@ export function useApproveAndStake(
 
   const { account } = useActiveWeb3React()
   const { addToast, clearToasts } = useToast()
-  const { infiniteApproval } = useSelector((state: AppState) => state.user)
+  const { allowInfiniteApproval } = useSelector((state: AppState) => state.user)
 
   return async function approveAndStake(
     state: ApproveAndStakeStateArgument,
@@ -50,7 +50,7 @@ export function useApproveAndStake(
         masterChefContract.address,
         account,
         state.lpTokenAmountToStake,
-        infiniteApproval,
+        allowInfiniteApproval,
         {
           onTransactionStart: () => {
             return addToast(

@@ -47,7 +47,7 @@ export function useApproveAndSwap(
     slippageSelected,
     transactionDeadlineCustom,
     transactionDeadlineSelected,
-    infiniteApproval,
+    allowInfiniteApproval,
   } = useSelector((state: AppState) => state.user)
   let POOL_TOKENS: Token[]
   if (poolName === ZETH_ETH_POOL_NAME) {
@@ -76,7 +76,7 @@ export function useApproveAndSwap(
         swapContract.address,
         account,
         state.fromAmount,
-        infiniteApproval,
+        allowInfiniteApproval,
         {
           onTransactionStart: () => {
             return addToast(

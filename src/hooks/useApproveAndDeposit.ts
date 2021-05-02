@@ -40,7 +40,7 @@ export function useApproveAndDeposit(
     slippageSelected,
     transactionDeadlineCustom,
     transactionDeadlineSelected,
-    infiniteApproval,
+    allowInfiniteApproval,
   } = useSelector((state: AppState) => state.user)
   const POOL = POOLS_MAP[poolName]
 
@@ -60,7 +60,7 @@ export function useApproveAndDeposit(
         swapContract.address,
         account,
         spendingValue,
-        infiniteApproval,
+        allowInfiniteApproval,
         {
           onTransactionStart: () => {
             return addToast(

@@ -34,7 +34,7 @@ interface UserState {
   gasPriceSelected: GasPrices
   slippageCustom?: NumberInputState
   slippageSelected: Slippages
-  infiniteApproval: boolean
+  allowInfiniteApproval: boolean
   transactionDeadlineSelected: Deadlines
   transactionDeadlineCustom?: string
 }
@@ -45,7 +45,7 @@ export const initialState: UserState = {
   isDarkMode: true,
   gasPriceSelected: GasPrices.Standard,
   slippageSelected: Slippages.OneTenth,
-  infiniteApproval: false,
+  allowInfiniteApproval: true,
   transactionDeadlineSelected: Deadlines.Ten,
 }
 
@@ -114,7 +114,7 @@ const userSlice = createSlice({
       state: UserState,
       action: PayloadAction<boolean>,
     ): void {
-      state.infiniteApproval = action.payload
+      state.allowInfiniteApproval = action.payload
     },
     updateTransactionDeadlineSelected(
       state: UserState,

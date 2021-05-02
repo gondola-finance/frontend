@@ -39,7 +39,7 @@ export function useApproveAndWithdraw(
     slippageSelected,
     transactionDeadlineCustom,
     transactionDeadlineSelected,
-    infiniteApproval,
+    allowInfiniteApproval,
   } = useSelector((state: AppState) => state.user)
   const lpTokenContract = useLPTokenContract(poolName)
   const POOL = POOLS_MAP[poolName]
@@ -65,7 +65,7 @@ export function useApproveAndWithdraw(
         swapContract.address,
         account,
         allowanceAmount,
-        infiniteApproval,
+        allowInfiniteApproval,
         {
           onTransactionStart: () => {
             return addToast(

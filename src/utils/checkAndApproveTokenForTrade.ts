@@ -14,7 +14,7 @@ import { Zero } from "@ethersproject/constants"
  * @param {string} swapAddress
  * @param {string} spenderAddress
  * @param {BigNumber} spendingValue
- * @param {boolean} infiniteApproval
+ * @param {boolean} allowInfiniteApproval
  * @param {{}} callbacks
  * @return {Promise<void>}
  */
@@ -23,7 +23,7 @@ export default async function checkAndApproveTokenForTrade(
   swapAddress: string,
   spenderAddress: string,
   spendingValue: BigNumber, // max is MaxUint256
-  infiniteApproval = false,
+  allowInfiniteApproval = false,
   callbacks: {
     onTransactionStart?: (
       transaction?: ContractTransaction,
@@ -67,6 +67,6 @@ export default async function checkAndApproveTokenForTrade(
     // Reset to 0 before updating approval
     await approve(Zero)
   }
-  await approve(infiniteApproval ? MaxUint256 : spendingValue)
+  await approve(allowInfiniteApproval ? MaxUint256 : spendingValue)
   console.debug(`Approving ${tokenName} spend of ${spendingValue.toString()}`)
 }
