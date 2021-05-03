@@ -3,6 +3,7 @@ import daiLogo from "../assets/icons/dai.svg"
 import ethLogo from "../assets/icons/eth.svg"
 import gondolaLogo from "../assets/icons/brand_logo.png"
 import usdtLogo from "../assets/icons/usdt.svg"
+import zeroLogo from "../assets/icons/icon_zero.png"
 
 export const NetworkContextName = "NETWORK"
 
@@ -215,6 +216,18 @@ export const PANGOLIN_AVAX_GDL_TOKEN = new Token(
   gondolaLogo,
 )
 
+export const ZERO_GDL_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x158ede7f02475aa067fa35f4ff26c6cd86129429",
+    [ChainId.FUJI]: "",
+  },
+  18,
+  "ZERO-GDL LP",
+  "",
+  "ZERO-GDL LP",
+  zeroLogo,
+)
+
 export const GDL_POOL_NAME = "GDL Pool"
 export const GDL_POOL_ID = 2
 
@@ -230,12 +243,16 @@ export const ZETH_ETH_POOL_ID = 7
 export const PANGOLIN_AVAX_GDL_POOL_NAME = "Pangolin AVAX-GDL Pool"
 export const PANGOLIN_AVAX_GDL_POOL_ID = 6
 
+export const ZERO_GDL_POOL_NAME = "ZERO-GDL Pool"
+export const ZERO_GDL_POOL_ID = 10
+
 export type PoolName =
   | typeof GDL_POOL_NAME
   | typeof ZDAI_DAI_POOL_NAME
   | typeof ZUSDT_USDT_POOL_NAME
   | typeof ZETH_ETH_POOL_NAME
   | typeof PANGOLIN_AVAX_GDL_POOL_NAME
+  | typeof ZERO_GDL_POOL_NAME
 
 export const ZUSDT_USDT_POOL_TOKENS = [USDT, ZUSDT]
 export const ZDAI_DAI_POOL_TOKENS = [DAI, ZDAI]
@@ -247,6 +264,7 @@ export const TOKENS_MAP: {
 } = [
   GDL_TOKEN,
   PANGOLIN_AVAX_GDL_TOKEN,
+  ZERO_GDL_TOKEN,
   ...ZUSDT_USDT_POOL_TOKENS,
   ZUSDT_USDT_SWAP_TOKEN,
   ...ZDAI_DAI_POOL_TOKENS,
@@ -294,6 +312,12 @@ export const POOLS_MAP: {
   [PANGOLIN_AVAX_GDL_POOL_NAME]: {
     poolId: PANGOLIN_AVAX_GDL_POOL_ID,
     lpToken: PANGOLIN_AVAX_GDL_TOKEN,
+    poolTokens: [],
+    isSwapPool: false,
+  },
+  [ZERO_GDL_POOL_NAME]: {
+    poolId: ZERO_GDL_POOL_ID,
+    lpToken: ZERO_GDL_TOKEN,
     poolTokens: [],
     isSwapPool: false,
   },
