@@ -229,7 +229,7 @@ export const ZERO_GDL_TOKEN = new Token(
 )
 
 export const GDL_POOL_NAME = "GDL Pool"
-export const GDL_POOL_ID = 2
+export const GDL_POOL_ID = 11
 
 export const ZDAI_DAI_POOL_NAME = "zDAI-DAI Pool"
 export const ZDAI_DAI_POOL_ID = 9
@@ -241,7 +241,7 @@ export const ZETH_ETH_POOL_NAME = "zETH-ETH Pool"
 export const ZETH_ETH_POOL_ID = 7
 
 export const PANGOLIN_AVAX_GDL_POOL_NAME = "Pangolin AVAX-GDL Pool"
-export const PANGOLIN_AVAX_GDL_POOL_ID = 6
+export const PANGOLIN_AVAX_GDL_POOL_ID = 12
 
 export const ZERO_GDL_POOL_NAME = "ZERO-GDL Pool"
 export const ZERO_GDL_POOL_ID = 10
