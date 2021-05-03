@@ -4,6 +4,7 @@ import {
   GDL_POOL_NAME,
   PANGOLIN_AVAX_GDL_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
+  ZERO_GDL_POOL_NAME,
   ZETH_ETH_POOL_NAME,
   ZUSDT_USDT_POOL_NAME,
 } from "../constants"
@@ -24,6 +25,7 @@ const StakePage = (): ReactElement => {
         <StakePool poolName={ZUSDT_USDT_POOL_NAME} />
         <StakePool poolName={GDL_POOL_NAME} />
         <StakePool poolName={PANGOLIN_AVAX_GDL_POOL_NAME} />
+        <StakePool poolName={ZERO_GDL_POOL_NAME} />
         <Footer />
       </div>
     </div>
