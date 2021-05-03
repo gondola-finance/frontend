@@ -3,6 +3,7 @@ import daiLogo from "../assets/icons/dai.svg"
 import ethLogo from "../assets/icons/eth.svg"
 import gondolaLogo from "../assets/icons/brand_logo.png"
 import usdtLogo from "../assets/icons/usdt.svg"
+import zeroLogo from "../assets/icons/icon_zero.png"
 
 export const NetworkContextName = "NETWORK"
 
@@ -224,7 +225,7 @@ export const ZERO_GDL_TOKEN = new Token(
   "ZERO-GDL LP",
   "",
   "ZERO-GDL LP",
-  gondolaLogo,
+  zeroLogo,
 )
 
 export const GDL_POOL_NAME = "GDL Pool"
