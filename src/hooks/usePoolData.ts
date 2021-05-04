@@ -1,9 +1,12 @@
 import {
+  GDL_POOL_NAME,
   GDL_TOKEN,
   MASTERCHEF_ADDRESS,
+  PANGOLIN_AVAX_GDL_POOL_NAME,
   POOLS_MAP,
   PoolName,
   TRANSACTION_TYPES,
+  ZERO_GDL_POOL_NAME,
 } from "../constants"
 import { One, Zero } from "@ethersproject/constants"
 import { useEffect, useState } from "react"
@@ -154,8 +157,14 @@ export default function usePoolData(
       ).mul(BigNumber.from(10).pow(GDL_TOKEN.decimals - 4))
 
       // for stake page: non-swap pool stake GDL
-      if (!POOL.isSwapPool) {
+      if (poolName === GDL_POOL_NAME) {
         lpTokenPriceUSD = gdlPriceUSD
+      } else if (poolName === PANGOLIN_AVAX_GDL_POOL_NAME) {
+        /** @todo: remove hardcoded price */
+        lpTokenPriceUSD = parseUnits(String(5), 18)
+      } else if (poolName === ZERO_GDL_POOL_NAME) {
+        /** @todo: remove hardcoded price */
+        lpTokenPriceUSD = parseUnits(String(0.375), 18)
       }
 
       // (weeksPerYear * KEEPPerWeek * KEEPPrice) / (BTCPrice * BTCInPool)
@@ -241,10 +250,13 @@ export default function usePoolData(
       const poolAllocPoint =
         (await masterChefContract?.poolInfo(POOL.poolId))?.allocPoint || Zero
       const gondolaPerSec = await (masterChefContract?.gondolaPerSec() || Zero)
+
       const poolGDLPerSec = gondolaPerSec
         .mul(poolAllocPoint)
         .div(totalAllocPoint)
-      const poolGDLPerDay = poolGDLPerSec.mul(86400)
+
+      // const poolGDLPerDay = poolGDLPerSec.mul(86400)
+      const poolGDLPerYear = poolGDLPerSec.mul(3600 * 24 * 365)
 
       const masterAddress = chainId ? MASTERCHEF_ADDRESS[chainId] : AddressZero
       const totalStakedLpAmount =
@@ -264,23 +276,24 @@ export default function usePoolData(
       const gdlPriceUSDJs =
         gdlPriceUSD.div(BigNumber.from(10).pow(10)).toNumber() / 100000000
 
-      const poolGDLPerDayJs =
-        poolGDLPerDay.div(BigNumber.from(10).pow(15)).toNumber() / 1000
+      const poolGDLPerYearJs =
+        poolGDLPerYear.div(BigNumber.from(10).pow(15)).toNumber() / 1000
 
-      // denominator is totalStakedLpAmountUSDJs. unless its zero then use totalLpTokenBalanceUSDJs
-      const dailyRate =
-        (poolGDLPerDayJs * gdlPriceUSDJs) /
-        (totalStakedLpAmountUSDJs || totalLpTokenBalanceUSDJs)
-
-      const apy = (1 + dailyRate) ** 365
+      const gainUsdPerYear = poolGDLPerYearJs * gdlPriceUSDJs
+      // simple apy, not compound
+      const apy =
+        (gainUsdPerYear /
+          (totalStakedLpAmountUSDJs || totalLpTokenBalanceUSDJs)) *
+        100
 
       console.debug({
-        dailyRate,
         apy,
+        gainUsdPerYear,
+        poolGDLPerYearJs,
         poolName,
-        poolGDLPerDayJs,
         gdlPriceUSDJs,
         totalLpTokenBalanceUSDJs,
+        totalStakedLpAmountUSDJs,
         lpTokenPriceUSDJs,
         totalLpTokenBalanceJs,
       })

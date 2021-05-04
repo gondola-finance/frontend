@@ -30,6 +30,8 @@ interface PangolinAPIResponse {
   }
 }
 
+const avalancheGeckoId = "avalanche-2"
+
 export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
   const tokens = [
     ...ZUSDT_USDT_POOL_TOKENS,
@@ -38,7 +40,7 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
   ]
   const tokenIds = tokens
     .map(({ geckoId }) => geckoId)
-    .concat(["ethereum", "bitcoin", "keep-network", "avalanche"])
+    .concat(["ethereum", "bitcoin", "keep-network", avalancheGeckoId])
   void retry(
     () =>
       fetch(`${coinGeckoAPI}?ids=${encodeURIComponent(
@@ -62,7 +64,7 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
           const gdlToAVAX = Number(
             gdlPriceResponse.data.tokens[0]?.derivedETH || "0.1",
           )
-          const avaxPriceUSD = body?.avalanche?.usd || 1
+          const avaxPriceUSD = body?.[avalancheGeckoId]?.usd || 1
           const gdlToUSD = gdlToAVAX * avaxPriceUSD
 
           const result = tokens.reduce(
