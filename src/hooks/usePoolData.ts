@@ -336,7 +336,7 @@ export default function usePoolData(
         swapFee: swapFee,
         volume: "XXX", // TODO
         utilization: "XXX", // TODO
-        apy: String(apy),
+        apy: String(apy.toFixed(2)),
         keepApr,
         lpTokenPriceUSD,
       }
