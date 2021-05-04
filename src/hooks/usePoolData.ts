@@ -2,16 +2,15 @@ import {
   GDL_POOL_NAME,
   GDL_TOKEN,
   MASTERCHEF_ADDRESS,
-  PANGOLIN_AVAX_GDL_POOL_NAME,
   POOLS_MAP,
   PoolName,
   TRANSACTION_TYPES,
-  ZERO_GDL_POOL_NAME,
 } from "../constants"
 import { One, Zero } from "@ethersproject/constants"
 import { useEffect, useState } from "react"
 
 import {
+  useGondolaContract,
   useLPTokenContract,
   useMasterChefContract,
   useSwapContract,
@@ -83,6 +82,7 @@ export default function usePoolData(
   const POOL = POOLS_MAP[poolName]
   const masterChefContract = useMasterChefContract()
   const lpTokenContract = useLPTokenContract(poolName)
+  const gdlContract = useGondolaContract()
   // For swap pool, staked Lp token also count towards userLpTokenBalance
   const stakedTokenBalance = useStakedTokenBalance(POOL.poolId)
 
@@ -159,12 +159,20 @@ export default function usePoolData(
       // for stake page: non-swap pool stake GDL
       if (poolName === GDL_POOL_NAME) {
         lpTokenPriceUSD = gdlPriceUSD
-      } else if (poolName === PANGOLIN_AVAX_GDL_POOL_NAME) {
-        /** @todo: remove hardcoded price */
-        lpTokenPriceUSD = parseUnits(String(5), 18)
-      } else if (poolName === ZERO_GDL_POOL_NAME) {
-        /** @todo: remove hardcoded price */
-        lpTokenPriceUSD = parseUnits(String(0.375), 18)
+      } else if (!POOL.isSwapPool) {
+        // pair LP: ZERO-GDL or Pangolin AVAX-GDL, etc
+        const gdlXPairLpTotal = (await lpTokenContract?.totalSupply()) || One
+        const numGdlInPairContract =
+          (await gdlContract?.balanceOf(
+            lpTokenContract?.address || AddressZero,
+          )) || Zero
+
+        // pair LP price = (num GDL * GDL price + num X * X price)/ total supply
+        // pair LP price = (num GDL * GDL price * 2)/ total supply
+        lpTokenPriceUSD = gdlPriceUSD
+          .mul(numGdlInPairContract)
+          .mul(2)
+          .div(gdlXPairLpTotal)
       }
 
       // (weeksPerYear * KEEPPerWeek * KEEPPrice) / (BTCPrice * BTCInPool)
@@ -363,6 +371,7 @@ export default function usePoolData(
     void getSwapData()
   }, [
     chainId,
+    gdlContract,
     lpTokenContract,
     masterChefContract,
     lastDepositTime,
