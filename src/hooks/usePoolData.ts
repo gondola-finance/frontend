@@ -32,7 +32,9 @@ interface TokenShareType {
 
 export interface PoolDataType {
   adminFee: BigNumber
-  apy: string // TODO: calculate
+  apy: string
+  totalStakedLpAmountUSD: number
+  totalStakedLpAmount: number
   name: string
   reserve: BigNumber
   swapFee: BigNumber
@@ -59,6 +61,7 @@ export interface UserShareType {
   value: BigNumber
   valueIncludeStaked: BigNumber
   stakedLPTokenBalance: BigNumber
+  stakedLPTokenUsdBalance: number
 }
 
 export type PoolDataHookReturnType = [PoolDataType | null, UserShareType | null]
@@ -252,6 +255,10 @@ export default function usePoolData(
         Zero,
       )
 
+      const stakedTokenBalanceJs =
+        stakedTokenBalance.div(BigNumber.from(10).pow(10)).toNumber() /
+        100000000
+
       // calculate apy
       const totalAllocPoint =
         (await masterChefContract?.totalAllocPoint()) || One
@@ -339,6 +346,8 @@ export default function usePoolData(
         tokens: poolTokens,
         reserve: tokenBalancesUSDSum,
         totalLocked: totalLpTokenBalance,
+        totalStakedLpAmount: totalStakedLpAmountJs,
+        totalStakedLpAmountUSD: totalStakedLpAmountUSDJs,
         virtualPrice: virtualPrice,
         adminFee: adminFee,
         swapFee: swapFee,
@@ -363,6 +372,7 @@ export default function usePoolData(
             currentWithdrawFee: userCurrentWithdrawFee,
             lpTokenBalance: userLpTokenBalance,
             stakedLPTokenBalance: stakedTokenBalance,
+            stakedLPTokenUsdBalance: stakedTokenBalanceJs * lpTokenPriceUSDJs,
           }
         : null
 

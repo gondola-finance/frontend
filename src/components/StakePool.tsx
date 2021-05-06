@@ -3,6 +3,7 @@ import "./StakePool.scss"
 import { Box, Button, Center } from "@chakra-ui/react"
 import { POOLS_MAP, PoolName } from "../constants"
 import React, { ReactElement, useState } from "react"
+import { formatBNToString, formatUSDNumber } from "../utils"
 
 import { BigNumber } from "@ethersproject/bignumber"
 import InfiniteApprovalField from "./InfiniteApprovalField"
@@ -10,7 +11,6 @@ import TokenInput from "./TokenInput"
 import { Zero } from "@ethersproject/constants"
 
 import classNames from "classnames"
-import { formatBNToString } from "../utils"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
 import { useApproveAndWithdrawLP } from "../hooks/useApproveAndWithdrawLP"
 import usePoolData from "../hooks/usePoolData"
@@ -94,8 +94,8 @@ const StakePool = (props: Props): ReactElement => {
     <div className="stakingPool">
       <h3>Staking {POOL.lpToken.name}</h3>
       <div className="info">
-        <span style={{ fontWeight: "bold" }}>Pool APY(%): &nbsp;</span>
-        <span className="value">{poolData?.apy}</span>
+        <span style={{ fontWeight: "bold" }}>Pool APY: &nbsp;</span>
+        <span className="value">{poolData?.apy} %</span>
       </div>
       <div className="info">
         <span style={{ fontWeight: "bold" }}>
@@ -103,6 +103,9 @@ const StakePool = (props: Props): ReactElement => {
         </span>
         <span className="value">
           {formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 10)}
+          {` ( = ${formatUSDNumber(
+            userShareData?.stakedLPTokenUsdBalance || 0,
+          )} )`}
         </span>
       </div>
       <div className="info">
@@ -111,6 +114,13 @@ const StakePool = (props: Props): ReactElement => {
         </span>
         <span className="value">
           {formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 10)}
+        </span>
+      </div>
+      <div className="info">
+        <span style={{ fontWeight: "bold" }}>Total value locked: &nbsp;</span>
+        <span className="value">
+          {poolData?.totalStakedLpAmount} LP
+          {` ( = ${formatUSDNumber(poolData?.totalStakedLpAmountUSD || 0)} )`}
         </span>
       </div>
       <TokenInput

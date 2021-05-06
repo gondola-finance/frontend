@@ -102,3 +102,17 @@ export function formatDeadlineToNumber(
   }
   return deadline
 }
+
+/**
+ * display number with comma
+ * @param {number} num usd amount
+ * @returns {string}
+ */
+export function formatUSDNumber(num: number): string {
+  return (
+    num
+      .toFixed(2)
+      .toString()
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + " USD"
+  )
+}
