@@ -21,12 +21,13 @@ import { useUnclaimedGDLBalance } from "../hooks/useUnclaimedGDLBalance"
 
 interface Props {
   poolName: PoolName
+  onTvlUpdate?: (tvl: number) => void
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 const StakePool = (props: Props): ReactElement => {
   const { t } = useTranslation()
-  const { poolName } = props
+  const { poolName, onTvlUpdate } = props
 
   const POOL = POOLS_MAP[poolName]
   const POOL_LPTOKEN = POOL.lpToken
@@ -38,6 +39,7 @@ const StakePool = (props: Props): ReactElement => {
   const [poolData, userShareData] = usePoolData(poolName)
 
   const [advanceMode, setAdvanceMode] = useState(false)
+  const [tvlUsd, setTvlUsd] = useState(0)
   // stakable pool lp token balance = max depositable
   const poolLpTokenBalance = userShareData?.lpTokenBalance || Zero
   // staked pool lp token balance = max withdrawable
@@ -89,6 +91,11 @@ const StakePool = (props: Props): ReactElement => {
   const hasZeroUnclaimed = gdlUnclaimed.isZero()
   const isInvalidAmount =
     isNaN(Number(amountInput.inputValue)) || Number(amountInput.inputValue) <= 0
+
+  if (tvlUsd !== (poolData?.totalStakedLpAmountUSD || 0)) {
+    setTvlUsd(poolData?.totalStakedLpAmountUSD || 0)
+    onTvlUpdate && onTvlUpdate(poolData?.totalStakedLpAmountUSD || 0)
+  }
 
   return (
     <div className="stakingPool">

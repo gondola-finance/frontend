@@ -9,6 +9,16 @@ div.stake {
   box-sizing: border-box; // Make the padding included in height calculation
   width: 100vw;
 
+  h3 {
+    font-family: $font-family-title;
+    font-size: 26px;
+    margin-top: 0;
+    margin-bottom: 48px;
+    font-weight: $bold;
+    color: var(--text);
+    text-align: center;
+  }
+
   .content {
     width: 888px;
     margin: 0 auto;
