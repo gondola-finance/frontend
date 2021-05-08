@@ -11,6 +11,7 @@ import React, { ReactElement, Suspense, useCallback } from "react"
 import { Route, Switch } from "react-router-dom"
 
 import AddAvaxNetwork from "./AddAvaxNetwork"
+import Airdrop from "./Airdrop"
 import { AppDispatch } from "../state"
 import Deposit from "./Deposit"
 import Pools from "./Pools"
@@ -37,9 +38,10 @@ export default function App(): ReactElement {
   usePoller(fetchAndUpdateGasPrice, BLOCK_TIME)
   usePoller(fetchAndUpdateTokensPrice, BLOCK_TIME * 3)
   const { chainId } = useActiveWeb3React()
+  const allowTestnet = false
 
   let page
-  if (chainId && chainId !== ChainId["AVALANCHE"]) {
+  if (chainId && chainId !== ChainId["AVALANCHE"] && !allowTestnet) {
     // wrong network
     page = <AddAvaxNetwork />
   }
@@ -129,6 +131,7 @@ export default function App(): ReactElement {
                 )}
               />
               <Route exact path="/stake" render={() => <Stake />} />
+              <Route exact path="/airdrop" render={() => <Airdrop />} />
               <Route exact path="/risk" component={Risk} />
             </Switch>
           )}

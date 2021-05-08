@@ -1,5 +1,4 @@
 import {
-  AIRDROP_1_ADDRESS,
   DAI,
   ETH,
   GONDOLA_ADDRESS,
@@ -22,7 +21,6 @@ import {
   ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES,
   ZUSDT_USDT_SWAP_TOKEN,
 } from "../constants"
-// import { useMemo, useState } from "react"
 
 import { Contract } from "@ethersproject/contracts"
 import ERC20_ABI from "../constants/abis/erc20.json"
@@ -221,11 +219,6 @@ export function useMulticallContract(): Contract | null {
   )
 }
 
-export function useAirdropContract(): MerkleDistributor | null {
-  const { chainId } = useActiveWeb3React()
-  return useContract(
-    chainId && AIRDROP_1_ADDRESS[chainId],
-    MERKLE_DISTRIBUTOR_ABI,
-    true,
-  ) as MerkleDistributor
+export function useAirdropContract(address: string): MerkleDistributor | null {
+  return useContract(address, MERKLE_DISTRIBUTOR_ABI, true) as MerkleDistributor
 }
