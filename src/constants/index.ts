@@ -60,6 +60,11 @@ export const GONDOLA_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.FUJI]: "0x899A5336c9F9335f387cdFCC59aB02a7c6A3128F",
 }
 
+export const AIRDROP_1_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.AVALANCHE]: "",
+  [ChainId.FUJI]: "0x520A5E14C9DC8404c300a7c16E434F78f166Dc4C",
+}
+
 // tokens
 
 export const ETH = new Token(
