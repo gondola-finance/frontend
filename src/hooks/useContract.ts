@@ -1,4 +1,5 @@
 import {
+  AIRDROP_1_ADDRESS,
   DAI,
   ETH,
   GONDOLA_ADDRESS,
@@ -30,8 +31,10 @@ import GONDOLA_ABI from "../constants/abis/gondola.json"
 import LPTOKEN_ABI from "../constants/abis/lpToken.json"
 import { LpToken } from "../../types/ethers-contracts/LpToken"
 import MASTERCHEF_ABI from "../constants/abis/masterchef.json"
+import MERKLE_DISTRIBUTOR_ABI from "../constants/abis/MerkleDistributor.json"
 import MULTICALL_ABI from "../constants/abis/multicall.json"
 import { Masterchef } from "../../types/ethers-contracts/Masterchef"
+import { MerkleDistributor } from "../../types/ethers-contracts/MerkleDistributor"
 import PANGOLIN_AVAX_GDL_ABI from "../constants/abis/pangolinPoolLpToken.json"
 import SWAP_ABI from "../constants/abis/swap.json"
 import { Swap } from "../../types/ethers-contracts/Swap"
@@ -216,4 +219,13 @@ export function useMulticallContract(): Contract | null {
     MULTICALL_ABI,
     false,
   )
+}
+
+export function useAirdropContract(): MerkleDistributor | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(
+    chainId && AIRDROP_1_ADDRESS[chainId],
+    MERKLE_DISTRIBUTOR_ABI,
+    true,
+  ) as MerkleDistributor
 }
