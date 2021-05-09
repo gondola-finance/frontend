@@ -1,13 +1,15 @@
 import "./AirdropClaim.scss"
 
-import React, { ReactElement, useEffect, useState } from "react"
+import React, { ReactElement, useState } from "react"
 import { AddressZero } from "@ethersproject/constants"
+import { BLOCK_TIME } from "../constants"
 import { BigNumber } from "@ethersproject/bignumber"
 import { Button } from "@chakra-ui/react"
 import { formatBNToString } from "../utils"
 import { parseBalanceMap } from "../utils/parse-balance-map"
 import { useActiveWeb3React } from "../hooks"
 import { useAirdropContract } from "../hooks/useContract"
+import usePoller from "../hooks/usePoller"
 
 type balancesOldFormat = { [account: string]: number | string }
 
@@ -29,15 +31,18 @@ function AirdropClaim({
   const merkleInfo = parseBalanceMap(balances)
   const merkleInfoClaim = merkleInfo.claims[account || AddressZero]
 
-  useEffect(() => {
+  usePoller((): void => {
     async function checkIsClaimed() {
+      if (!merkleInfoClaim) {
+        return
+      }
       const hasUserClaimed = await airdropContract?.isClaimed(
         merkleInfoClaim.index,
       )
       setIsClaimed(hasUserClaimed || false)
     }
     void checkIsClaimed()
-  }, [airdropContract, merkleInfoClaim])
+  }, BLOCK_TIME * 10)
 
   async function claimeBalance() {
     if (!merkleInfoClaim) {
@@ -51,12 +56,10 @@ function AirdropClaim({
     )
   }
 
-  let unclaimedAmountStr = formatBNToString(
+  const unclaimedAmountStr = formatBNToString(
     BigNumber.from(merkleInfoClaim?.amount || 0),
     18,
   )
-
-  unclaimedAmountStr = "2000"
 
   return (
     <div className="airdropClaim">
@@ -72,11 +75,7 @@ function AirdropClaim({
             <div>You are eligible for {unclaimedAmountStr} GDL</div>
           )
         ) : (
-          <div>
-            Sorry, your account is not eligible for this airdrop. Please check
-            the address you are using. Follow our social media to be informed
-            about the upcoming campaigns.
-          </div>
+          <div>Your account is not eligible for this airdrop.</div>
         )}
         {!!merkleInfoClaim && !isClaimed && (
           <Button variant="primary" size="lg" onClick={claimeBalance}>
