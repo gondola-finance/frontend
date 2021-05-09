@@ -38,10 +38,10 @@ export default function App(): ReactElement {
   usePoller(fetchAndUpdateGasPrice, BLOCK_TIME)
   usePoller(fetchAndUpdateTokensPrice, BLOCK_TIME * 3)
   const { chainId } = useActiveWeb3React()
-  const allowTestnet = false
+  const ALLOW_TESTNET = false
 
   let page
-  if (chainId && chainId !== ChainId["AVALANCHE"] && !allowTestnet) {
+  if (chainId && chainId !== ChainId["AVALANCHE"] && !ALLOW_TESTNET) {
     // wrong network
     page = <AddAvaxNetwork />
   }
