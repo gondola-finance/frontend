@@ -14,7 +14,7 @@ import usePoller from "../hooks/usePoller"
 type balancesOldFormat = { [account: string]: number | string }
 
 interface Props {
-  airdropAddress: string
+  airdropAddress?: string
   title: string
   balances: balancesOldFormat
 }

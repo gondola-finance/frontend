@@ -219,6 +219,6 @@ export function useMulticallContract(): Contract | null {
   )
 }
 
-export function useAirdropContract(address: string): MerkleDistributor | null {
+export function useAirdropContract(address?: string): MerkleDistributor | null {
   return useContract(address, MERKLE_DISTRIBUTOR_ABI, true) as MerkleDistributor
 }
