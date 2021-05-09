@@ -11,7 +11,7 @@ interface AirdropCampaign {
 const AIRDROP1 = {
   name: "Early Staking Airdrop",
   address: {
-    [ChainId.AVALANCHE]: "0xc3791e0D7282243D36cC18BE295F38B7bfde8570",
+    [ChainId.AVALANCHE]: "0x4A4C341206ce9B87AB2942D920Ea941eDfaB5a3b",
     [ChainId.FUJI]: "",
   },
   balances: airdrop1Balances,
