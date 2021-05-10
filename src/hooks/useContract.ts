@@ -21,7 +21,6 @@ import {
   ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES,
   ZUSDT_USDT_SWAP_TOKEN,
 } from "../constants"
-// import { useMemo, useState } from "react"
 
 import { Contract } from "@ethersproject/contracts"
 import ERC20_ABI from "../constants/abis/erc20.json"
@@ -30,8 +29,10 @@ import GONDOLA_ABI from "../constants/abis/gondola.json"
 import LPTOKEN_ABI from "../constants/abis/lpToken.json"
 import { LpToken } from "../../types/ethers-contracts/LpToken"
 import MASTERCHEF_ABI from "../constants/abis/masterchef.json"
+import MERKLE_DISTRIBUTOR_ABI from "../constants/abis/MerkleDistributor.json"
 import MULTICALL_ABI from "../constants/abis/multicall.json"
 import { Masterchef } from "../../types/ethers-contracts/Masterchef"
+import { MerkleDistributor } from "../../types/ethers-contracts/MerkleDistributor"
 import PANGOLIN_AVAX_GDL_ABI from "../constants/abis/pangolinPoolLpToken.json"
 import SWAP_ABI from "../constants/abis/swap.json"
 import { Swap } from "../../types/ethers-contracts/Swap"
@@ -216,4 +217,8 @@ export function useMulticallContract(): Contract | null {
     MULTICALL_ABI,
     false,
   )
+}
+
+export function useAirdropContract(address?: string): MerkleDistributor | null {
+  return useContract(address, MERKLE_DISTRIBUTOR_ABI, true) as MerkleDistributor
 }
