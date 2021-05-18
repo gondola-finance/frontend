@@ -91,9 +91,13 @@ export function useApproveAndDeposit(
     }
     try {
       // For each token being deposited, check the allowance and approve it if necessary
-      await Promise.all(
-        POOL.poolTokens.map((token) => approveSingleToken(token)),
-      )
+      // don't do it in parallel, to avoid metamask hanging
+      // await Promise.all(
+      //   POOL.poolTokens.map((token) => approveSingleToken(token)),
+      // )
+      for (const t of POOL.poolTokens) {
+        await approveSingleToken(t)
+      }
 
       // "isFirstTransaction" check can be removed after launch
       const poolTokenBalances: BigNumber[] = await Promise.all(
