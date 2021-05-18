@@ -75,6 +75,8 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
               ETH: body?.ethereum?.usd,
               AVAX: avaxPriceUSD,
               BTC: body?.bitcoin?.usd,
+              WBTC: body?.bitcoin?.usd,
+              zBTC: body?.bitcoin?.usd,
               KEEP: body?.["keep-network"].usd,
               [GDL_TOKEN.symbol]: Math.round(gdlToUSD * 1000000) / 1000000,
             },
