@@ -1,4 +1,5 @@
 import { BigNumber } from "@ethersproject/bignumber"
+import btcLogo from "../assets/icons/wbtc.svg"
 import daiLogo from "../assets/icons/dai.svg"
 import ethLogo from "../assets/icons/eth.svg"
 import gondolaLogo from "../assets/icons/brand_logo.png"
@@ -86,6 +87,30 @@ export const ZETH = new Token(
   ethLogo,
 )
 
+export const WBTC = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x408d4cd0adb7cebd1f1a1c33a0ba2098e1295bab",
+    [ChainId.FUJI]: "",
+  },
+  8,
+  "WBTC",
+  "bitcoin",
+  "WBTC",
+  btcLogo,
+)
+
+export const ZBTC = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xc4f4Ff34A2e2cF5e4c892476BB2D056871125452",
+    [ChainId.FUJI]: "",
+  },
+  8,
+  "zBTC",
+  "bitcoin",
+  "zBTC",
+  btcLogo,
+)
+
 export const DAI = new Token(
   {
     [ChainId.AVALANCHE]: "0xba7deebbfc5fa1100fb055a87773e1e99cd3507a",
@@ -143,6 +168,13 @@ export const ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
   [ChainId.FUJI]: "",
 }
 
+export const ZBTC_WBTC_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0x6212db4C20A1870d232aaFd58c65d8B56490fDD7",
+  [ChainId.FUJI]: "",
+}
+
 export const ZDAI_DAI_SWAP_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
@@ -168,6 +200,18 @@ export const ZUSDT_USDT_SWAP_TOKEN = new Token(
   "USDT LP",
   "gondolaUSDT",
   "Gondola zUSDT/USDT LP",
+  gondolaLogo,
+)
+
+export const ZBTC_WBTC_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x078e3dDe72B3FeF804a5d5DBb133D537f9D9805F",
+    [ChainId.FUJI]: "",
+  },
+  18,
+  "BTC LP",
+  "gondolaBTC",
+  "Gondola zBTC/WBTC LP",
   gondolaLogo,
 )
 
@@ -240,6 +284,9 @@ export const ZUSDT_USDT_POOL_ID = 8
 export const ZETH_ETH_POOL_NAME = "zETH-ETH Pool"
 export const ZETH_ETH_POOL_ID = 7
 
+export const ZBTC_WBTC_POOL_NAME = "zBTC-WBTC Pool"
+export const ZBTC_WBTC_POOL_ID = 12 /** @todo update pool id */
+
 export const PANGOLIN_AVAX_GDL_POOL_NAME = "Pangolin AVAX-GDL Pool"
 export const PANGOLIN_AVAX_GDL_POOL_ID = 12
 
@@ -251,10 +298,12 @@ export type PoolName =
   | typeof ZDAI_DAI_POOL_NAME
   | typeof ZUSDT_USDT_POOL_NAME
   | typeof ZETH_ETH_POOL_NAME
+  | typeof ZBTC_WBTC_POOL_NAME
   | typeof PANGOLIN_AVAX_GDL_POOL_NAME
   | typeof ZERO_GDL_POOL_NAME
 
 export const ZUSDT_USDT_POOL_TOKENS = [USDT, ZUSDT]
+export const ZBTC_WBTC_POOL_TOKENS = [WBTC, ZBTC]
 export const ZDAI_DAI_POOL_TOKENS = [DAI, ZDAI]
 export const ZETH_ETH_POOL_TOKENS = [ETH, ZETH]
 
@@ -267,6 +316,8 @@ export const TOKENS_MAP: {
   ZERO_GDL_TOKEN,
   ...ZUSDT_USDT_POOL_TOKENS,
   ZUSDT_USDT_SWAP_TOKEN,
+  ...ZBTC_WBTC_POOL_TOKENS,
+  ZBTC_WBTC_SWAP_TOKEN,
   ...ZDAI_DAI_POOL_TOKENS,
   ZDAI_DAI_SWAP_TOKEN,
   ...ZETH_ETH_POOL_TOKENS,
@@ -290,6 +341,12 @@ export const POOLS_MAP: {
     lpToken: GDL_TOKEN,
     poolTokens: [],
     isSwapPool: false,
+  },
+  [ZBTC_WBTC_POOL_NAME]: {
+    poolId: ZBTC_WBTC_POOL_ID,
+    lpToken: ZBTC_WBTC_SWAP_TOKEN,
+    poolTokens: ZBTC_WBTC_POOL_TOKENS,
+    isSwapPool: true,
   },
   [ZDAI_DAI_POOL_NAME]: {
     poolId: ZDAI_DAI_POOL_ID,
