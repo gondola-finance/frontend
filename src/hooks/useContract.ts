@@ -177,6 +177,8 @@ export function useAllContracts(): AllContractsObject | null {
       [DAI.symbol]: daiContract,
       [ETH.symbol]: ethContract,
       [USDT.symbol]: usdtContract,
+      [WBTC.symbol]: wbtcContract,
+      [ZBTC.symbol]: zbtcContract,
       [ZDAI.symbol]: zdaiContract,
       [ZETH.symbol]: zethContract,
       [ZUSDT.symbol]: zusdtContract,
