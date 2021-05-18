@@ -5,6 +5,8 @@ import {
   TOKENS_MAP,
   TRANSACTION_TYPES,
   Token,
+  ZBTC_WBTC_POOL_NAME,
+  ZBTC_WBTC_POOL_TOKENS,
   ZDAI_DAI_POOL_NAME,
   ZDAI_DAI_POOL_TOKENS,
   ZETH_ETH_POOL_NAME,
@@ -52,6 +54,8 @@ export function useApproveAndSwap(
   let POOL_TOKENS: Token[]
   if (poolName === ZETH_ETH_POOL_NAME) {
     POOL_TOKENS = ZETH_ETH_POOL_TOKENS
+  } else if (poolName === ZBTC_WBTC_POOL_NAME) {
+    POOL_TOKENS = ZBTC_WBTC_POOL_TOKENS
   } else if (poolName === ZDAI_DAI_POOL_NAME) {
     POOL_TOKENS = ZDAI_DAI_POOL_TOKENS
   } else if (poolName === ZUSDT_USDT_POOL_NAME) {
