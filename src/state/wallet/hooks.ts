@@ -4,6 +4,8 @@ import {
   ETH,
   Token,
   USDT,
+  WBTC,
+  ZBTC,
   ZDAI,
   ZDAI_DAI_SWAP_TOKEN,
   ZETH,
@@ -48,6 +50,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   const daiTokenBalance = useTokenBalance(DAI)
   const ethTokenBalance = useTokenBalance(ETH)
   const usdtTokenBalance = useTokenBalance(USDT)
+  const wbtcTokenBalance = useTokenBalance(WBTC)
+  const zbtcTokenBalance = useTokenBalance(ZBTC)
   const zdaiTokenBalance = useTokenBalance(ZDAI)
   const zethTokenBalance = useTokenBalance(ZETH)
   const zusdtTokenBalance = useTokenBalance(ZUSDT)
@@ -59,8 +63,10 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   const poolTokensBalances = useMemo(
     () => ({
       [DAI.symbol]: daiTokenBalance,
+      [WBTC.symbol]: wbtcTokenBalance,
       [ETH.symbol]: ethTokenBalance,
       [USDT.symbol]: usdtTokenBalance,
+      [ZBTC.symbol]: zbtcTokenBalance,
       [ZDAI.symbol]: zdaiTokenBalance,
       [ZETH.symbol]: zethTokenBalance,
       [ZUSDT.symbol]: zusdtTokenBalance,
@@ -72,6 +78,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       daiTokenBalance,
       ethTokenBalance,
       usdtTokenBalance,
+      wbtcTokenBalance,
+      zbtcTokenBalance,
       zdaiTokenBalance,
       zethTokenBalance,
       zusdtTokenBalance,
