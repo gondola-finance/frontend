@@ -285,7 +285,7 @@ export const ZETH_ETH_POOL_NAME = "zETH-ETH Pool"
 export const ZETH_ETH_POOL_ID = 7
 
 export const ZBTC_WBTC_POOL_NAME = "zBTC-WBTC Pool"
-export const ZBTC_WBTC_POOL_ID = 12 /** @todo update pool id */
+export const ZBTC_WBTC_POOL_ID = 13 /** @todo update pool id */
 
 export const PANGOLIN_AVAX_GDL_POOL_NAME = "Pangolin AVAX-GDL Pool"
 export const PANGOLIN_AVAX_GDL_POOL_ID = 12

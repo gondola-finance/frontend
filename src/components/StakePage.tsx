@@ -3,6 +3,7 @@ import "./StakePage.scss"
 import {
   GDL_POOL_NAME,
   PANGOLIN_AVAX_GDL_POOL_NAME,
+  ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZERO_GDL_POOL_NAME,
   ZETH_ETH_POOL_NAME,
@@ -47,6 +48,7 @@ const StakePage = (): ReactElement => {
         <StakePool poolName={GDL_POOL_NAME} />
         <StakePool poolName={PANGOLIN_AVAX_GDL_POOL_NAME} />
         <StakePool poolName={ZERO_GDL_POOL_NAME} />
+        <StakePool poolName={ZBTC_WBTC_POOL_NAME} />
         <Footer />
       </div>
     </div>
