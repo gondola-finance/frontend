@@ -72,11 +72,13 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
               return { ...acc, [token.symbol]: body?.[token.geckoId]?.usd }
             },
             {
+              /** need to match token symbol */
               ETH: body?.ethereum?.usd,
               AVAX: avaxPriceUSD,
               BTC: body?.bitcoin?.usd,
               WBTC: body?.bitcoin?.usd,
               zBTC: body?.bitcoin?.usd,
+              RenBTC: body?.bitcoin?.usd,
               KEEP: body?.["keep-network"].usd,
               [GDL_TOKEN.symbol]: Math.round(gdlToUSD * 1000000) / 1000000,
             },
