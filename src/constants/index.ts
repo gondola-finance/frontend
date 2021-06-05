@@ -1,4 +1,6 @@
 import { BigNumber } from "@ethersproject/bignumber"
+import avalancheLogo from "../assets/icons/network/avalanche.png"
+import bscLogo from "../assets/icons/network/binanceSmartChain.png"
 import btcLogo from "../assets/icons/wbtc.svg"
 import daiLogo from "../assets/icons/dai.svg"
 import ethLogo from "../assets/icons/eth.svg"
@@ -20,6 +22,7 @@ export enum ChainId {
   BSC = 56,
 }
 
+export const SUPPORTED_CHAINS = [ChainId.AVALANCHE, ChainId.BSC]
 export class Network {
   readonly chainId: string
   readonly chainName: string
@@ -82,6 +85,12 @@ export const NETWORKS: {
     ],
     ["https://bscscan.com"],
   ),
+}
+
+export const CHAINS_LOGO: { [id in ChainId]: string } = {
+  [ChainId.AVALANCHE]: avalancheLogo,
+  [ChainId.BSC]: bscLogo,
+  [ChainId.FUJI]: avalancheLogo,
 }
 
 export class Token {

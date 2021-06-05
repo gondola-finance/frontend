@@ -21,6 +21,11 @@ div.walletStatus {
     &:active {
       outline: none;
     }
+
+    img {
+      width: 24px;
+      margin-right: 5px;
+    }
   }
   .hasAccount {
     span {

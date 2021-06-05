@@ -1,8 +1,9 @@
 import "./Web3Status.scss"
 
-import { ChainId, NETWORKS } from "../constants"
+import { CHAINS_LOGO, ChainId, NETWORKS } from "../constants"
 import React, { ReactElement, useState } from "react"
 
+import ChangeNetwork from "./ChangeNetwork"
 import ConnectWallet from "./ConnectWallet"
 import Modal from "./Modal"
 import profile from "../assets/icons/profile.svg"
@@ -18,7 +19,12 @@ const Web3Status = (): ReactElement => {
   return (
     <div className="walletStatus">
       <button type="button" onClick={(): void => setNetModalOpen(true)}>
-        {chainId && chainId !== ChainId.FUJI && NETWORKS[chainId].chainName}
+        {chainId && chainId !== ChainId.FUJI && (
+          <>
+            <img src={CHAINS_LOGO[chainId]} alt="icon" className="icon" />
+            {NETWORKS[chainId].chainName}
+          </>
+        )}
       </button>
 
       <button type="button" onClick={(): void => setWalletModalOpen(true)}>
@@ -44,7 +50,7 @@ const Web3Status = (): ReactElement => {
       </Modal>
 
       <Modal isOpen={netModalOpen} onClose={(): void => setNetModalOpen(false)}>
-        <ConnectWallet onClose={(): void => setNetModalOpen(false)} />
+        <ChangeNetwork onClose={(): void => setNetModalOpen(false)} />
       </Modal>
     </div>
   )
