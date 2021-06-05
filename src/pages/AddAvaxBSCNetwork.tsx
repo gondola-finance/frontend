@@ -39,10 +39,7 @@ export const BSC_MAINNET_PARAMS = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function addNetwork(networkParams: any) {
   void injected.getProvider().then((provider) => {
-    console.log("hi")
     if (!provider) return
-    console.log("hiii")
-
     provider
       .request({
         method: "wallet_addEthereumChain",
