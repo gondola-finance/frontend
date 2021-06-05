@@ -144,7 +144,7 @@ export const ETH = new Token(
   {
     [ChainId.AVALANCHE]: "0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15",
     [ChainId.FUJI]: "",
-    [ChainId.BSC]: "",
+    [ChainId.BSC]: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
   },
   18,
   "ETH",
@@ -157,7 +157,7 @@ export const ZETH = new Token(
   {
     [ChainId.AVALANCHE]: "0xf6f3eea905ac1da6f6dd37d06810c6fcb0ef5183",
     [ChainId.FUJI]: "",
-    [ChainId.BSC]: "",
+    [ChainId.BSC]: "0x7c815bbc21fed2b97ca163552991a5c30d6a2336",
   },
   18,
   "zETH",
@@ -196,7 +196,7 @@ export const DAI = new Token(
   {
     [ChainId.AVALANCHE]: "0xba7deebbfc5fa1100fb055a87773e1e99cd3507a",
     [ChainId.FUJI]: "0x4D0e868E77895B697DBa91cb969C26E1fA2F111c",
-    [ChainId.BSC]: "",
+    [ChainId.BSC]: "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
   },
   18,
   "DAI",
@@ -209,7 +209,7 @@ export const ZDAI = new Token(
   {
     [ChainId.AVALANCHE]: "0x12f108e6138d4a9c58511e042399cf8f90d5673f",
     [ChainId.FUJI]: "",
-    [ChainId.BSC]: "",
+    [ChainId.BSC]: "0x7e7baff135c42ed90c0edab16eae48ecea417018",
   },
   18,
   "zDAI",
@@ -222,7 +222,7 @@ export const USDT = new Token(
   {
     [ChainId.AVALANCHE]: "0xde3a24028580884448a5397872046a019649b084",
     [ChainId.FUJI]: "0x9ccCC500A9E025450D1823af61fbc2e6586A4Ce3",
-    [ChainId.BSC]: "",
+    [ChainId.BSC]: "0x55d398326f99059ff775485246999027b3197955",
   },
   6,
   "USDT",
@@ -235,7 +235,7 @@ export const ZUSDT = new Token(
   {
     [ChainId.AVALANCHE]: "0x650cecafe61f3f65edd21efacca18cc905eef0b7",
     [ChainId.FUJI]: "",
-    [ChainId.BSC]: "",
+    [ChainId.BSC]: "0xbf7e0761417f49b3fafae564c842823f5f79db15",
   },
   6,
   "zUSDT",
