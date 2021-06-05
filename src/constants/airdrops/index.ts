@@ -38,5 +38,9 @@ const AIRDROP3 = {
   balances: AIRDROP3_BALANCES,
 }
 
-const airdrops: AirdropCampaign[] = [AIRDROP1, AIRDROP2, AIRDROP3]
+const airdrops: { [chainId in ChainId]: AirdropCampaign[] } = {
+  [ChainId.AVALANCHE]: [AIRDROP1, AIRDROP2, AIRDROP3],
+  [ChainId.BSC]: [],
+  [ChainId.FUJI]: [],
+}
 export default airdrops
