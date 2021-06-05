@@ -7,22 +7,7 @@ import { ChainId, NETWORKS } from "../constants"
 import React, { ReactElement } from "react"
 import Footer from "../components/Footer"
 import TopMenu from "../components/TopMenu"
-import { injected } from "../connectors"
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function addNetwork(networkParams: any) {
-  void injected.getProvider().then((provider) => {
-    if (!provider) return
-    provider
-      .request({
-        method: "wallet_addEthereumChain",
-        params: [networkParams],
-      })
-      .catch((error: unknown) => {
-        console.error(error)
-      })
-  })
-}
+import addNetwork from "../utils/addNetwork"
 
 function AddAvaxBSCNetwork(): ReactElement {
   return (
