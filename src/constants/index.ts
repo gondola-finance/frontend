@@ -20,6 +20,70 @@ export enum ChainId {
   BSC = 56,
 }
 
+export class Network {
+  readonly chainId: string
+  readonly chainName: string
+  readonly rpcUrls: string[]
+  readonly blockExplorerUrls: string[]
+  readonly nativeCurrency: { name: string; symbol: string; decimals: number }
+
+  constructor(
+    chainId: string,
+    chainName: string,
+    currencyName: string,
+    currencySymbol: string,
+    currencyDecimals: number,
+    rpcUrls: string[],
+    blockExplorerUrls: string[],
+  ) {
+    this.chainId = chainId
+    this.chainName = chainName
+    this.rpcUrls = rpcUrls
+    this.blockExplorerUrls = blockExplorerUrls
+    this.nativeCurrency = {
+      name: currencyName,
+      symbol: currencySymbol,
+      decimals: currencyDecimals,
+    }
+  }
+}
+
+export const NETWORKS: {
+  [id in ChainId]: Network
+} = {
+  [ChainId.AVALANCHE]: new Network(
+    "0xa86a",
+    "Avalanche Mainnet C-Chain",
+    "Avalanche",
+    "AVAX",
+    18,
+    ["https://api.avax.network/ext/bc/C/rpc"],
+    ["https://cchain.explorer.avax.network/"],
+  ),
+  [ChainId.FUJI]: new Network(
+    "0xa869",
+    "Avalanche Fuji Testnet",
+    "Avalanche",
+    "AVAX",
+    18,
+    ["https://api.avax.network/ext/bc/C/rpc"],
+    ["https://cchain.explorer.avax-test.network/"],
+  ),
+  [ChainId.BSC]: new Network(
+    "0x38",
+    "Binance Smart Chain",
+    "Binance",
+    "BNB",
+    8,
+    [
+      "https://bsc-dataseed.binance.org",
+      "https://bsc-dataseed1.defibit.io",
+      "https://bsc-dataseed1.ninicoin.io",
+    ],
+    ["https://bscscan.com"],
+  ),
+}
+
 export class Token {
   readonly addresses: { [chainId in ChainId]: string }
   readonly decimals: number

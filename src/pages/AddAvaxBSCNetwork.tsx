@@ -3,38 +3,11 @@
 import "./AddAvaxBSCNetwork.scss"
 
 import { Button, Center } from "@chakra-ui/react"
+import { ChainId, NETWORKS } from "../constants"
 import React, { ReactElement } from "react"
 import Footer from "../components/Footer"
 import TopMenu from "../components/TopMenu"
 import { injected } from "../connectors"
-
-export const AVALANCHE_MAINNET_PARAMS = {
-  chainId: "0xa86a", // A 0x-prefixed hexadecimal chainId
-  chainName: "Avalanche Mainnet C-Chain",
-  nativeCurrency: {
-    name: "Avalanche",
-    symbol: "AVAX",
-    decimals: 18,
-  },
-  rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
-  blockExplorerUrls: ["https://cchain.explorer.avax.network/"],
-}
-
-export const BSC_MAINNET_PARAMS = {
-  chainId: "0x38", // A 0x-prefixed hexadecimal chainId
-  chainName: "Binance Smart Chain",
-  nativeCurrency: {
-    name: "Binance",
-    symbol: "BNB",
-    decimals: 8,
-  },
-  rpcUrls: [
-    "https://bsc-dataseed.binance.org",
-    "https://bsc-dataseed1.defibit.io",
-    "https://bsc-dataseed1.ninicoin.io",
-  ],
-  blockExplorerUrls: ["https://bscscan.com"],
-}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function addNetwork(networkParams: any) {
@@ -71,7 +44,7 @@ function AddAvaxBSCNetwork(): ReactElement {
             variant="primary"
             size="lg"
             onClick={(): void => {
-              addNetwork(AVALANCHE_MAINNET_PARAMS)
+              addNetwork(NETWORKS[ChainId.AVALANCHE])
             }}
           >
             Switch to Avalanche network
@@ -83,7 +56,7 @@ function AddAvaxBSCNetwork(): ReactElement {
             variant="primary"
             size="lg"
             onClick={(): void => {
-              addNetwork(BSC_MAINNET_PARAMS)
+              addNetwork(NETWORKS[ChainId.BSC])
             }}
           >
             Switch to Binance Smart Chain
