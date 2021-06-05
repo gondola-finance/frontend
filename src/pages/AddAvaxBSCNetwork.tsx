@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import "./AddAvaxNetwork.scss"
+import "./AddAvaxBSCNetwork.scss"
 
 import { Button, Center } from "@chakra-ui/react"
 import React, { ReactElement } from "react"
@@ -20,13 +20,33 @@ export const AVALANCHE_MAINNET_PARAMS = {
   blockExplorerUrls: ["https://cchain.explorer.avax.network/"],
 }
 
-function addAvalancheNetwork() {
+export const BSC_MAINNET_PARAMS = {
+  chainId: "0x38", // A 0x-prefixed hexadecimal chainId
+  chainName: "Binance Smart Chain",
+  nativeCurrency: {
+    name: "Binance",
+    symbol: "BNB",
+    decimals: 8,
+  },
+  rpcUrls: [
+    "https://bsc-dataseed.binance.org",
+    "https://bsc-dataseed1.defibit.io",
+    "https://bsc-dataseed1.ninicoin.io",
+  ],
+  blockExplorerUrls: ["https://bscscan.com"],
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function addNetwork(networkParams: any) {
   void injected.getProvider().then((provider) => {
+    console.log("hi")
     if (!provider) return
+    console.log("hiii")
+
     provider
       .request({
         method: "wallet_addEthereumChain",
-        params: [AVALANCHE_MAINNET_PARAMS],
+        params: [networkParams],
       })
       .catch((error: unknown) => {
         console.error(error)
@@ -34,7 +54,7 @@ function addAvalancheNetwork() {
   })
 }
 
-function AddAvaxNetwork(): ReactElement {
+function AddAvaxBSCNetwork(): ReactElement {
   return (
     <div className="avaxNetPage">
       <TopMenu activeTab={"swap"} />
@@ -45,8 +65,20 @@ function AddAvaxNetwork(): ReactElement {
             <a href="https://metamask.io/" target="__blank">
               metamask
             </a>{" "}
-            installed and connect to the Avalanche network.
+            installed and connect to the Avalanche/Binance Smart Chain network.
           </div>
+        </Center>
+
+        <Center width="100%" pt={6}>
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={(): void => {
+              addNetwork(AVALANCHE_MAINNET_PARAMS)
+            }}
+          >
+            Switch to Avalanche network
+          </Button>
         </Center>
 
         <Center width="100%" py={6}>
@@ -54,10 +86,10 @@ function AddAvaxNetwork(): ReactElement {
             variant="primary"
             size="lg"
             onClick={(): void => {
-              addAvalancheNetwork()
+              addNetwork(BSC_MAINNET_PARAMS)
             }}
           >
-            Switch to Avalanche chain
+            Switch to Binance Smart Chain
           </Button>
         </Center>
         <Footer />
@@ -66,4 +98,4 @@ function AddAvaxNetwork(): ReactElement {
   )
 }
 
-export default AddAvaxNetwork
+export default AddAvaxBSCNetwork

@@ -11,12 +11,16 @@ import { useWeb3React } from "@web3-react/core"
 // Todo: Link profile image to real account image
 
 const Web3Status = (): ReactElement => {
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const [modalOpen, setModalOpen] = useState(false)
   const { t } = useTranslation()
 
   return (
     <div className="walletStatus">
+      <button type="button" onClick={(): void => setModalOpen(true)}>
+        Chain: {chainId}
+      </button>
+
       <button type="button" onClick={(): void => setModalOpen(true)}>
         {account ? (
           <div className="hasAccount">

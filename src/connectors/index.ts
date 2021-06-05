@@ -28,6 +28,6 @@ export function getNetworkLibrary(): Web3Provider {
 }
 
 export const injected = new InjectedConnector({
-  // mainnet, fuji
-  supportedChainIds: [ChainId.AVALANCHE, ChainId.FUJI],
+  // mainnet, fuji, BSC
+  supportedChainIds: [ChainId.AVALANCHE, ChainId.FUJI, ChainId.BSC],
 })

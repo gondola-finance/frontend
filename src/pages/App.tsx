@@ -11,7 +11,7 @@ import {
 import React, { ReactElement, Suspense, useCallback } from "react"
 import { Route, Switch } from "react-router-dom"
 
-import AddAvaxNetwork from "./AddAvaxNetwork"
+import AddAvaxBSCNetwork from "./AddAvaxBSCNetwork"
 import Airdrop from "./Airdrop"
 import { AppDispatch } from "../state"
 import Deposit from "./Deposit"
@@ -42,9 +42,14 @@ export default function App(): ReactElement {
   const ALLOW_TESTNET = false
 
   let page
-  if (chainId && chainId !== ChainId["AVALANCHE"] && !ALLOW_TESTNET) {
+  if (
+    chainId &&
+    chainId !== ChainId["AVALANCHE"] &&
+    chainId !== ChainId["BSC"] &&
+    !ALLOW_TESTNET
+  ) {
     // wrong network
-    page = <AddAvaxNetwork />
+    page = <AddAvaxBSCNetwork />
   }
 
   return (

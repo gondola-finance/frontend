@@ -17,6 +17,7 @@ export const GAS_PRICE_BIGNUMBER = BigNumber.from(GAS_PRICE).mul(
 export enum ChainId {
   AVALANCHE = 43114,
   FUJI = 43113,
+  BSC = 56,
 }
 
 export class Token {
@@ -49,16 +50,19 @@ export const BLOCK_TIME = 3000
 export const MASTERCHEF_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0x34C8712Cc527a8E6834787Bd9e3AD4F2537B0f50",
   [ChainId.FUJI]: "0x1C6AfEbb1621a35572C4cfBce00ccfB88B047509",
+  [ChainId.BSC]: "",
 }
 
 export const MULTICALL_NETWORKS: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0x0FB54156B496b5a040b51A71817aED9e2927912E",
   [ChainId.FUJI]: "0xb465Fd2d9C71d5D6e6c069aaC9b4E21c69aAA78f",
+  [ChainId.BSC]: "",
 }
 
 export const GONDOLA_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0xD606199557c8Ab6F4Cc70bD03FaCc96ca576f142",
   [ChainId.FUJI]: "0x899A5336c9F9335f387cdFCC59aB02a7c6A3128F",
+  [ChainId.BSC]: "",
 }
 
 // tokens
@@ -67,6 +71,7 @@ export const ETH = new Token(
   {
     [ChainId.AVALANCHE]: "0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "ETH",
@@ -79,6 +84,7 @@ export const ZETH = new Token(
   {
     [ChainId.AVALANCHE]: "0xf6f3eea905ac1da6f6dd37d06810c6fcb0ef5183",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "zETH",
@@ -91,6 +97,7 @@ export const WBTC = new Token(
   {
     [ChainId.AVALANCHE]: "0x408d4cd0adb7cebd1f1a1c33a0ba2098e1295bab",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   8,
   "WBTC",
@@ -103,6 +110,7 @@ export const ZBTC = new Token(
   {
     [ChainId.AVALANCHE]: "0xc4f4Ff34A2e2cF5e4c892476BB2D056871125452",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   8,
   "zBTC",
@@ -115,6 +123,7 @@ export const DAI = new Token(
   {
     [ChainId.AVALANCHE]: "0xba7deebbfc5fa1100fb055a87773e1e99cd3507a",
     [ChainId.FUJI]: "0x4D0e868E77895B697DBa91cb969C26E1fA2F111c",
+    [ChainId.BSC]: "",
   },
   18,
   "DAI",
@@ -127,6 +136,7 @@ export const ZDAI = new Token(
   {
     [ChainId.AVALANCHE]: "0x12f108e6138d4a9c58511e042399cf8f90d5673f",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "zDAI",
@@ -139,6 +149,7 @@ export const USDT = new Token(
   {
     [ChainId.AVALANCHE]: "0xde3a24028580884448a5397872046a019649b084",
     [ChainId.FUJI]: "0x9ccCC500A9E025450D1823af61fbc2e6586A4Ce3",
+    [ChainId.BSC]: "",
   },
   6,
   "USDT",
@@ -151,6 +162,7 @@ export const ZUSDT = new Token(
   {
     [ChainId.AVALANCHE]: "0x650cecafe61f3f65edd21efacca18cc905eef0b7",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   6,
   "zUSDT",
@@ -166,6 +178,7 @@ export const ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
 } = {
   [ChainId.AVALANCHE]: "0x3CE2B891071054ee10d4b5eD5a9446f9016F90d8",
   [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
 }
 
 export const ZBTC_WBTC_SWAP_CONTRACT_ADDRESSES: {
@@ -173,6 +186,7 @@ export const ZBTC_WBTC_SWAP_CONTRACT_ADDRESSES: {
 } = {
   [ChainId.AVALANCHE]: "0x6212db4C20A1870d232aaFd58c65d8B56490fDD7",
   [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
 }
 
 export const ZDAI_DAI_SWAP_CONTRACT_ADDRESSES: {
@@ -180,6 +194,7 @@ export const ZDAI_DAI_SWAP_CONTRACT_ADDRESSES: {
 } = {
   [ChainId.AVALANCHE]: "0x9D43f28C5Fce24D0c8B653E5c5859E0421Af7783",
   [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
 }
 
 export const ZETH_ETH_SWAP_CONTRACT_ADDRESSES: {
@@ -187,6 +202,7 @@ export const ZETH_ETH_SWAP_CONTRACT_ADDRESSES: {
 } = {
   [ChainId.AVALANCHE]: "0xed986f982269e0319F710EC270875dE2b2A443d2",
   [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
 }
 
 // pool lp tokens
@@ -195,6 +211,7 @@ export const ZUSDT_USDT_SWAP_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0xE586dB7Db75B87A3E84110a73b99960F5f106c6A",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "USDT LP",
@@ -207,6 +224,7 @@ export const ZBTC_WBTC_SWAP_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0x078e3dDe72B3FeF804a5d5DBb133D537f9D9805F",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "BTC LP",
@@ -219,6 +237,7 @@ export const ZDAI_DAI_SWAP_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0x2036C0EB5C42eF7f1ca06dF57D07F79eb3a2e0C8",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "DAI LP",
@@ -231,6 +250,7 @@ export const ZETH_ETH_SWAP_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0xc37ECFA7Bbf1dF92Da7C4A3d92d8CF8657D1FF7f",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "ETH LP",
@@ -252,6 +272,7 @@ export const PANGOLIN_AVAX_GDL_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0xc5ab0c94bc88b98f55f4e21c1474f67ab2329cfd",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "PANGOLIN AVAX-GDL LP",
@@ -264,6 +285,7 @@ export const ZERO_GDL_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0x158ede7f02475aa067fa35f4ff26c6cd86129429",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "ZERO-GDL LP",
@@ -388,7 +410,7 @@ export const TRANSACTION_TYPES = {
 
 export const POOL_FEE_PRECISION = 10
 
-export const DEPLOYED_BLOCK: { [chainId in ChainId]: number } = {
-  [ChainId.AVALANCHE]: 11656944,
-  [ChainId.FUJI]: 10000,
-}
+// export const DEPLOYED_BLOCK: { [chainId in ChainId]: number } = {
+//   [ChainId.AVALANCHE]: 11656944,
+//   [ChainId.FUJI]: 10000,
+// }
