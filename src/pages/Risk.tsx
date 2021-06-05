@@ -21,7 +21,7 @@ function Risk(): ReactElement {
           </a>{" "}
           {t("riskIntro3")}
         </p>
-        <h3>{t("audits")}</h3>
+        <h2>{t("audits")}</h2>
         <p>
           {t("riskAudits")} {t("riskAudits2")}
           {"."}
@@ -32,7 +32,7 @@ function Risk(): ReactElement {
           <br />
           {t("riskAudits4")}
         </p>
-        <h3>{t("lossOfPeg")}</h3>
+        <h2>{t("lossOfPeg")}</h2>
         <p>{t("riskLossOfPeg")}</p>
         <Footer />
       </div>
