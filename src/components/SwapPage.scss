@@ -4,13 +4,13 @@
 div.swapPage {
   min-height: 100vh;
   // background: var(--background-main);
-  background-image: url('../assets/background_mountain.png');
+  background-image: url("../assets/background_mountain.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position-x: right;
   background-position-y: bottom;
   background-color: var(--background-main);
-  
+
   color: var(--text);
   font-size: 16px;
   padding-bottom: 40px;

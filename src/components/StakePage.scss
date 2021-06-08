@@ -2,14 +2,14 @@
 @import "../styles/viewports";
 
 div.stake {
-  background-image: url('../assets/background_mountain.png');
+  background-image: url("../assets/background_mountain.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position-x: right;
   background-position-y: bottom;
   background-color: var(--background-main);
 
-min-height: 100vh;
+  min-height: 100vh;
   // background: var(--background-main);
   color: var(--text);
   padding-bottom: 40px;
