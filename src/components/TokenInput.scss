@@ -23,6 +23,7 @@ div.tokenInput {
     font-family: $font-family;
     font-style: normal;
     font-weight: $normal;
+    border-radius: 100px;
 
     &:focus {
       outline: none;
@@ -41,4 +42,9 @@ div.tokenInput {
   img {
     vertical-align: text-bottom;
   }
+}
+
+div.tokenBtnContainer {
+  display: flex;
+  text-align: center;  
 }

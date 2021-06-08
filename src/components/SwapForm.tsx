@@ -77,7 +77,7 @@ function SwapForm({
         </div>
       </div>
       <ul className="tokenList">
-        {tokens.map(({ symbol, value, icon, name, decimals }, i) => {
+        {tokens.map(({ symbol, value, icon, name, decimals }) => {
           const formattedShortBalance = formatBNToString(value, decimals, 6)
           const formattedLongBalance = formatBNToString(value, decimals)
           return (
@@ -97,7 +97,6 @@ function SwapForm({
                   </ToolTip>
                 </span>
               ) : null}
-              {i === tokens.length - 1 ? "" : <div className="divider"></div>}
             </div>
           )
         })}

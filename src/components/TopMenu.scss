@@ -77,8 +77,12 @@ header.top {
 
         &.active {
           opacity: 1;
-          // color: var(--header-text);
-          font-weight: $bold;
+          color: var(--text);
+          // font-weight: $bold;
+          border-radius: 50px;
+          padding: 8px 16px;
+          background: var(--text-contrast);
+
         }
       }
     }

@@ -66,28 +66,30 @@ function TokenInput({
           e.target.select()
         }
       />
-      {max != null && (
-        <Button
-          onClick={onClickMax}
-          size="small"
-          kind="ternary"
-          disabled={disabled}
-        >
-          {maxButton1Name || t("max")}
-        </Button>
-      )}
-      {max2 != null && (
-        <div style={{ marginLeft: 10 }}>
+      <div className="tokenBtnContainer">
+        {max != null && (
           <Button
-            onClick={onClickMax2}
+            onClick={onClickMax}
             size="small"
             kind="ternary"
             disabled={disabled}
           >
-            {maxButton2Name || t("max")}
+            {maxButton1Name || t("max")}
           </Button>
-        </div>
-      )}
+        )}
+        {max2 != null && (
+          <div style={{ marginLeft: 10 }}>
+            <Button
+              onClick={onClickMax2}
+              size="small"
+              kind="ternary"
+              disabled={disabled}
+            >
+              {maxButton2Name || t("max")}
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
