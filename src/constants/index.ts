@@ -164,7 +164,7 @@ export const RENBTC = new Token(
     [ChainId.AVALANCHE]: "0xDBf31dF14B66535aF65AaC99C32e9eA844e14501",
     [ChainId.FUJI]: "",
   },
-  6,
+  8,
   "RenBTC",
   "bitcoin",
   "RenBTC",
