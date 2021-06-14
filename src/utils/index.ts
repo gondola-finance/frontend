@@ -108,10 +108,10 @@ export function formatDeadlineToNumber(
  * @param {number} num usd amount
  * @returns {string}
  */
-export function formatUSDNumber(num: number): string {
+export function formatUSDNumber(num: number, round = false): string {
   return (
-    num
-      .toFixed(2)
+    (round ? Math.round(num) : num)
+      .toFixed(round ? 0 : 2)
       .toString()
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + " USD"
   )
