@@ -11,6 +11,7 @@ import TokenInput from "./TokenInput"
 import { Zero } from "@ethersproject/constants"
 
 import classNames from "classnames"
+import { commify } from "@ethersproject/units"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
 import { useApproveAndWithdrawLP } from "../hooks/useApproveAndWithdrawLP"
 import usePoolData from "../hooks/usePoolData"
@@ -32,13 +33,10 @@ const StakePool = (props: Props): ReactElement => {
   const POOL = POOLS_MAP[poolName]
   const POOL_LPTOKEN = POOL.lpToken
 
-  // const dispatch = useDispatch<AppDispatch>()
-  // const { userPoolAdvancedMode: advanced } = useSelector(
-  //   (state: AppState) => state.user,
-  // )
   const [poolData, userShareData] = usePoolData(poolName)
 
   const [advanceMode, setAdvanceMode] = useState(false)
+  const [isCollapse, setIsCollapse] = useState(true)
   const [tvlUsd, setTvlUsd] = useState(0)
   // stakable pool lp token balance = max depositable
   const poolLpTokenBalance = userShareData?.lpTokenBalance || Zero
@@ -97,9 +95,8 @@ const StakePool = (props: Props): ReactElement => {
     onTvlUpdate && onTvlUpdate(poolData?.totalStakedLpAmountUSD || 0)
   }
 
-  return (
-    <div className="stakingPool">
-      <h3>Staking {POOL.lpToken.name}</h3>
+  const collapseDiv = (
+    <div>
       <div className="info">
         <span style={{ fontWeight: "bold" }}>Pool APY: &nbsp;</span>
         <span className="value">{poolData?.apy} %</span>
@@ -109,7 +106,9 @@ const StakePool = (props: Props): ReactElement => {
           Staked {POOL_LPTOKEN.symbol}: &nbsp;
         </span>
         <span className="value">
-          {formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 10)}
+          {commify(
+            formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 10),
+          )}
           {` ( = ${formatUSDNumber(
             userShareData?.stakedLPTokenUsdBalance || 0,
           )} )`}
@@ -120,13 +119,15 @@ const StakePool = (props: Props): ReactElement => {
           Stakable {POOL_LPTOKEN.symbol}: &nbsp;
         </span>
         <span className="value">
-          {formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 10)}
+          {commify(
+            formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 10),
+          )}
         </span>
       </div>
       <div className="info">
         <span style={{ fontWeight: "bold" }}>Total value locked: &nbsp;</span>
         <span className="value">
-          {poolData?.totalStakedLpAmount} LP
+          {commify(poolData?.totalStakedLpAmount || 0)} LP
           {` ( = ${formatUSDNumber(poolData?.totalStakedLpAmountUSD || 0)} )`}
         </span>
       </div>
@@ -223,6 +224,20 @@ const StakePool = (props: Props): ReactElement => {
           </div>
         </div>
       </div>
+    </div>
+  )
+
+  return (
+    <div
+      className="stakingPool"
+      onClick={() => {
+        if (isCollapse) {
+          setIsCollapse(false)
+        }
+      }}
+    >
+      <h3>Staking {POOL.lpToken.name}</h3>
+      {!isCollapse && collapseDiv}
     </div>
   )
 }
