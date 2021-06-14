@@ -29,7 +29,10 @@ const StakePage = (): ReactElement => {
         <Box my={10}>
           <h3>
             Total Value Locked: &nbsp;
-            {formatUSDNumber(daiTvl + ethTvl + usdtTvl, true)}
+            {formatUSDNumber(
+              parseFloat(Number(daiTvl + ethTvl + usdtTvl).toPrecision(3)),
+              true,
+            )}
           </h3>
         </Box>
         <div className="stakePoolList">
