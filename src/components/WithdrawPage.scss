@@ -9,7 +9,7 @@ div.withdraw {
   background-attachment: fixed;
   background-position-x: right;
   background-position-y: bottom;
-  background-color: aliceblue;
+  background-color: var(--background-main);
 
   color: var(--text);
   padding-bottom: 40px;
@@ -236,8 +236,4 @@ div.withdraw {
     background: $divider-red;
     margin: 16px 0;
   }
-}
-
-div.noShare {
-  background: var(--background);
 }

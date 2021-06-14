@@ -9,7 +9,7 @@ div.avaxNetPage {
   background-attachment: fixed;
   background-position-x: right;
   background-position-y: bottom;
-  background-color: aliceblue;
+  background-color: var(--background-main);
 
   padding-bottom: 40px;
   box-sizing: border-box; // Make the padding included in height calculation

@@ -130,22 +130,24 @@ const StakePool = (props: Props): ReactElement => {
           {` ( = ${formatUSDNumber(poolData?.totalStakedLpAmountUSD || 0)} )`}
         </span>
       </div>
-      <TokenInput
-        {...amountInput}
-        max={formatBNToString(
-          poolLpTokenBalance || Zero,
-          POOL_LPTOKEN.decimals,
-          10,
-        )}
-        max2={formatBNToString(
-          stakedTokenBalance || Zero,
-          POOL_LPTOKEN.decimals,
-          10,
-        )}
-        maxButton1Name="stake max"
-        maxButton2Name="withdraw max"
-        onChange={(value): void => updateFormAmountValue(value)}
-      />
+      <Box my={3}>
+        <TokenInput
+          {...amountInput}
+          max={formatBNToString(
+            poolLpTokenBalance || Zero,
+            POOL_LPTOKEN.decimals,
+            10,
+          )}
+          max2={formatBNToString(
+            stakedTokenBalance || Zero,
+            POOL_LPTOKEN.decimals,
+            10,
+          )}
+          maxButton1Name="stake max"
+          maxButton2Name="withdraw max"
+          onChange={(value): void => updateFormAmountValue(value)}
+        />
+      </Box>
       <Center width="100%" pt={3} pb={6}>
         <Button
           variant="primary"
@@ -181,7 +183,7 @@ const StakePool = (props: Props): ReactElement => {
           variant="primary"
           size="sm"
           width={160}
-          ml={100}
+          ml={30}
           onClick={(): void => {
             void handleClaimGDL()
           }}
