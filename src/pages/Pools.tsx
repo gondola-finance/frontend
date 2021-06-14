@@ -30,10 +30,12 @@ function Pools({
       <TopMenu activeTab={action} />
       <div className="content">
         <h3 className="title">{t("Select a Pool")}</h3>
-        <PoolOverview data={daiPoolData} to={`/${action}/dai`} />
-        <PoolOverview data={ethPoolData} to={`/${action}/eth`} />
-        <PoolOverview data={usdtPoolData} to={`/${action}/usdt`} />
-        <PoolOverview data={btcPoolData} to={`/${action}/btc`} />
+        <div className="poolsList">
+          <PoolOverview data={daiPoolData} to={`/${action}/dai`} />
+          <PoolOverview data={ethPoolData} to={`/${action}/eth`} />
+          <PoolOverview data={usdtPoolData} to={`/${action}/usdt`} />
+          <PoolOverview data={btcPoolData} to={`/${action}/btc`} />
+        </div>
       </div>
       <div className="footerDiv">
         <Footer />

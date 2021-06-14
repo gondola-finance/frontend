@@ -29,30 +29,30 @@ const StakePage = (): ReactElement => {
         <Box my={10}>
           <h3>
             Total Value Locked: &nbsp;
-            {formatUSDNumber(daiTvl + ethTvl + usdtTvl)}
+            {formatUSDNumber(
+              parseFloat(Number(daiTvl + ethTvl + usdtTvl).toPrecision(3)),
+              true,
+            )}
           </h3>
         </Box>
-        <StakePool poolName={GDL_POOL_NAME} />
-
-        <StakePool poolName={PANGOLIN_AVAX_GDL_POOL_NAME} />
-
-        <StakePool poolName={ZERO_GDL_POOL_NAME} />
-
-        <StakePool
-          poolName={ZETH_ETH_POOL_NAME}
-          onTvlUpdate={(eth) => setEthTvl(eth)}
-        />
-        <StakePool
-          poolName={ZUSDT_USDT_POOL_NAME}
-          onTvlUpdate={(usdt) => setUsdtTvl(usdt)}
-        />
-
-        <StakePool poolName={ZBTC_WBTC_POOL_NAME} />
-
-        <StakePool
-          poolName={ZDAI_DAI_POOL_NAME}
-          onTvlUpdate={(dai) => setDaiTvl(dai)}
-        />
+        <div className="stakePoolList">
+          <StakePool poolName={GDL_POOL_NAME} />
+          <StakePool poolName={PANGOLIN_AVAX_GDL_POOL_NAME} />
+          <StakePool poolName={ZERO_GDL_POOL_NAME} />
+          <StakePool
+            poolName={ZETH_ETH_POOL_NAME}
+            onTvlUpdate={(eth) => setEthTvl(eth)}
+          />
+          <StakePool
+            poolName={ZUSDT_USDT_POOL_NAME}
+            onTvlUpdate={(usdt) => setUsdtTvl(usdt)}
+          />
+          <StakePool poolName={ZBTC_WBTC_POOL_NAME} />
+          <StakePool
+            poolName={ZDAI_DAI_POOL_NAME}
+            onTvlUpdate={(dai) => setDaiTvl(dai)}
+          />
+        </div>
         <Footer />
       </div>
     </div>
