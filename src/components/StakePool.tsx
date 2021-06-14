@@ -11,6 +11,7 @@ import TokenInput from "./TokenInput"
 import { Zero } from "@ethersproject/constants"
 
 import classNames from "classnames"
+import clsx from "clsx"
 import { commify } from "@ethersproject/units"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
 import { useApproveAndWithdrawLP } from "../hooks/useApproveAndWithdrawLP"
@@ -19,7 +20,6 @@ import { useStakedTokenBalance } from "../hooks/useStakedTokenBalance"
 import { useTokenFormState } from "../hooks/useTokenFormState"
 import { useTranslation } from "react-i18next"
 import { useUnclaimedGDLBalance } from "../hooks/useUnclaimedGDLBalance"
-
 interface Props {
   poolName: PoolName
   onTvlUpdate?: (tvl: number) => void
@@ -107,7 +107,7 @@ const StakePool = (props: Props): ReactElement => {
         </span>
         <span className="value">
           {commify(
-            formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 10),
+            formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 10, 3),
           )}
           {` ( = ${formatUSDNumber(
             userShareData?.stakedLPTokenUsdBalance || 0,
@@ -120,15 +120,21 @@ const StakePool = (props: Props): ReactElement => {
         </span>
         <span className="value">
           {commify(
-            formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 10),
+            formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 10, 3),
           )}
         </span>
       </div>
       <div className="info">
         <span style={{ fontWeight: "bold" }}>Total value locked: &nbsp;</span>
         <span className="value">
-          {commify(poolData?.totalStakedLpAmount || 0)} LP
-          {` ( = ${formatUSDNumber(poolData?.totalStakedLpAmountUSD || 0)} )`}
+          {commify(
+            Math.round((poolData?.totalStakedLpAmount || 0) * 100) / 100,
+          )}{" "}
+          LP
+          {` ( = ${formatUSDNumber(
+            poolData?.totalStakedLpAmountUSD || 0,
+            true,
+          )} )`}
         </span>
       </div>
       <Box my={3}>
@@ -229,7 +235,7 @@ const StakePool = (props: Props): ReactElement => {
 
   return (
     <div
-      className="stakingPool"
+      className={clsx(["stakingPool", ...(isCollapse ? ["clickable"] : [])])}
       onClick={() => {
         if (isCollapse) {
           setIsCollapse(false)
