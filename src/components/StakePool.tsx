@@ -128,7 +128,11 @@ const StakePool = (props: Props): ReactElement => {
         <span style={{ fontWeight: "bold" }}>Total value locked: &nbsp;</span>
         <span className="value">
           {commify(
-            Math.round((poolData?.totalStakedLpAmount || 0) * 100) / 100,
+            parseFloat(
+              Number(
+                Math.round((poolData?.totalStakedLpAmount || 0) * 100) / 100,
+              ).toPrecision(3),
+            ),
           )}{" "}
           LP
           {` ( = ${formatUSDNumber(
