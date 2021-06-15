@@ -2,6 +2,7 @@ import {
   BLOCK_TIME,
   DAI,
   ETH,
+  RENBTC,
   Token,
   USDT,
   WBTC,
@@ -50,6 +51,7 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   const daiTokenBalance = useTokenBalance(DAI)
   const ethTokenBalance = useTokenBalance(ETH)
   const usdtTokenBalance = useTokenBalance(USDT)
+  const renbtcTokenBalance = useTokenBalance(RENBTC)
   const wbtcTokenBalance = useTokenBalance(WBTC)
   const zbtcTokenBalance = useTokenBalance(ZBTC)
   const zdaiTokenBalance = useTokenBalance(ZDAI)
@@ -64,6 +66,7 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
     () => ({
       [DAI.symbol]: daiTokenBalance,
       [WBTC.symbol]: wbtcTokenBalance,
+      [RENBTC.symbol]: renbtcTokenBalance,
       [ETH.symbol]: ethTokenBalance,
       [USDT.symbol]: usdtTokenBalance,
       [ZBTC.symbol]: zbtcTokenBalance,
@@ -78,6 +81,7 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       daiTokenBalance,
       ethTokenBalance,
       usdtTokenBalance,
+      renbtcTokenBalance,
       wbtcTokenBalance,
       zbtcTokenBalance,
       zdaiTokenBalance,
