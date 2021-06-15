@@ -1,4 +1,5 @@
 import "./Pools.scss"
+
 import {
   RENBTC_WBTC_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
@@ -10,6 +11,7 @@ import React, { ReactElement } from "react"
 import Footer from "../components/Footer"
 import PoolOverview from "../components/PoolOverview"
 
+import { SimpleGrid } from "@chakra-ui/react"
 import TopMenu from "../components/TopMenu"
 import usePoolData from "../hooks/usePoolData"
 import { useTranslation } from "react-i18next"
@@ -31,13 +33,13 @@ function Pools({
       <TopMenu activeTab={action} />
       <div className="content">
         <h3 className="title">{t("Select a Pool")}</h3>
-        <div className="poolsList">
+        <SimpleGrid width="90%" columns={[2, 2, 2, 3]} minChildWidth="300px">
           <PoolOverview data={daiPoolData} to={`/${action}/dai`} />
           <PoolOverview data={ethPoolData} to={`/${action}/eth`} />
           <PoolOverview data={usdtPoolData} to={`/${action}/usdt`} />
           <PoolOverview data={btcPoolData} to={`/${action}/btc`} />
           <PoolOverview data={renbtcPoolData} to={`/${action}/renbtc`} />
-        </div>
+        </SimpleGrid>
       </div>
       <div className="footerDiv">
         <Footer />
