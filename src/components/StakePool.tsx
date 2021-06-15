@@ -11,6 +11,8 @@ import TokenInput from "./TokenInput"
 import { Zero } from "@ethersproject/constants"
 
 import classNames from "classnames"
+import clsx from "clsx"
+import { commify } from "@ethersproject/units"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
 import { useApproveAndWithdrawLP } from "../hooks/useApproveAndWithdrawLP"
 import usePoolData from "../hooks/usePoolData"
@@ -18,7 +20,6 @@ import { useStakedTokenBalance } from "../hooks/useStakedTokenBalance"
 import { useTokenFormState } from "../hooks/useTokenFormState"
 import { useTranslation } from "react-i18next"
 import { useUnclaimedGDLBalance } from "../hooks/useUnclaimedGDLBalance"
-
 interface Props {
   poolName: PoolName
   onTvlUpdate?: (tvl: number) => void
@@ -32,13 +33,10 @@ const StakePool = (props: Props): ReactElement => {
   const POOL = POOLS_MAP[poolName]
   const POOL_LPTOKEN = POOL.lpToken
 
-  // const dispatch = useDispatch<AppDispatch>()
-  // const { userPoolAdvancedMode: advanced } = useSelector(
-  //   (state: AppState) => state.user,
-  // )
   const [poolData, userShareData] = usePoolData(poolName)
 
   const [advanceMode, setAdvanceMode] = useState(false)
+  const [isCollapse, setIsCollapse] = useState(true)
   const [tvlUsd, setTvlUsd] = useState(0)
   // stakable pool lp token balance = max depositable
   const poolLpTokenBalance = userShareData?.lpTokenBalance || Zero
@@ -97,9 +95,8 @@ const StakePool = (props: Props): ReactElement => {
     onTvlUpdate && onTvlUpdate(poolData?.totalStakedLpAmountUSD || 0)
   }
 
-  return (
-    <div className="stakingPool">
-      <h3>Staking {POOL.lpToken.name}</h3>
+  const collapseDiv = (
+    <div>
       <div className="info">
         <span style={{ fontWeight: "bold" }}>Pool APY: &nbsp;</span>
         <span className="value">{poolData?.apy} %</span>
@@ -109,7 +106,9 @@ const StakePool = (props: Props): ReactElement => {
           Staked {POOL_LPTOKEN.symbol}: &nbsp;
         </span>
         <span className="value">
-          {formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 10)}
+          {commify(
+            formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 10, 3),
+          )}
           {` ( = ${formatUSDNumber(
             userShareData?.stakedLPTokenUsdBalance || 0,
           )} )`}
@@ -120,32 +119,46 @@ const StakePool = (props: Props): ReactElement => {
           Stakable {POOL_LPTOKEN.symbol}: &nbsp;
         </span>
         <span className="value">
-          {formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 10)}
+          {commify(
+            formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 10, 3),
+          )}
         </span>
       </div>
       <div className="info">
         <span style={{ fontWeight: "bold" }}>Total value locked: &nbsp;</span>
         <span className="value">
-          {poolData?.totalStakedLpAmount} LP
-          {` ( = ${formatUSDNumber(poolData?.totalStakedLpAmountUSD || 0)} )`}
+          {commify(
+            parseFloat(
+              Number(
+                Math.round((poolData?.totalStakedLpAmount || 0) * 100) / 100,
+              ).toPrecision(3),
+            ),
+          )}{" "}
+          LP
+          {` ( = ${formatUSDNumber(
+            poolData?.totalStakedLpAmountUSD || 0,
+            true,
+          )} )`}
         </span>
       </div>
-      <TokenInput
-        {...amountInput}
-        max={formatBNToString(
-          poolLpTokenBalance || Zero,
-          POOL_LPTOKEN.decimals,
-          10,
-        )}
-        max2={formatBNToString(
-          stakedTokenBalance || Zero,
-          POOL_LPTOKEN.decimals,
-          10,
-        )}
-        maxButton1Name="stake max"
-        maxButton2Name="withdraw max"
-        onChange={(value): void => updateFormAmountValue(value)}
-      />
+      <Box my={3}>
+        <TokenInput
+          {...amountInput}
+          max={formatBNToString(
+            poolLpTokenBalance || Zero,
+            POOL_LPTOKEN.decimals,
+            10,
+          )}
+          max2={formatBNToString(
+            stakedTokenBalance || Zero,
+            POOL_LPTOKEN.decimals,
+            10,
+          )}
+          maxButton1Name="stake max"
+          maxButton2Name="withdraw max"
+          onChange={(value): void => updateFormAmountValue(value)}
+        />
+      </Box>
       <Center width="100%" pt={3} pb={6}>
         <Button
           variant="primary"
@@ -181,7 +194,7 @@ const StakePool = (props: Props): ReactElement => {
           variant="primary"
           size="sm"
           width={160}
-          ml={100}
+          ml={30}
           onClick={(): void => {
             void handleClaimGDL()
           }}
@@ -221,6 +234,20 @@ const StakePool = (props: Props): ReactElement => {
           </div>
         </div>
       </div>
+    </div>
+  )
+
+  return (
+    <div
+      className={clsx(["stakingPool", ...(isCollapse ? ["clickable"] : [])])}
+      onClick={() => {
+        if (isCollapse) {
+          setIsCollapse(false)
+        }
+      }}
+    >
+      <h3>Staking {POOL.lpToken.name}</h3>
+      {!isCollapse && collapseDiv}
     </div>
   )
 }

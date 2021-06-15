@@ -6,7 +6,7 @@ div.tokenInput {
   align-items: center;
 
   > span {
-    margin-left: 8px;
+    // margin-left: 8px;
   }
 
   input {
@@ -23,6 +23,7 @@ div.tokenInput {
     font-family: $font-family;
     font-style: normal;
     font-weight: $normal;
+    border-radius: 100px;
 
     &:focus {
       outline: none;
@@ -35,10 +36,15 @@ div.tokenInput {
   }
 
   span {
-    line-height: 40px;
+    // line-height: 40px;
   }
 
   img {
     vertical-align: text-bottom;
   }
+}
+
+div.tokenBtnContainer {
+  display: flex;
+  text-align: center;
 }

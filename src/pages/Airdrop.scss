@@ -3,7 +3,14 @@
 
 div.airdropPage {
   min-height: 100vh;
-  background: var(--background-main);
+  // background: var(--background-main);
+  background-image: url("../assets/background_mountain.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position-x: right;
+  background-position-y: bottom;
+  background-color: var(--background-main);
+
   padding-bottom: 40px;
   box-sizing: border-box; // Make the padding included in height calculation
 
@@ -37,4 +44,8 @@ div.airdropPage {
     line-height: 24px;
     font-size: 18px;
   }
+}
+
+div.airdropsList {
+  text-align: center;
 }
