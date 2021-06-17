@@ -3,6 +3,7 @@ import "./StakePage.scss"
 import {
   GDL_POOL_NAME,
   PANGOLIN_AVAX_GDL_POOL_NAME,
+  RENBTC_WBTC_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZERO_GDL_POOL_NAME,
@@ -48,6 +49,7 @@ const StakePage = (): ReactElement => {
             onTvlUpdate={(usdt) => setUsdtTvl(usdt)}
           />
           <StakePool poolName={ZBTC_WBTC_POOL_NAME} />
+          <StakePool poolName={RENBTC_WBTC_POOL_NAME} />
           <StakePool
             poolName={ZDAI_DAI_POOL_NAME}
             onTvlUpdate={(dai) => setDaiTvl(dai)}

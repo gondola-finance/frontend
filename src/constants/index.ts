@@ -325,7 +325,7 @@ export const ZERO_GDL_POOL_NAME = "ZERO-GDL Pool"
 export const ZERO_GDL_POOL_ID = 10
 
 export const RENBTC_WBTC_POOL_NAME = "RenBTC-WBTC Pool"
-export const RENBTC_WBTC_POOL_ID = 13 /**@todo update pool id */
+export const RENBTC_WBTC_POOL_ID = 14
 
 export type PoolName =
   | typeof GDL_POOL_NAME
