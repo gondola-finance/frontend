@@ -22,6 +22,8 @@ const StakePage = (): ReactElement => {
   const [daiTvl, setDaiTvl] = useState(0)
   const [ethTvl, setEthTvl] = useState(0)
   const [usdtTvl, setUsdtTvl] = useState(0)
+  const [btcTvl, setbtcTvl] = useState(0)
+  const [renBtcTvl, setrenBtcTvl] = useState(0)
   return (
     <div className="stake">
       <TopMenu activeTab={"stake"} />
@@ -31,7 +33,11 @@ const StakePage = (): ReactElement => {
           <h3>
             Total Value Locked: &nbsp;
             {formatUSDNumber(
-              parseFloat(Number(daiTvl + ethTvl + usdtTvl).toPrecision(3)),
+              parseFloat(
+                Number(
+                  daiTvl + ethTvl + usdtTvl + btcTvl + renBtcTvl,
+                ).toPrecision(3),
+              ),
               true,
             )}
           </h3>
@@ -48,8 +54,14 @@ const StakePage = (): ReactElement => {
             poolName={ZUSDT_USDT_POOL_NAME}
             onTvlUpdate={(usdt) => setUsdtTvl(usdt)}
           />
-          <StakePool poolName={ZBTC_WBTC_POOL_NAME} />
-          <StakePool poolName={RENBTC_WBTC_POOL_NAME} />
+          <StakePool
+            poolName={ZBTC_WBTC_POOL_NAME}
+            onTvlUpdate={(btc) => setbtcTvl(btc)}
+          />
+          <StakePool
+            poolName={RENBTC_WBTC_POOL_NAME}
+            onTvlUpdate={(renBtc) => setrenBtcTvl(renBtc)}
+          />
           <StakePool
             poolName={ZDAI_DAI_POOL_NAME}
             onTvlUpdate={(dai) => setDaiTvl(dai)}
