@@ -1,10 +1,11 @@
 import "./TokenInput.scss"
 
+import { ChainId, TOKENS_MAP } from "../constants"
 import React, { ReactElement } from "react"
 
 import Button from "./Button"
-import { TOKENS_MAP } from "../constants"
 import classNames from "classnames"
+import { useActiveWeb3React } from "../hooks"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -31,6 +32,8 @@ function TokenInput({
   disabled,
 }: Props): ReactElement {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
+
   function onClickMax(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault()
     onChange(String(max))
@@ -45,7 +48,9 @@ function TokenInput({
     const periodIndex = e.target.value.indexOf(".")
     const isValidInput = e.target.value === "" || !isNaN(parsedValue)
     const isValidPrecision =
-      periodIndex === -1 || e.target.value.length - 1 - periodIndex <= decimals
+      periodIndex === -1 ||
+      e.target.value.length - 1 - periodIndex <=
+        decimals[chainId || ChainId["FUJI"]]
     if (isValidInput && isValidPrecision) {
       // don't allow input longer than the token allows
       onChange(e.target.value)

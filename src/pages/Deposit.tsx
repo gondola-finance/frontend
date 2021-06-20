@@ -1,5 +1,5 @@
+import { ChainId, POOLS_MAP, PoolName, Token } from "../constants"
 import { DepositTransaction, TransactionItem } from "../interfaces/transactions"
-import { POOLS_MAP, PoolName, Token } from "../constants"
 import React, { ReactElement, useEffect, useState } from "react"
 import { TokensStateType, useTokenFormState } from "../hooks/useTokenFormState"
 import { formatBNToString, shiftBNDecimals } from "../utils"
@@ -24,7 +24,7 @@ interface Props {
 
 function Deposit({ poolName }: Props): ReactElement | null {
   const POOL = POOLS_MAP[poolName]
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const approveAndDeposit = useApproveAndDeposit(poolName)
   const [poolData, userShareData] = usePoolData(poolName)
   const swapContract = useSwapContract(poolName)
@@ -93,7 +93,10 @@ function Deposit({ poolName }: Props): ReactElement | null {
     symbol,
     name,
     icon,
-    max: formatBNToString(tokenBalances?.[symbol] || Zero, decimals),
+    max: formatBNToString(
+      tokenBalances?.[symbol] || Zero,
+      decimals[chainId || ChainId["FUJI"]],
+    ),
     inputValue: tokenFormState[symbol].valueRaw,
   }))
 
@@ -121,6 +124,7 @@ function Deposit({ poolName }: Props): ReactElement | null {
     updateTokenFormState({ [symbol]: value })
   }
   const depositTransaction = buildTransactionData(
+    chainId || ChainId["FUJI"],
     tokenFormState,
     poolData,
     POOL.poolTokens,
@@ -145,6 +149,7 @@ function Deposit({ poolName }: Props): ReactElement | null {
 }
 
 function buildTransactionData(
+  chainId: ChainId,
   tokenFormState: TokensStateType,
   poolData: PoolDataType | null,
   poolTokens: Token[],
@@ -172,7 +177,7 @@ function buildTransactionData(
 
     const valueUSD = amount
       .mul(usdPriceBN)
-      .div(BigNumber.from(10).pow(decimals))
+      .div(BigNumber.from(10).pow(decimals[chainId || ChainId["FUJI"]]))
 
     if (!firstAmount) {
       firstAmount = valueUSD
@@ -193,7 +198,10 @@ function buildTransactionData(
     }
     from.items.push(item)
     from.totalAmount = from.totalAmount.add(
-      shiftBNDecimals(amount, TOTAL_AMOUNT_DECIMALS - decimals),
+      shiftBNDecimals(
+        amount,
+        TOTAL_AMOUNT_DECIMALS - decimals[chainId || ChainId["FUJI"]],
+      ),
     )
     from.totalValueUSD = from.totalValueUSD.add(usdPriceBN)
   })
@@ -201,7 +209,9 @@ function buildTransactionData(
   const lpTokenPriceUSD = poolData?.lpTokenPriceUSD || Zero
   const toTotalValueUSD = estDepositLPTokenAmount
     .mul(lpTokenPriceUSD)
-    ?.div(BigNumber.from(10).pow(poolLpToken.decimals))
+    ?.div(
+      BigNumber.from(10).pow(poolLpToken.decimals[chainId || ChainId["FUJI"]]),
+    )
   const to = {
     item: {
       token: poolLpToken,

@@ -95,7 +95,7 @@ export const CHAINS_LOGO: { [id in ChainId]: string } = {
 
 export class Token {
   readonly addresses: { [chainId in ChainId]: string }
-  readonly decimals: number
+  readonly decimals: { [chainId in ChainId]: number }
   readonly symbol: string
   readonly name: string
   readonly icon: string
@@ -103,7 +103,7 @@ export class Token {
 
   constructor(
     addresses: { [chainId in ChainId]: string },
-    decimals: number,
+    decimals: { [chainId in ChainId]: number },
     symbol: string,
     geckoId: string,
     name: string,
@@ -146,7 +146,11 @@ export const ETH = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "ETH",
   "ethereum",
   "ETH",
@@ -159,7 +163,11 @@ export const ZETH = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "0x7c815bbc21fed2b97ca163552991a5c30d6a2336",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "zETH",
   "ethereum",
   "zETH",
@@ -172,7 +180,11 @@ export const WBTC = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  8,
+  {
+    [ChainId.AVALANCHE]: 8,
+    [ChainId.FUJI]: 8,
+    [ChainId.BSC]: 8,
+  },
   "WBTC",
   "bitcoin",
   "WBTC",
@@ -185,7 +197,11 @@ export const ZBTC = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  8,
+  {
+    [ChainId.AVALANCHE]: 8,
+    [ChainId.FUJI]: 8,
+    [ChainId.BSC]: 8,
+  },
   "zBTC",
   "bitcoin",
   "zBTC",
@@ -198,7 +214,11 @@ export const DAI = new Token(
     [ChainId.FUJI]: "0x4D0e868E77895B697DBa91cb969C26E1fA2F111c",
     [ChainId.BSC]: "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "DAI",
   "dai",
   "DAI",
@@ -211,7 +231,11 @@ export const ZDAI = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "0x7e7baff135c42ed90c0edab16eae48ecea417018",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "zDAI",
   "dai",
   "zDAI",
@@ -224,7 +248,11 @@ export const USDT = new Token(
     [ChainId.FUJI]: "0x9ccCC500A9E025450D1823af61fbc2e6586A4Ce3",
     [ChainId.BSC]: "0x55d398326f99059ff775485246999027b3197955",
   },
-  6,
+  {
+    [ChainId.AVALANCHE]: 6,
+    [ChainId.FUJI]: 6,
+    [ChainId.BSC]: 6,
+  },
   "USDT",
   "tether",
   "USDT",
@@ -237,7 +265,11 @@ export const ZUSDT = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "0xbf7e0761417f49b3fafae564c842823f5f79db15",
   },
-  6,
+  {
+    [ChainId.AVALANCHE]: 6,
+    [ChainId.FUJI]: 6,
+    [ChainId.BSC]: 6,
+  },
   "zUSDT",
   "tether",
   "zUSDT",
@@ -250,7 +282,11 @@ export const RENBTC = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  8,
+  {
+    [ChainId.AVALANCHE]: 8,
+    [ChainId.FUJI]: 8,
+    [ChainId.BSC]: 8,
+  },
   "RenBTC",
   "bitcoin",
   "RenBTC",
@@ -307,7 +343,11 @@ export const ZUSDT_USDT_SWAP_TOKEN = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "USDT LP",
   "gondolaUSDT",
   "Gondola zUSDT/USDT LP",
@@ -320,7 +360,11 @@ export const ZBTC_WBTC_SWAP_TOKEN = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "BTC LP",
   "gondolaBTC",
   "Gondola zBTC/WBTC LP",
@@ -333,7 +377,11 @@ export const ZDAI_DAI_SWAP_TOKEN = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "DAI LP",
   "gondolaDAI",
   "Gondola zDAI/DAI LP",
@@ -346,7 +394,11 @@ export const ZETH_ETH_SWAP_TOKEN = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "ETH LP",
   "gondolaETH",
   "Gondola zETH/ETH LP",
@@ -359,7 +411,11 @@ export const RENBTC_WBTC_SWAP_TOKEN = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "RenBTC-WBTC LP",
   "",
   "RenBTC-WBTC LP",
@@ -368,7 +424,11 @@ export const RENBTC_WBTC_SWAP_TOKEN = new Token(
 
 export const GDL_TOKEN = new Token(
   GONDOLA_ADDRESS,
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "GDL",
   "",
   "GDL",
@@ -381,7 +441,11 @@ export const PANGOLIN_AVAX_GDL_TOKEN = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "PANGOLIN AVAX-GDL LP",
   "",
   "PANGOLIN AVAX-GDL LP",
@@ -394,7 +458,11 @@ export const ZERO_GDL_TOKEN = new Token(
     [ChainId.FUJI]: "",
     [ChainId.BSC]: "",
   },
-  18,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
   "ZERO-GDL LP",
   "",
   "ZERO-GDL LP",

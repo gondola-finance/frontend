@@ -1,3 +1,4 @@
+import { ChainId, Token } from "../constants"
 import {
   NumberInputState,
   numberInputStateCreator,
@@ -5,7 +6,7 @@ import {
 
 import { BigNumber } from "@ethersproject/bignumber"
 import React from "react"
-import { Token } from "../constants"
+import { useActiveWeb3React } from "."
 
 export interface TokensStateType {
   [token: string]: NumberInputState
@@ -18,6 +19,8 @@ type UseTokenFormStateReturnType = [TokensStateType, UpdateTokensStateType]
 export function useTokenFormState(
   tokens: Token[],
 ): UseTokenFormStateReturnType {
+  const { chainId } = useActiveWeb3React()
+
   // Token input state handlers
   const tokenInputStateCreators: {
     [tokenSymbol: string]: ReturnType<typeof numberInputStateCreator>
@@ -25,7 +28,7 @@ export function useTokenFormState(
     (acc, token) => ({
       ...acc,
       [token.symbol]: numberInputStateCreator(
-        token.decimals,
+        token.decimals[chainId || ChainId["FUJI"]],
         BigNumber.from("0"),
       ),
     }),

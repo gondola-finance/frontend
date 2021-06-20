@@ -6,6 +6,7 @@ import React, { ReactElement, useState } from "react"
 import { formatBNToString, formatUSDNumber } from "../utils"
 
 import { BigNumber } from "@ethersproject/bignumber"
+import { ChainId } from "../constants"
 import InfiniteApprovalField from "./InfiniteApprovalField"
 import TokenInput from "./TokenInput"
 import { Zero } from "@ethersproject/constants"
@@ -13,6 +14,7 @@ import { Zero } from "@ethersproject/constants"
 import classNames from "classnames"
 import clsx from "clsx"
 import { commify } from "@ethersproject/units"
+import { useActiveWeb3React } from "../hooks"
 import { useApproveAndStake } from "../hooks/useApproveAndStake"
 import { useApproveAndWithdrawLP } from "../hooks/useApproveAndWithdrawLP"
 import usePoolData from "../hooks/usePoolData"
@@ -29,6 +31,7 @@ interface Props {
 const StakePool = (props: Props): ReactElement => {
   const { t } = useTranslation()
   const { poolName, onTvlUpdate } = props
+  const { chainId } = useActiveWeb3React()
 
   const POOL = POOLS_MAP[poolName]
   const POOL_LPTOKEN = POOL.lpToken
@@ -107,7 +110,12 @@ const StakePool = (props: Props): ReactElement => {
         </span>
         <span className="value">
           {commify(
-            formatBNToString(stakedTokenBalance, POOL_LPTOKEN.decimals, 10, 3),
+            formatBNToString(
+              stakedTokenBalance,
+              POOL_LPTOKEN.decimals[chainId || ChainId["FUJI"]],
+              10,
+              3,
+            ),
           )}
           {` ( = ${formatUSDNumber(
             userShareData?.stakedLPTokenUsdBalance || 0,
@@ -120,7 +128,12 @@ const StakePool = (props: Props): ReactElement => {
         </span>
         <span className="value">
           {commify(
-            formatBNToString(poolLpTokenBalance, POOL_LPTOKEN.decimals, 10, 3),
+            formatBNToString(
+              poolLpTokenBalance,
+              POOL_LPTOKEN.decimals[chainId || ChainId["FUJI"]],
+              10,
+              3,
+            ),
           )}
         </span>
       </div>
@@ -146,12 +159,12 @@ const StakePool = (props: Props): ReactElement => {
           {...amountInput}
           max={formatBNToString(
             poolLpTokenBalance || Zero,
-            POOL_LPTOKEN.decimals,
+            POOL_LPTOKEN.decimals[chainId || ChainId["FUJI"]],
             10,
           )}
           max2={formatBNToString(
             stakedTokenBalance || Zero,
-            POOL_LPTOKEN.decimals,
+            POOL_LPTOKEN.decimals[chainId || ChainId["FUJI"]],
             10,
           )}
           maxButton1Name="stake max"
