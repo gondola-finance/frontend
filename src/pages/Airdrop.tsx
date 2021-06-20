@@ -13,20 +13,22 @@ function Airdrop(): ReactElement {
     <div className="airdropPage">
       <TopMenu activeTab={"airdrop"} />
       <div className="content">
-        {chainId &&
-          airdrops[chainId].map((ad) => (
-            <AirdropClaim
-              airdropAddress={chainId && ad.address[chainId]}
-              title={ad.name}
-              key={chainId && ad.address[chainId]}
-              balances={ad.balances}
-            />
-          ))}
+        <div className="airdropsList">
+          {chainId &&
+            airdrops[chainId].map((ad) => (
+              <AirdropClaim
+                airdropAddress={chainId && ad.address[chainId]}
+                title={ad.name}
+                key={chainId && ad.address[chainId]}
+                balances={ad.balances}
+              />
+            ))}
 
-        {(!chainId || airdrops[chainId].length === 0) && (
-          <div> No airdrop is available at the moment.</div>
-        )}
-        <Footer />
+          {(!chainId || airdrops[chainId].length === 0) && (
+            <div> No airdrop is available at the moment.</div>
+          )}
+          <Footer />
+        </div>
       </div>
     </div>
   )

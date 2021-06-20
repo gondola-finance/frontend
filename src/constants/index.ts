@@ -244,6 +244,18 @@ export const ZUSDT = new Token(
   usdtLogo,
 )
 
+export const RENBTC = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xDBf31dF14B66535aF65AaC99C32e9eA844e14501",
+    [ChainId.FUJI]: "",
+  },
+  8,
+  "RenBTC",
+  "bitcoin",
+  "RenBTC",
+  btcLogo,
+)
+
 // pool contracts addresses
 
 export const ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
@@ -276,6 +288,13 @@ export const ZETH_ETH_SWAP_CONTRACT_ADDRESSES: {
   [ChainId.AVALANCHE]: "0xed986f982269e0319F710EC270875dE2b2A443d2",
   [ChainId.FUJI]: "",
   [ChainId.BSC]: "",
+}
+
+export const RENBTC_WBTC_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0x3121c59AFfb3c5Df5fA8EeEFb5064d1fC1166A0F",
+  [ChainId.FUJI]: "",
 }
 
 // pool lp tokens
@@ -332,6 +351,18 @@ export const ZETH_ETH_SWAP_TOKEN = new Token(
   gondolaLogo,
 )
 
+export const RENBTC_WBTC_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x4760Cf6cff26828b3D8b9AFc28230eda50C73CBc",
+    [ChainId.FUJI]: "",
+  },
+  18,
+  "RenBTC-WBTC LP",
+  "",
+  "RenBTC-WBTC LP",
+  gondolaLogo,
+)
+
 export const GDL_TOKEN = new Token(
   GONDOLA_ADDRESS,
   18,
@@ -380,7 +411,7 @@ export const ZETH_ETH_POOL_NAME = "zETH-ETH Pool"
 export const ZETH_ETH_POOL_ID = 7
 
 export const ZBTC_WBTC_POOL_NAME = "zBTC-WBTC Pool"
-export const ZBTC_WBTC_POOL_ID = 13 /** @todo update pool id */
+export const ZBTC_WBTC_POOL_ID = 13
 
 export const PANGOLIN_AVAX_GDL_POOL_NAME = "Pangolin AVAX-GDL Pool"
 export const PANGOLIN_AVAX_GDL_POOL_ID = 12
@@ -388,12 +419,16 @@ export const PANGOLIN_AVAX_GDL_POOL_ID = 12
 export const ZERO_GDL_POOL_NAME = "ZERO-GDL Pool"
 export const ZERO_GDL_POOL_ID = 10
 
+export const RENBTC_WBTC_POOL_NAME = "RenBTC-WBTC Pool"
+export const RENBTC_WBTC_POOL_ID = 14
+
 export type PoolName =
   | typeof GDL_POOL_NAME
   | typeof ZDAI_DAI_POOL_NAME
   | typeof ZUSDT_USDT_POOL_NAME
   | typeof ZETH_ETH_POOL_NAME
   | typeof ZBTC_WBTC_POOL_NAME
+  | typeof RENBTC_WBTC_POOL_NAME
   | typeof PANGOLIN_AVAX_GDL_POOL_NAME
   | typeof ZERO_GDL_POOL_NAME
 
@@ -401,6 +436,7 @@ export const ZUSDT_USDT_POOL_TOKENS = [USDT, ZUSDT]
 export const ZBTC_WBTC_POOL_TOKENS = [WBTC, ZBTC]
 export const ZDAI_DAI_POOL_TOKENS = [DAI, ZDAI]
 export const ZETH_ETH_POOL_TOKENS = [ETH, ZETH]
+export const RENBTC_WBTC_POOL_TOKENS = [WBTC, RENBTC]
 
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
@@ -417,6 +453,8 @@ export const TOKENS_MAP: {
   ZDAI_DAI_SWAP_TOKEN,
   ...ZETH_ETH_POOL_TOKENS,
   ZETH_ETH_SWAP_TOKEN,
+  RENBTC_WBTC_SWAP_TOKEN,
+  ...RENBTC_WBTC_POOL_TOKENS,
 ].reduce((acc, token) => ({ ...acc, [token.symbol]: token }), {})
 
 export type POOL = {
@@ -459,6 +497,12 @@ export const POOLS_MAP: {
     poolId: ZETH_ETH_POOL_ID,
     lpToken: ZETH_ETH_SWAP_TOKEN,
     poolTokens: ZETH_ETH_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [RENBTC_WBTC_POOL_NAME]: {
+    poolId: RENBTC_WBTC_POOL_ID,
+    lpToken: RENBTC_WBTC_SWAP_TOKEN,
+    poolTokens: RENBTC_WBTC_POOL_TOKENS,
     isSwapPool: true,
   },
   [PANGOLIN_AVAX_GDL_POOL_NAME]: {

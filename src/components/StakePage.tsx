@@ -3,6 +3,7 @@ import "./StakePage.scss"
 import {
   GDL_POOL_NAME,
   PANGOLIN_AVAX_GDL_POOL_NAME,
+  RENBTC_WBTC_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZERO_GDL_POOL_NAME,
@@ -21,6 +22,8 @@ const StakePage = (): ReactElement => {
   const [daiTvl, setDaiTvl] = useState(0)
   const [ethTvl, setEthTvl] = useState(0)
   const [usdtTvl, setUsdtTvl] = useState(0)
+  const [btcTvl, setbtcTvl] = useState(0)
+  const [renBtcTvl, setrenBtcTvl] = useState(0)
   return (
     <div className="stake">
       <TopMenu activeTab={"stake"} />
@@ -29,30 +32,41 @@ const StakePage = (): ReactElement => {
         <Box my={10}>
           <h3>
             Total Value Locked: &nbsp;
-            {formatUSDNumber(daiTvl + ethTvl + usdtTvl)}
+            {formatUSDNumber(
+              parseFloat(
+                Number(
+                  daiTvl + ethTvl + usdtTvl + btcTvl + renBtcTvl,
+                ).toPrecision(3),
+              ),
+              true,
+            )}
           </h3>
         </Box>
-        <StakePool poolName={GDL_POOL_NAME} />
-
-        <StakePool poolName={PANGOLIN_AVAX_GDL_POOL_NAME} />
-
-        <StakePool poolName={ZERO_GDL_POOL_NAME} />
-
-        <StakePool
-          poolName={ZETH_ETH_POOL_NAME}
-          onTvlUpdate={(eth) => setEthTvl(eth)}
-        />
-        <StakePool
-          poolName={ZUSDT_USDT_POOL_NAME}
-          onTvlUpdate={(usdt) => setUsdtTvl(usdt)}
-        />
-
-        <StakePool poolName={ZBTC_WBTC_POOL_NAME} />
-
-        <StakePool
-          poolName={ZDAI_DAI_POOL_NAME}
-          onTvlUpdate={(dai) => setDaiTvl(dai)}
-        />
+        <div className="stakePoolList">
+          <StakePool poolName={GDL_POOL_NAME} />
+          <StakePool poolName={PANGOLIN_AVAX_GDL_POOL_NAME} />
+          <StakePool poolName={ZERO_GDL_POOL_NAME} />
+          <StakePool
+            poolName={ZETH_ETH_POOL_NAME}
+            onTvlUpdate={(eth) => setEthTvl(eth)}
+          />
+          <StakePool
+            poolName={ZUSDT_USDT_POOL_NAME}
+            onTvlUpdate={(usdt) => setUsdtTvl(usdt)}
+          />
+          <StakePool
+            poolName={ZBTC_WBTC_POOL_NAME}
+            onTvlUpdate={(btc) => setbtcTvl(btc)}
+          />
+          <StakePool
+            poolName={RENBTC_WBTC_POOL_NAME}
+            onTvlUpdate={(renBtc) => setrenBtcTvl(renBtc)}
+          />
+          <StakePool
+            poolName={ZDAI_DAI_POOL_NAME}
+            onTvlUpdate={(dai) => setDaiTvl(dai)}
+          />
+        </div>
         <Footer />
       </div>
     </div>

@@ -16,15 +16,17 @@ interface Props {
 function PoolOverview({ data, to }: Props): ReactElement | null {
   if (data == null)
     return (
-      <Center my={22}>
-        <Spinner
-          thickness="4px"
-          speed="1s"
-          emptyColor="gray.200"
-          color="#41c7cc"
-          size="xl"
-        />
-      </Center>
+      <div className="spinner">
+        <Center my={22}>
+          <Spinner
+            thickness="4px"
+            speed="1s"
+            emptyColor="gray.200"
+            color="#41c7cc"
+            size="xl"
+          />
+        </Center>
+      </div>
     )
 
   const formattedData = {

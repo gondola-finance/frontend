@@ -2,14 +2,23 @@
 @import "../styles/viewports";
 
 div.poolsPage {
+  background-image: url("../assets/background_mountain.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position-x: right;
+  background-position-y: bottom;
+  background-color: var(--background-main);
+
   min-height: 100vh;
-  background: var(--background-main);
+  // background: var(--background-main);
   color: var(--text);
   font-size: 16px;
   padding-bottom: 40px;
 
   .content {
-    max-width: 900px;
+    // max-width: 900px;
+    padding-inline-start: 60px;
+    padding-inline-end: 60px;
     margin: 0 auto;
     padding-top: 40px;
     display: flex;
