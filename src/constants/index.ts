@@ -248,6 +248,7 @@ export const RENBTC = new Token(
   {
     [ChainId.AVALANCHE]: "0xDBf31dF14B66535aF65AaC99C32e9eA844e14501",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   8,
   "RenBTC",
@@ -295,6 +296,7 @@ export const RENBTC_WBTC_SWAP_CONTRACT_ADDRESSES: {
 } = {
   [ChainId.AVALANCHE]: "0x3121c59AFfb3c5Df5fA8EeEFb5064d1fC1166A0F",
   [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
 }
 
 // pool lp tokens
@@ -355,6 +357,7 @@ export const RENBTC_WBTC_SWAP_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0x4760Cf6cff26828b3D8b9AFc28230eda50C73CBc",
     [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
   },
   18,
   "RenBTC-WBTC LP",
