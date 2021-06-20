@@ -251,7 +251,7 @@ export const USDT = new Token(
   {
     [ChainId.AVALANCHE]: 6,
     [ChainId.FUJI]: 6,
-    [ChainId.BSC]: 6,
+    [ChainId.BSC]: 18,
   },
   "USDT",
   "tether",
