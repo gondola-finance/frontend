@@ -335,7 +335,7 @@ export const ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
 } = {
   [ChainId.AVALANCHE]: "0x3CE2B891071054ee10d4b5eD5a9446f9016F90d8",
   [ChainId.FUJI]: "",
-  [ChainId.BSC]: "",
+  [ChainId.BSC]: "0xC9777e24dfE6eB3E72f78AE115c9C586afc33DE0",
 }
 
 export const ZUSDC_USDC_SWAP_CONTRACT_ADDRESSES: {
@@ -367,7 +367,7 @@ export const ZETH_ETH_SWAP_CONTRACT_ADDRESSES: {
 } = {
   [ChainId.AVALANCHE]: "0xed986f982269e0319F710EC270875dE2b2A443d2",
   [ChainId.FUJI]: "",
-  [ChainId.BSC]: "",
+  [ChainId.BSC]: "0x9c14f329E30e59cA5fDd0DbDA95Fcd58b790d1F7",
 }
 
 export const RENBTC_WBTC_SWAP_CONTRACT_ADDRESSES: {
@@ -384,7 +384,7 @@ export const ZUSDT_USDT_SWAP_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0xE586dB7Db75B87A3E84110a73b99960F5f106c6A",
     [ChainId.FUJI]: "",
-    [ChainId.BSC]: "",
+    [ChainId.BSC]: "0xcEECDfA4bfe0De6E157289F5b6507A62Ae5A0cFB",
   },
   {
     [ChainId.AVALANCHE]: 18,
@@ -452,7 +452,7 @@ export const ZETH_ETH_SWAP_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0xc37ECFA7Bbf1dF92Da7C4A3d92d8CF8657D1FF7f",
     [ChainId.FUJI]: "",
-    [ChainId.BSC]: "",
+    [ChainId.BSC]: "0x30d2BA15eA9333D67b884dCBa8A25Ef191Ff7461",
   },
   {
     [ChainId.AVALANCHE]: 18,
