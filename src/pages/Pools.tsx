@@ -1,6 +1,7 @@
 import "./Pools.scss"
 
 import {
+  ChainId,
   RENBTC_WBTC_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
@@ -13,6 +14,7 @@ import PoolOverview from "../components/PoolOverview"
 
 import { SimpleGrid } from "@chakra-ui/react"
 import TopMenu from "../components/TopMenu"
+import { useActiveWeb3React } from "../hooks"
 import usePoolData from "../hooks/usePoolData"
 import { useTranslation } from "react-i18next"
 
@@ -21,6 +23,7 @@ function Pools({
 }: {
   action: "deposit" | "withdraw" | "swap"
 }): ReactElement | null {
+  const { chainId } = useActiveWeb3React()
   const [renbtcPoolData] = usePoolData(RENBTC_WBTC_POOL_NAME)
   const [btcPoolData] = usePoolData(ZBTC_WBTC_POOL_NAME)
   const [daiPoolData] = usePoolData(ZDAI_DAI_POOL_NAME)
@@ -37,8 +40,12 @@ function Pools({
           <PoolOverview data={daiPoolData} to={`/${action}/dai`} />
           <PoolOverview data={ethPoolData} to={`/${action}/eth`} />
           <PoolOverview data={usdtPoolData} to={`/${action}/usdt`} />
-          <PoolOverview data={btcPoolData} to={`/${action}/btc`} />
-          <PoolOverview data={renbtcPoolData} to={`/${action}/renbtc`} />
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={btcPoolData} to={`/${action}/btc`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={renbtcPoolData} to={`/${action}/renbtc`} />
+          )}
         </SimpleGrid>
       </div>
       <div className="footerDiv">
