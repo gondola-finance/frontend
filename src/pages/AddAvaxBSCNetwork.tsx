@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import "./AddAvaxBSCNetwork.scss"
@@ -5,6 +6,7 @@ import "./AddAvaxBSCNetwork.scss"
 import { Button, Center } from "@chakra-ui/react"
 import { ChainId, NETWORKS } from "../constants"
 import React, { ReactElement } from "react"
+import ConnectWallet from "../components/ConnectWallet"
 import Footer from "../components/Footer"
 import TopMenu from "../components/TopMenu"
 import addNetwork from "../utils/addNetwork"
@@ -24,6 +26,9 @@ function AddAvaxBSCNetwork(): ReactElement {
           </div>
         </Center>
 
+        <Center width="100%" pt={6}>
+          <ConnectWallet onClose={() => {}} />
+        </Center>
         <Center width="100%" pt={6}>
           <Button
             variant="primary"
