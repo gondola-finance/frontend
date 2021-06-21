@@ -1,23 +1,33 @@
 import "./Web3Status.scss"
 
+import { CHAINS_LOGO, ChainId, NETWORKS } from "../constants"
 import React, { ReactElement, useState } from "react"
 
+import ChangeNetwork from "./ChangeNetwork"
 import ConnectWallet from "./ConnectWallet"
 import Modal from "./Modal"
 import profile from "../assets/icons/profile.svg"
+import { useActiveWeb3React } from "../hooks"
 import { useTranslation } from "react-i18next"
-import { useWeb3React } from "@web3-react/core"
-
-// Todo: Link profile image to real account image
 
 const Web3Status = (): ReactElement => {
-  const { account } = useWeb3React()
-  const [modalOpen, setModalOpen] = useState(false)
+  const { account, chainId } = useActiveWeb3React()
+  const [walletModalOpen, setWalletModalOpen] = useState(false)
+  const [netModalOpen, setNetModalOpen] = useState(false)
   const { t } = useTranslation()
 
   return (
     <div className="walletStatus">
-      <button type="button" onClick={(): void => setModalOpen(true)}>
+      <button type="button" onClick={(): void => setNetModalOpen(true)}>
+        {chainId && chainId !== ChainId.FUJI && (
+          <>
+            <img src={CHAINS_LOGO[chainId]} alt="icon" className="icon" />
+            {NETWORKS[chainId].chainName}
+          </>
+        )}
+      </button>
+
+      <button type="button" onClick={(): void => setWalletModalOpen(true)}>
         {account ? (
           <div className="hasAccount">
             <span>
@@ -32,8 +42,15 @@ const Web3Status = (): ReactElement => {
           <div className="noAccount">{t("connectWallet")}</div>
         )}
       </button>
-      <Modal isOpen={modalOpen} onClose={(): void => setModalOpen(false)}>
-        <ConnectWallet onClose={(): void => setModalOpen(false)} />
+      <Modal
+        isOpen={walletModalOpen}
+        onClose={(): void => setWalletModalOpen(false)}
+      >
+        <ConnectWallet onClose={(): void => setWalletModalOpen(false)} />
+      </Modal>
+
+      <Modal isOpen={netModalOpen} onClose={(): void => setNetModalOpen(false)}>
+        <ChangeNetwork onClose={(): void => setNetModalOpen(false)} />
       </Modal>
     </div>
   )

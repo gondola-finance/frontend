@@ -4,6 +4,7 @@ import {
   ETH,
   RENBTC,
   Token,
+  USDC,
   USDT,
   WBTC,
   ZBTC,
@@ -11,6 +12,7 @@ import {
   ZDAI_DAI_SWAP_TOKEN,
   ZETH,
   ZETH_ETH_SWAP_TOKEN,
+  ZUSDC,
   ZUSDT,
   ZUSDT_USDT_SWAP_TOKEN,
 } from "../../constants"
@@ -50,12 +52,14 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   // pool tokens
   const daiTokenBalance = useTokenBalance(DAI)
   const ethTokenBalance = useTokenBalance(ETH)
+  const usdcTokenBalance = useTokenBalance(USDC)
   const usdtTokenBalance = useTokenBalance(USDT)
   const renbtcTokenBalance = useTokenBalance(RENBTC)
   const wbtcTokenBalance = useTokenBalance(WBTC)
   const zbtcTokenBalance = useTokenBalance(ZBTC)
   const zdaiTokenBalance = useTokenBalance(ZDAI)
   const zethTokenBalance = useTokenBalance(ZETH)
+  const zusdcTokenBalance = useTokenBalance(ZUSDC)
   const zusdtTokenBalance = useTokenBalance(ZUSDT)
   // lpTokens
   const zdaiDaiSwapTokenBalance = useTokenBalance(ZDAI_DAI_SWAP_TOKEN)
@@ -68,10 +72,12 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       [WBTC.symbol]: wbtcTokenBalance,
       [RENBTC.symbol]: renbtcTokenBalance,
       [ETH.symbol]: ethTokenBalance,
+      [USDC.symbol]: usdcTokenBalance,
       [USDT.symbol]: usdtTokenBalance,
       [ZBTC.symbol]: zbtcTokenBalance,
       [ZDAI.symbol]: zdaiTokenBalance,
       [ZETH.symbol]: zethTokenBalance,
+      [ZUSDC.symbol]: zusdcTokenBalance,
       [ZUSDT.symbol]: zusdtTokenBalance,
       [ZDAI_DAI_SWAP_TOKEN.symbol]: zdaiDaiSwapTokenBalance,
       [ZETH_ETH_SWAP_TOKEN.symbol]: zethEthSwapTokenBalance,
@@ -80,12 +86,14 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
     [
       daiTokenBalance,
       ethTokenBalance,
+      usdcTokenBalance,
       usdtTokenBalance,
       renbtcTokenBalance,
       wbtcTokenBalance,
       zbtcTokenBalance,
       zdaiTokenBalance,
       zethTokenBalance,
+      zusdcTokenBalance,
       zusdtTokenBalance,
       zdaiDaiSwapTokenBalance,
       zethEthSwapTokenBalance,

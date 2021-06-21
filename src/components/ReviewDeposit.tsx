@@ -9,11 +9,13 @@ import {
 
 import { AppState } from "../state/index"
 import Button from "./Button"
+import { ChainId } from "../constants"
 import { DepositTransaction } from "../interfaces/transactions"
 import HighPriceImpactConfirmation from "./HighPriceImpactConfirmation"
 import { commify } from "@ethersproject/units"
 import { formatSlippageToString } from "../utils/slippage"
 import { isHighPriceImpact } from "../utils/priceImpact"
+import { useActiveWeb3React } from "../hooks"
 import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
 
@@ -29,6 +31,7 @@ function ReviewDeposit({
   transactionData,
 }: Props): ReactElement {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
   const {
     slippageCustom,
     slippageSelected,
@@ -58,7 +61,12 @@ function ReviewDeposit({
               </div>
               <div className="value">
                 <span className="value">
-                  {commify(formatBNToString(amount, token.decimals))}
+                  {commify(
+                    formatBNToString(
+                      amount,
+                      token.decimals[chainId || ChainId["FUJI"]],
+                    ),
+                  )}
                 </span>
               </div>
             </div>
@@ -89,7 +97,9 @@ function ReviewDeposit({
                 {commify(
                   formatBNToString(
                     transactionData.to.item.amount,
-                    transactionData.to.item.token.decimals,
+                    transactionData.to.item.token.decimals[
+                      chainId || ChainId["FUJI"]
+                    ],
                   ),
                 )}
               </span>

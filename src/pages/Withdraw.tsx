@@ -1,4 +1,4 @@
-import { POOLS_MAP, PoolName } from "../constants"
+import { ChainId, POOLS_MAP, PoolName } from "../constants"
 import React, { ReactElement, useEffect, useState } from "react"
 import WithdrawPage, { ReviewWithdrawData } from "../components/WithdrawPage"
 import { commify, formatUnits, parseUnits } from "@ethersproject/units"
@@ -29,7 +29,7 @@ function Withdraw({ poolName }: Props): ReactElement {
   const { tokenPricesUSD } = useSelector((state: AppState) => state.application)
   const approveAndWithdraw = useApproveAndWithdraw(poolName)
   const swapContract = useSwapContract(poolName)
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const POOL = POOLS_MAP[poolName]
 
   const [estWithdrawBonus, setEstWithdrawBonus] = useState(Zero)
@@ -122,7 +122,7 @@ function Withdraw({ poolName }: Props): ReactElement {
         value: commify(
           formatUnits(
             withdrawFormState.tokenInputs[symbol].valueSafe,
-            decimals,
+            decimals[chainId || ChainId["FUJI"]],
           ),
         ),
         icon,
@@ -132,7 +132,7 @@ function Withdraw({ poolName }: Props): ReactElement {
           name,
           value: formatUnits(
             withdrawFormState.tokenInputs[symbol].valueSafe,
-            decimals,
+            decimals[chainId || ChainId["FUJI"]],
           ),
           rate: commify(tokenPricesUSD[symbol]?.toFixed(2)),
         })

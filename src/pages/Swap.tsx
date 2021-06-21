@@ -1,4 +1,4 @@
-import { POOLS_MAP, PoolName, TOKENS_MAP } from "../constants"
+import { ChainId, POOLS_MAP, PoolName, TOKENS_MAP } from "../constants"
 import React, { ReactElement, useCallback, useState } from "react"
 import { formatUnits, parseUnits } from "@ethersproject/units"
 
@@ -7,6 +7,7 @@ import SwapPage from "../components/SwapPage"
 import { calculateExchangeRate } from "../utils"
 import { calculatePriceImpact } from "../utils/priceImpact"
 import { debounce } from "lodash"
+import { useActiveWeb3React } from "../hooks"
 import { useApproveAndSwap } from "../hooks/useApproveAndSwap"
 import usePoolData from "../hooks/usePoolData"
 import { usePoolTokenBalances } from "../state/wallet/hooks"
@@ -30,6 +31,7 @@ interface Props {
   poolName: PoolName
 }
 function Swap({ poolName }: Props): ReactElement {
+  const { chainId } = useActiveWeb3React()
   const { t } = useTranslation()
   const [poolData] = usePoolData(poolName)
   const approveAndSwap = useApproveAndSwap(poolName)
@@ -86,7 +88,9 @@ function Swap({ poolName }: Props): ReactElement {
       )
       const amountToGive = parseUnits(
         cleanedFormFromValue,
-        TOKENS_MAP[formStateArg.from.symbol].decimals,
+        TOKENS_MAP[formStateArg.from.symbol].decimals[
+          chainId || ChainId["FUJI"]
+        ],
       )
       let error: string | null = null
       let amountToReceive: BigNumber
@@ -112,15 +116,23 @@ function Swap({ poolName }: Props): ReactElement {
           value: amountToReceive,
         },
         priceImpact: calculatePriceImpact(
-          amountToGive.mul(BigNumber.from(10).pow(18 - tokenFrom.decimals)),
-          amountToReceive.mul(BigNumber.from(10).pow(18 - tokenTo.decimals)),
+          amountToGive.mul(
+            BigNumber.from(10).pow(
+              18 - tokenFrom.decimals[chainId || ChainId["FUJI"]],
+            ),
+          ),
+          amountToReceive.mul(
+            BigNumber.from(10).pow(
+              18 - tokenTo.decimals[chainId || ChainId["FUJI"]],
+            ),
+          ),
           poolData?.virtualPrice,
         ),
         exchangeRate: calculateExchangeRate(
           amountToGive,
-          tokenFrom.decimals,
+          tokenFrom.decimals[chainId || ChainId["FUJI"]],
           amountToReceive,
-          tokenTo.decimals,
+          tokenTo.decimals[chainId || ChainId["FUJI"]],
         ),
       }))
     }, 250),
@@ -206,7 +218,10 @@ function Swap({ poolName }: Props): ReactElement {
   async function handleConfirmTransaction(): Promise<void> {
     const fromToken = TOKENS_MAP[formState.from.symbol]
     await approveAndSwap({
-      fromAmount: parseUnits(formState.from.value, fromToken.decimals),
+      fromAmount: parseUnits(
+        formState.from.value,
+        fromToken.decimals[chainId || ChainId["FUJI"]],
+      ),
       fromTokenSymbol: formState.from.symbol,
       toAmount: formState.to.value,
       toTokenSymbol: formState.to.symbol,
@@ -240,7 +255,7 @@ function Swap({ poolName }: Props): ReactElement {
         ...formState.to,
         value: formatUnits(
           formState.to.value,
-          TOKENS_MAP[formState.to.symbol].decimals,
+          TOKENS_MAP[formState.to.symbol].decimals[chainId || ChainId["FUJI"]],
         ),
       }}
       onChangeFromAmount={handleUpdateAmountFrom}

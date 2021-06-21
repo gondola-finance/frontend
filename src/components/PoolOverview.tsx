@@ -1,12 +1,13 @@
 import "./PoolOverview.scss"
 
 import { Center, Spinner } from "@chakra-ui/react"
+import { ChainId, TOKENS_MAP } from "../constants"
 import React, { ReactElement } from "react"
 
 import { Link } from "react-router-dom"
 import { PoolDataType } from "../hooks/usePoolData"
-import { TOKENS_MAP } from "../constants"
 import { formatUnits } from "@ethersproject/units"
+import { useActiveWeb3React } from "../hooks"
 
 interface Props {
   to: string
@@ -14,6 +15,8 @@ interface Props {
 }
 
 function PoolOverview({ data, to }: Props): ReactElement | null {
+  const { chainId } = useActiveWeb3React()
+
   if (data == null)
     return (
       <div className="spinner">
@@ -39,7 +42,9 @@ function PoolOverview({ data, to }: Props): ReactElement | null {
         symbol: token.symbol,
         name: token.name,
         icon: token.icon,
-        value: parseFloat(formatUnits(coin.value, token.decimals)).toFixed(3),
+        value: parseFloat(
+          formatUnits(coin.value, token.decimals[chainId || ChainId["FUJI"]]),
+        ).toFixed(3),
       }
     }),
   }

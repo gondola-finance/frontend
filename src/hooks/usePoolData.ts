@@ -1,4 +1,5 @@
 import {
+  ChainId,
   GDL_POOL_NAME,
   GDL_TOKEN,
   MASTERCHEF_ADDRESS,
@@ -129,7 +130,7 @@ export default function usePoolData(
         POOL.poolTokens.map(async (token, i) => {
           const balance = await swapContract?.getTokenBalance(i)
           return BigNumber.from(10)
-            .pow(18 - token.decimals) // cast all to 18 decimals
+            .pow(18 - token.decimals[chainId || ChainId["FUJI"]]) // cast all to 18 decimals
             .mul(balance || 0)
         }),
       )
@@ -157,7 +158,11 @@ export default function usePoolData(
       const gdlPriceUSD = BigNumber.from(
         // BigNumber.from needs integer
         Math.ceil(Number(tokenPricesUSD[GDL_TOKEN.symbol]) * 10000),
-      ).mul(BigNumber.from(10).pow(GDL_TOKEN.decimals - 4))
+      ).mul(
+        BigNumber.from(10).pow(
+          GDL_TOKEN.decimals[chainId || ChainId["FUJI"]] - 4,
+        ),
+      )
 
       // for stake page: non-swap pool stake GDL
       if (poolName === GDL_POOL_NAME) {
@@ -273,7 +278,10 @@ export default function usePoolData(
       // const poolGDLPerDay = poolGDLPerSec.mul(86400)
       const poolGDLPerYear = poolGDLPerSec.mul(3600 * 24 * 365)
 
-      const masterAddress = chainId ? MASTERCHEF_ADDRESS[chainId] : AddressZero
+      const masterAddress = chainId
+        ? MASTERCHEF_ADDRESS[chainId] || AddressZero
+        : AddressZero
+
       const totalStakedLpAmount =
         (await lpTokenContract?.balanceOf(masterAddress)) || Zero
 

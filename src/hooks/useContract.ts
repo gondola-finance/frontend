@@ -11,6 +11,7 @@ import {
   RENBTC_WBTC_SWAP_CONTRACT_ADDRESSES,
   RENBTC_WBTC_SWAP_TOKEN,
   Token,
+  USDC,
   USDT,
   WBTC,
   ZBTC,
@@ -25,6 +26,10 @@ import {
   ZETH_ETH_POOL_NAME,
   ZETH_ETH_SWAP_CONTRACT_ADDRESSES,
   ZETH_ETH_SWAP_TOKEN,
+  ZUSDC,
+  ZUSDC_USDC_POOL_NAME,
+  ZUSDC_USDC_SWAP_CONTRACT_ADDRESSES,
+  ZUSDC_USDC_SWAP_TOKEN,
   ZUSDT,
   ZUSDT_USDT_POOL_NAME,
   ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES,
@@ -110,6 +115,12 @@ export function useSwapContract(poolName: PoolName): Swap | null {
     withSignerIfPossible,
   )
 
+  const zusdcUsdcSwapContract = useContract(
+    chainId ? ZUSDC_USDC_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
+
   const zethEthSwapContract = useContract(
     chainId ? ZETH_ETH_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
     SWAP_ABI,
@@ -127,6 +138,8 @@ export function useSwapContract(poolName: PoolName): Swap | null {
       return zusdtUsdtSwapContract as Swap
     } else if (poolName === RENBTC_WBTC_POOL_NAME) {
       return renbtcWbtcSwapContract as Swap
+    } else if (poolName === ZUSDC_USDC_POOL_NAME) {
+      return zusdcUsdcSwapContract as Swap
     }
 
     return null
@@ -136,6 +149,7 @@ export function useSwapContract(poolName: PoolName): Swap | null {
     zethEthSwapContract,
     zusdtUsdtSwapContract,
     renbtcWbtcSwapContract,
+    zusdcUsdcSwapContract,
     poolName,
   ])
 }
@@ -158,9 +172,11 @@ export function useAllContracts(): AllContractsObject | null {
   const wbtcContract = useTokenContract(WBTC) as Erc20
   const daiContract = useTokenContract(DAI) as Erc20
   const ethContract = useTokenContract(ETH) as Erc20
+  const usdcContract = useTokenContract(USDC) as Erc20
   const usdtContract = useTokenContract(USDT) as Erc20
   const zdaiContract = useTokenContract(ZDAI) as Erc20
   const zethContract = useTokenContract(ZETH) as Erc20
+  const zusdcContract = useTokenContract(ZUSDC) as Erc20
   const zusdtContract = useTokenContract(ZUSDT) as Erc20
   const zbtcContract = useTokenContract(ZBTC) as Erc20
   const renbtcContract = useTokenContract(RENBTC) as Erc20
@@ -170,6 +186,9 @@ export function useAllContracts(): AllContractsObject | null {
   ) as Swap
   const zdaiDaiSwapTokenContract = useTokenContract(ZDAI_DAI_SWAP_TOKEN) as Swap
   const zethEthSwapTokenContract = useTokenContract(ZETH_ETH_SWAP_TOKEN) as Swap
+  const zusdcUsdcSwapTokenContract = useTokenContract(
+    ZUSDC_USDC_SWAP_TOKEN,
+  ) as Swap
   const zusdtUsdtSwapTokenContract = useTokenContract(
     ZUSDT_USDT_SWAP_TOKEN,
   ) as Swap
@@ -178,33 +197,22 @@ export function useAllContracts(): AllContractsObject | null {
   ) as Swap
 
   return useMemo(() => {
-    if (
-      ![
-        wbtcContract,
-        daiContract,
-        ethContract,
-        usdtContract,
-        renbtcContract,
-        zbtcContract,
-        zdaiContract,
-        zethContract,
-        zusdtContract,
-      ].some(Boolean)
-    )
-      return null
     return {
       [DAI.symbol]: daiContract,
       [ETH.symbol]: ethContract,
+      [USDC.symbol]: usdcContract,
       [USDT.symbol]: usdtContract,
       [RENBTC.symbol]: renbtcContract,
       [WBTC.symbol]: wbtcContract,
       [ZBTC.symbol]: zbtcContract,
       [ZDAI.symbol]: zdaiContract,
       [ZETH.symbol]: zethContract,
+      [ZUSDC.symbol]: zusdcContract,
       [ZUSDT.symbol]: zusdtContract,
       [ZDAI_DAI_SWAP_TOKEN.symbol]: zdaiDaiSwapTokenContract,
       [ZBTC_WBTC_SWAP_TOKEN.symbol]: zbtcWbtcSwapTokenContract,
       [ZETH_ETH_SWAP_TOKEN.symbol]: zethEthSwapTokenContract,
+      [ZUSDC_USDC_SWAP_TOKEN.symbol]: zusdcUsdcSwapTokenContract,
       [ZUSDT_USDT_SWAP_TOKEN.symbol]: zusdtUsdtSwapTokenContract,
       [RENBTC_WBTC_SWAP_TOKEN.symbol]: renbtcWbtcSwapTokenContract,
     }
@@ -212,15 +220,18 @@ export function useAllContracts(): AllContractsObject | null {
     wbtcContract,
     daiContract,
     ethContract,
+    usdcContract,
     usdtContract,
     renbtcContract,
     zbtcContract,
     zdaiContract,
     zethContract,
+    zusdcContract,
     zusdtContract,
     renbtcWbtcSwapTokenContract,
     zbtcWbtcSwapTokenContract,
     zdaiDaiSwapTokenContract,
+    zusdcUsdcSwapTokenContract,
     zethEthSwapTokenContract,
     zusdtUsdtSwapTokenContract,
   ])

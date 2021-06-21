@@ -4,10 +4,12 @@ import React, { ReactElement } from "react"
 
 import { BigNumber } from "@ethersproject/bignumber"
 import Button from "./Button"
+import { ChainId } from "../constants"
 import ToolTip from "./ToolTip"
 import classNames from "classnames"
 import { formatBNToString } from "../utils"
 import { formatUnits } from "@ethersproject/units"
+import { useActiveWeb3React } from "../hooks"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -17,7 +19,7 @@ interface Props {
     value: BigNumber
     icon: string
     symbol: string
-    decimals: number
+    decimals: { [chainId in ChainId]: number }
   }>
   selected: string
   inputValue: string
@@ -34,6 +36,7 @@ function SwapForm({
   onChangeAmount,
 }: Props): ReactElement {
   const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React()
 
   return (
     <div className="swapForm">
@@ -64,7 +67,12 @@ function SwapForm({
                 onClick={(): void => {
                   const token = tokens.find((t) => t.symbol === selected)
                   if (token && onChangeAmount) {
-                    onChangeAmount(formatUnits(token.value, token.decimals))
+                    onChangeAmount(
+                      formatUnits(
+                        token.value,
+                        token.decimals[chainId || ChainId["FUJI"]],
+                      ),
+                    )
                   }
                 }}
               >
@@ -78,8 +86,15 @@ function SwapForm({
       </div>
       <ul className="tokenList">
         {tokens.map(({ symbol, value, icon, name, decimals }) => {
-          const formattedShortBalance = formatBNToString(value, decimals, 6)
-          const formattedLongBalance = formatBNToString(value, decimals)
+          const formattedShortBalance = formatBNToString(
+            value,
+            decimals[chainId || ChainId["FUJI"]],
+            6,
+          )
+          const formattedLongBalance = formatBNToString(
+            value,
+            decimals[chainId || ChainId["FUJI"]],
+          )
           return (
             <div
               className={classNames("tokenListItem", {

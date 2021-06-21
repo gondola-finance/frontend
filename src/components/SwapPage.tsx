@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch } from "../state"
 import { AppState } from "../state/index"
 import { BigNumber } from "@ethersproject/bignumber"
+import { ChainId } from "../constants"
 import ConfirmTransaction from "./ConfirmTransaction"
 import DeadlineField from "./DeadlineField"
 import Footer from "./Footer"
@@ -31,7 +32,7 @@ interface Props {
     name: string
     value: BigNumber
     icon: string
-    decimals: number
+    decimals: { [chainId in ChainId]: number }
   }>
   exchangeRateInfo: {
     pair: string

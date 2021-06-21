@@ -3,18 +3,21 @@ import "./MyShare.scss"
 import React, { ReactElement } from "react"
 import { formatBNToPercentString, formatBNToString } from "../utils"
 
+import { ChainId } from "../constants"
+
 import { Link } from "react-router-dom"
 import { TOKENS_MAP } from "../constants"
 import { UserShareType } from "../hooks/usePoolData"
 import { commify } from "@ethersproject/units"
+import { useActiveWeb3React } from "../hooks"
 import { useTranslation } from "react-i18next"
-
 interface Props {
   to: string
   data: UserShareType | null
 }
 
 function MyShare({ to, data }: Props): ReactElement | null {
+  const { chainId } = useActiveWeb3React()
   const { t } = useTranslation()
 
   if (!data) return null
@@ -27,7 +30,13 @@ function MyShare({ to, data }: Props): ReactElement | null {
       return {
         symbol: token.symbol,
         name: token.name,
-        value: commify(formatBNToString(coin.value, token.decimals, 6)),
+        value: commify(
+          formatBNToString(
+            coin.value,
+            token.decimals[chainId || ChainId["FUJI"]],
+            6,
+          ),
+        ),
       }
     }),
   }

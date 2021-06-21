@@ -1,8 +1,8 @@
+import { ChainId, POOLS_MAP, PoolName } from "../constants"
 import {
   NumberInputState,
   numberInputStateCreator,
 } from "../utils/numberInputState"
-import { POOLS_MAP, PoolName } from "../constants"
 import { useCallback, useMemo, useState } from "react"
 
 import { BigNumber } from "@ethersproject/bignumber"
@@ -42,7 +42,7 @@ export default function useWithdrawFormState(
   const POOL = POOLS_MAP[poolName]
   const swapContract = useSwapContract(poolName)
   const [, userShareData] = usePoolData(poolName)
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const tokenInputStateCreators: {
     [tokenSymbol: string]: ReturnType<typeof numberInputStateCreator>
   } = useMemo(
@@ -50,11 +50,14 @@ export default function useWithdrawFormState(
       POOL.poolTokens.reduce(
         (acc, { symbol, decimals }) => ({
           ...acc,
-          [symbol]: numberInputStateCreator(decimals, BigNumber.from("0")),
+          [symbol]: numberInputStateCreator(
+            decimals[chainId || ChainId["FUJI"]],
+            BigNumber.from("0"),
+          ),
         }),
         {},
       ),
-    [POOL.poolTokens],
+    [POOL.poolTokens, chainId],
   )
   const tokenInputsEmptyState = useMemo(
     () =>
