@@ -6,6 +6,7 @@ import {
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZETH_ETH_POOL_NAME,
+  // ZUSDC_USDC_POOL_NAME,
   ZUSDT_USDT_POOL_NAME,
 } from "../constants"
 import React, { ReactElement } from "react"
@@ -28,6 +29,7 @@ function Pools({
   const [btcPoolData] = usePoolData(ZBTC_WBTC_POOL_NAME)
   const [daiPoolData] = usePoolData(ZDAI_DAI_POOL_NAME)
   const [ethPoolData] = usePoolData(ZETH_ETH_POOL_NAME)
+  // const [usdcPoolData] = usePoolData(ZUSDC_USDC_POOL_NAME)
   const [usdtPoolData] = usePoolData(ZUSDT_USDT_POOL_NAME)
   const { t } = useTranslation()
 
@@ -46,6 +48,9 @@ function Pools({
           {chainId && chainId === ChainId.AVALANCHE && (
             <PoolOverview data={renbtcPoolData} to={`/${action}/renbtc`} />
           )}
+          {/* {chainId && chainId === ChainId.BSC && (
+            <PoolOverview data={usdcPoolData} to={`/${action}/usdc`} />
+          )} */}
         </SimpleGrid>
       </div>
       <div className="footerDiv">

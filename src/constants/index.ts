@@ -5,6 +5,7 @@ import btcLogo from "../assets/icons/wbtc.svg"
 import daiLogo from "../assets/icons/dai.svg"
 import ethLogo from "../assets/icons/eth.svg"
 import gondolaLogo from "../assets/icons/brand_logo.png"
+import usdcLogo from "../assets/icons/usdc.svg"
 import usdtLogo from "../assets/icons/usdt.svg"
 import zeroLogo from "../assets/icons/icon_zero.png"
 
@@ -276,6 +277,40 @@ export const ZUSDT = new Token(
   usdtLogo,
 )
 
+export const USDC = new Token(
+  {
+    [ChainId.AVALANCHE]: "",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "USDC",
+  "usd-coin",
+  "USDC",
+  usdcLogo,
+)
+
+export const ZUSDC = new Token(
+  {
+    [ChainId.AVALANCHE]: "",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "0x4022afeb287052e6e587d39ba99f79cafc47b570",
+  },
+  {
+    [ChainId.AVALANCHE]: 6,
+    [ChainId.FUJI]: 6,
+    [ChainId.BSC]: 6,
+  },
+  "zUSDC",
+  "usd-coin",
+  "zUSDC",
+  usdcLogo,
+)
+
 export const RENBTC = new Token(
   {
     [ChainId.AVALANCHE]: "0xDBf31dF14B66535aF65AaC99C32e9eA844e14501",
@@ -301,6 +336,14 @@ export const ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
   [ChainId.AVALANCHE]: "0x3CE2B891071054ee10d4b5eD5a9446f9016F90d8",
   [ChainId.FUJI]: "",
   [ChainId.BSC]: "",
+}
+
+export const ZUSDC_USDC_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "0x793ce655d5908318A65E89B3e0570BC72e60E23e",
 }
 
 export const ZBTC_WBTC_SWAP_CONTRACT_ADDRESSES: {
@@ -351,6 +394,23 @@ export const ZUSDT_USDT_SWAP_TOKEN = new Token(
   "USDT LP",
   "gondolaUSDT",
   "Gondola zUSDT/USDT LP",
+  gondolaLogo,
+)
+
+export const ZUSDC_USDC_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "0xE16126Be6Dc796eaE4689B292A8A1D43572496e7",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "USCT LP",
+  "gondolaUSDC",
+  "Gondola zUSDC/USDC LP",
   gondolaLogo,
 )
 
@@ -493,10 +553,14 @@ export const ZERO_GDL_POOL_ID = 10
 export const RENBTC_WBTC_POOL_NAME = "RenBTC-WBTC Pool"
 export const RENBTC_WBTC_POOL_ID = 14
 
+export const ZUSDC_USDC_POOL_NAME = "zUSDC-USDC Pool"
+export const ZUSDC_USDC_POOL_ID = 1 /** @todo update pool id */
+
 export type PoolName =
   | typeof GDL_POOL_NAME
   | typeof ZDAI_DAI_POOL_NAME
   | typeof ZUSDT_USDT_POOL_NAME
+  | typeof ZUSDC_USDC_POOL_NAME
   | typeof ZETH_ETH_POOL_NAME
   | typeof ZBTC_WBTC_POOL_NAME
   | typeof RENBTC_WBTC_POOL_NAME
@@ -504,6 +568,7 @@ export type PoolName =
   | typeof ZERO_GDL_POOL_NAME
 
 export const ZUSDT_USDT_POOL_TOKENS = [USDT, ZUSDT]
+export const ZUSDC_USDC_POOL_TOKENS = [USDC, ZUSDC]
 export const ZBTC_WBTC_POOL_TOKENS = [WBTC, ZBTC]
 export const ZDAI_DAI_POOL_TOKENS = [DAI, ZDAI]
 export const ZETH_ETH_POOL_TOKENS = [ETH, ZETH]
@@ -518,6 +583,8 @@ export const TOKENS_MAP: {
   ZERO_GDL_TOKEN,
   ...ZUSDT_USDT_POOL_TOKENS,
   ZUSDT_USDT_SWAP_TOKEN,
+  ...ZUSDC_USDC_POOL_TOKENS,
+  ZUSDC_USDC_SWAP_TOKEN,
   ...ZBTC_WBTC_POOL_TOKENS,
   ZBTC_WBTC_SWAP_TOKEN,
   ...ZDAI_DAI_POOL_TOKENS,
@@ -562,6 +629,12 @@ export const POOLS_MAP: {
     poolId: ZUSDT_USDT_POOL_ID,
     lpToken: ZUSDT_USDT_SWAP_TOKEN,
     poolTokens: ZUSDT_USDT_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [ZUSDC_USDC_POOL_NAME]: {
+    poolId: ZUSDC_USDC_POOL_ID,
+    lpToken: ZUSDC_USDC_SWAP_TOKEN,
+    poolTokens: ZUSDC_USDC_POOL_TOKENS,
     isSwapPool: true,
   },
   [ZETH_ETH_POOL_NAME]: {

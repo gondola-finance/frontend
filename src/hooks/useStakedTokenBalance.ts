@@ -15,7 +15,9 @@ export function useStakedTokenBalance(poolId: number): BigNumber {
   usePoller((): void => {
     async function pollBalance(): Promise<void> {
       const userInfo = account
-        ? await masterChefContract?.userInfo(poolId, account)
+        ? (await masterChefContract?.userInfo(poolId, account)) || {
+            amount: Zero,
+          }
         : { amount: Zero }
 
       if (userInfo?.amount !== undefined && userInfo?.amount !== balance) {

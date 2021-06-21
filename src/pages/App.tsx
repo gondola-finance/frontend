@@ -7,6 +7,7 @@ import {
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZETH_ETH_POOL_NAME,
+  ZUSDC_USDC_POOL_NAME,
   ZUSDT_USDT_POOL_NAME,
 } from "../constants"
 import React, { ReactElement, Suspense, useCallback } from "react"
@@ -94,6 +95,13 @@ export default function App(): ReactElement {
               />
               <Route
                 exact
+                path="/swap/usdc"
+                render={(props) => (
+                  <Swap {...props} poolName={ZUSDC_USDC_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
                 path="/swap/usdt"
                 render={(props) => (
                   <Swap {...props} poolName={ZUSDT_USDT_POOL_NAME} />
@@ -134,6 +142,13 @@ export default function App(): ReactElement {
               />
               <Route
                 exact
+                path="/deposit/usdc"
+                render={(props) => (
+                  <Deposit {...props} poolName={ZUSDC_USDC_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
                 path="/deposit/usdt"
                 render={(props) => (
                   <Deposit {...props} poolName={ZUSDT_USDT_POOL_NAME} />
@@ -170,6 +185,13 @@ export default function App(): ReactElement {
                 path="/withdraw/eth"
                 render={(props) => (
                   <Withdraw {...props} poolName={ZETH_ETH_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/usdc"
+                render={(props) => (
+                  <Withdraw {...props} poolName={ZUSDC_USDC_POOL_NAME} />
                 )}
               />
               <Route

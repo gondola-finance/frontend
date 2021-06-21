@@ -278,7 +278,10 @@ export default function usePoolData(
       // const poolGDLPerDay = poolGDLPerSec.mul(86400)
       const poolGDLPerYear = poolGDLPerSec.mul(3600 * 24 * 365)
 
-      const masterAddress = chainId ? MASTERCHEF_ADDRESS[chainId] : AddressZero
+      const masterAddress = chainId
+        ? MASTERCHEF_ADDRESS[chainId] || AddressZero
+        : AddressZero
+
       const totalStakedLpAmount =
         (await lpTokenContract?.balanceOf(masterAddress)) || Zero
 

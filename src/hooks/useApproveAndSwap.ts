@@ -13,6 +13,8 @@ import {
   ZDAI_DAI_POOL_TOKENS,
   ZETH_ETH_POOL_NAME,
   ZETH_ETH_POOL_TOKENS,
+  ZUSDC_USDC_POOL_NAME,
+  ZUSDC_USDC_POOL_TOKENS,
   ZUSDT_USDT_POOL_NAME,
   ZUSDT_USDT_POOL_TOKENS,
 } from "../constants"
@@ -62,6 +64,8 @@ export function useApproveAndSwap(
     POOL_TOKENS = ZDAI_DAI_POOL_TOKENS
   } else if (poolName === ZUSDT_USDT_POOL_NAME) {
     POOL_TOKENS = ZUSDT_USDT_POOL_TOKENS
+  } else if (poolName === ZUSDC_USDC_POOL_NAME) {
+    POOL_TOKENS = ZUSDC_USDC_POOL_TOKENS
   } else if (poolName === RENBTC_WBTC_POOL_NAME) {
     POOL_TOKENS = RENBTC_WBTC_POOL_TOKENS
   } else {
