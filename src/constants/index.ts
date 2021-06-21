@@ -57,7 +57,7 @@ export const NETWORKS: {
 } = {
   [ChainId.AVALANCHE]: new Network(
     "0xa86a",
-    "Avalanche Mainnet C-Chain",
+    "Avalanche",
     "Avalanche",
     "AVAX",
     18,
@@ -66,7 +66,7 @@ export const NETWORKS: {
   ),
   [ChainId.FUJI]: new Network(
     "0xa869",
-    "Avalanche Fuji Testnet",
+    "Avalanche Testnet",
     "Avalanche",
     "AVAX",
     18,
