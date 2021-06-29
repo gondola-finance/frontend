@@ -45,9 +45,13 @@ function Pools({
             <PoolOverview data={daiPoolData} to={`/${action}/dai`} />
           )}
           <PoolOverview data={ethPoolData} to={`/${action}/eth`} />
-          <PoolOverview data={dwethPoolData} to={`/${action}/dweth`} />
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={dwethPoolData} to={`/${action}/dweth`} />
+          )}
           <PoolOverview data={usdtPoolData} to={`/${action}/usdt`} />
-          <PoolOverview data={dusdtPoolData} to={`/${action}/dusdt`} />
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={dusdtPoolData} to={`/${action}/dusdt`} />
+          )}
           {chainId && chainId === ChainId.AVALANCHE && (
             <PoolOverview data={btcPoolData} to={`/${action}/btc`} />
           )}
