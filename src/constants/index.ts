@@ -638,6 +638,8 @@ export const TOKENS_MAP: {
   ZDAI_DAI_SWAP_TOKEN,
   ...ZETH_ETH_POOL_TOKENS,
   ZETH_ETH_SWAP_TOKEN,
+  ...DWETH_ETH_POOL_TOKENS,
+  DWETH_ETH_SWAP_TOKEN,
   RENBTC_WBTC_SWAP_TOKEN,
   ...RENBTC_WBTC_POOL_TOKENS,
 ].reduce((acc, token) => ({ ...acc, [token.symbol]: token }), {})
