@@ -3,6 +3,8 @@ import "../styles/global.scss"
 import {
   BLOCK_TIME,
   ChainId,
+  DUSDT_USDT_POOL_NAME,
+  DWETH_ETH_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
@@ -95,6 +97,13 @@ export default function App(): ReactElement {
               />
               <Route
                 exact
+                path="/swap/dweth"
+                render={(props) => (
+                  <Swap {...props} poolName={DWETH_ETH_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
                 path="/swap/usdc"
                 render={(props) => (
                   <Swap {...props} poolName={ZUSDC_USDC_POOL_NAME} />
@@ -105,6 +114,13 @@ export default function App(): ReactElement {
                 path="/swap/usdt"
                 render={(props) => (
                   <Swap {...props} poolName={ZUSDT_USDT_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/swap/dusdt"
+                render={(props) => (
+                  <Swap {...props} poolName={DUSDT_USDT_POOL_NAME} />
                 )}
               />
               <Route
@@ -135,6 +151,13 @@ export default function App(): ReactElement {
               />
               <Route
                 exact
+                path="/deposit/dweth"
+                render={(props) => (
+                  <Deposit {...props} poolName={DWETH_ETH_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
                 path="/deposit/dai"
                 render={(props) => (
                   <Deposit {...props} poolName={ZDAI_DAI_POOL_NAME} />
@@ -152,6 +175,13 @@ export default function App(): ReactElement {
                 path="/deposit/usdt"
                 render={(props) => (
                   <Deposit {...props} poolName={ZUSDT_USDT_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/deposit/dusdt"
+                render={(props) => (
+                  <Deposit {...props} poolName={DUSDT_USDT_POOL_NAME} />
                 )}
               />
               <Route
@@ -189,6 +219,13 @@ export default function App(): ReactElement {
               />
               <Route
                 exact
+                path="/withdraw/dweth"
+                render={(props) => (
+                  <Withdraw {...props} poolName={DWETH_ETH_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
                 path="/withdraw/usdc"
                 render={(props) => (
                   <Withdraw {...props} poolName={ZUSDC_USDC_POOL_NAME} />
@@ -199,6 +236,13 @@ export default function App(): ReactElement {
                 path="/withdraw/usdt"
                 render={(props) => (
                   <Withdraw {...props} poolName={ZUSDT_USDT_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/dusdt"
+                render={(props) => (
+                  <Withdraw {...props} poolName={DUSDT_USDT_POOL_NAME} />
                 )}
               />
               <Route exact path="/stake" render={() => <Stake />} />

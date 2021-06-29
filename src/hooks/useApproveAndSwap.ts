@@ -1,4 +1,8 @@
 import {
+  DUSDT_USDT_POOL_NAME,
+  DUSDT_USDT_POOL_TOKENS,
+  DWETH_ETH_POOL_NAME,
+  DWETH_ETH_POOL_TOKENS,
   GAS_PRICE_BIGNUMBER,
   GAS_PRICE_DEFAULT,
   PoolName,
@@ -56,7 +60,9 @@ export function useApproveAndSwap(
     allowInfiniteApproval,
   } = useSelector((state: AppState) => state.user)
   let POOL_TOKENS: Token[]
-  if (poolName === ZETH_ETH_POOL_NAME) {
+  if (poolName === DWETH_ETH_POOL_NAME) {
+    POOL_TOKENS = DWETH_ETH_POOL_TOKENS
+  } else if (poolName === ZETH_ETH_POOL_NAME) {
     POOL_TOKENS = ZETH_ETH_POOL_TOKENS
   } else if (poolName === ZBTC_WBTC_POOL_NAME) {
     POOL_TOKENS = ZBTC_WBTC_POOL_TOKENS
@@ -64,6 +70,8 @@ export function useApproveAndSwap(
     POOL_TOKENS = ZDAI_DAI_POOL_TOKENS
   } else if (poolName === ZUSDT_USDT_POOL_NAME) {
     POOL_TOKENS = ZUSDT_USDT_POOL_TOKENS
+  } else if (poolName === DUSDT_USDT_POOL_NAME) {
+    POOL_TOKENS = DUSDT_USDT_POOL_TOKENS
   } else if (poolName === ZUSDC_USDC_POOL_NAME) {
     POOL_TOKENS = ZUSDC_USDC_POOL_TOKENS
   } else if (poolName === RENBTC_WBTC_POOL_NAME) {

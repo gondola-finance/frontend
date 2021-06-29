@@ -74,6 +74,8 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
             {
               /** need to match token symbol */
               ETH: body?.ethereum?.usd,
+              DWETH: body?.ethereum?.usd,
+              DUSDT: body?.tether?.usd,
               AVAX: avaxPriceUSD,
               BTC: body?.bitcoin?.usd,
               WBTC: body?.bitcoin?.usd,

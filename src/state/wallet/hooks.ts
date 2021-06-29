@@ -1,6 +1,10 @@
 import {
   BLOCK_TIME,
   DAI,
+  DUSDT,
+  DUSDT_USDT_SWAP_TOKEN,
+  DWETH,
+  DWETH_ETH_SWAP_TOKEN,
   ETH,
   RENBTC,
   Token,
@@ -52,6 +56,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   // pool tokens
   const daiTokenBalance = useTokenBalance(DAI)
   const ethTokenBalance = useTokenBalance(ETH)
+  const dwethTokenBalance = useTokenBalance(DWETH)
+  const dusdtTokenBalance = useTokenBalance(DUSDT)
   const usdcTokenBalance = useTokenBalance(USDC)
   const usdtTokenBalance = useTokenBalance(USDT)
   const renbtcTokenBalance = useTokenBalance(RENBTC)
@@ -64,11 +70,15 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   // lpTokens
   const zdaiDaiSwapTokenBalance = useTokenBalance(ZDAI_DAI_SWAP_TOKEN)
   const zethEthSwapTokenBalance = useTokenBalance(ZETH_ETH_SWAP_TOKEN)
+  const dwethEthSwapTokenBalance = useTokenBalance(DWETH_ETH_SWAP_TOKEN)
   const zusdtUsdtSwapTokenBalance = useTokenBalance(ZUSDT_USDT_SWAP_TOKEN)
+  const dusdtUsdtSwapTokenBalance = useTokenBalance(DUSDT_USDT_SWAP_TOKEN)
 
   const poolTokensBalances = useMemo(
     () => ({
       [DAI.symbol]: daiTokenBalance,
+      [DWETH.symbol]: dwethTokenBalance,
+      [DUSDT.symbol]: dusdtTokenBalance,
       [WBTC.symbol]: wbtcTokenBalance,
       [RENBTC.symbol]: renbtcTokenBalance,
       [ETH.symbol]: ethTokenBalance,
@@ -79,12 +89,18 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       [ZETH.symbol]: zethTokenBalance,
       [ZUSDC.symbol]: zusdcTokenBalance,
       [ZUSDT.symbol]: zusdtTokenBalance,
+      [DUSDT.symbol]: dusdtUsdtSwapTokenBalance,
       [ZDAI_DAI_SWAP_TOKEN.symbol]: zdaiDaiSwapTokenBalance,
       [ZETH_ETH_SWAP_TOKEN.symbol]: zethEthSwapTokenBalance,
+      [DWETH_ETH_SWAP_TOKEN.symbol]: dwethEthSwapTokenBalance,
       [ZUSDT_USDT_SWAP_TOKEN.symbol]: zusdtUsdtSwapTokenBalance,
     }),
     [
       daiTokenBalance,
+      dusdtTokenBalance,
+      dusdtUsdtSwapTokenBalance,
+      dwethEthSwapTokenBalance,
+      dwethTokenBalance,
       ethTokenBalance,
       usdcTokenBalance,
       usdtTokenBalance,
