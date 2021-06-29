@@ -2,6 +2,7 @@ import "./Pools.scss"
 
 import {
   ChainId,
+  DUSDT_USDT_POOL_NAME,
   DWETH_ETH_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
@@ -31,6 +32,7 @@ function Pools({
   const [ethPoolData] = usePoolData(ZETH_ETH_POOL_NAME)
   const [dwethPoolData] = usePoolData(DWETH_ETH_POOL_NAME)
   const [usdtPoolData] = usePoolData(ZUSDT_USDT_POOL_NAME)
+  const [dusdtPoolData] = usePoolData(DUSDT_USDT_POOL_NAME)
   const { t } = useTranslation()
 
   return (
@@ -45,6 +47,7 @@ function Pools({
           <PoolOverview data={ethPoolData} to={`/${action}/eth`} />
           <PoolOverview data={dwethPoolData} to={`/${action}/dweth`} />
           <PoolOverview data={usdtPoolData} to={`/${action}/usdt`} />
+          <PoolOverview data={dusdtPoolData} to={`/${action}/dusdt`} />
           {chainId && chainId === ChainId.AVALANCHE && (
             <PoolOverview data={btcPoolData} to={`/${action}/btc`} />
           )}

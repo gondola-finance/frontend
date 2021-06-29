@@ -294,6 +294,23 @@ export const ZUSDT = new Token(
   usdtLogo,
 )
 
+export const DUSDT = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x017801B52F3e40178C75C4B4f19f1a0c8F8A0b78",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 6,
+    [ChainId.FUJI]: 6,
+    [ChainId.BSC]: 6,
+  },
+  "DUSDT",
+  "tether",
+  "DUSDT",
+  usdtLogo,
+)
+
 export const USDC = new Token(
   {
     [ChainId.AVALANCHE]: "",
@@ -346,6 +363,14 @@ export const RENBTC = new Token(
 )
 
 // pool contracts addresses
+
+export const DUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0x0074fB889F98D177B86619A7f19b5d3C26a1109A",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
+}
 
 export const ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
@@ -404,6 +429,23 @@ export const DWETH_ETH_SWAP_CONTRACT_ADDRESSES: {
 }
 
 // pool lp tokens
+
+export const DUSDT_USDT_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x431E163ded08c6167055960c1C128cfc2abE7C86",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "DUSDT LP",
+  "gondolaDUSDT",
+  "Gondola DUSDT/USDT LP",
+  gondolaLogo,
+)
 
 export const ZUSDT_USDT_SWAP_TOKEN = new Token(
   {
@@ -580,6 +622,9 @@ export const ZDAI_DAI_POOL_ID = 9
 export const ZUSDT_USDT_POOL_NAME = "zUSDT-USDT Pool"
 export const ZUSDT_USDT_POOL_ID = 8
 
+export const DUSDT_USDT_POOL_NAME = "DUSDT-USDT Pool"
+export const DUSDT_USDT_POOL_ID = 1 /** @todo update pool id */
+
 export const ZETH_ETH_POOL_NAME = "zETH-ETH Pool"
 export const ZETH_ETH_POOL_ID = 7
 
@@ -604,6 +649,7 @@ export const DWETH_ETH_POOL_ID = 1 /** @todo update pool id */
 export type PoolName =
   | typeof GDL_POOL_NAME
   | typeof ZDAI_DAI_POOL_NAME
+  | typeof DUSDT_USDT_POOL_NAME
   | typeof ZUSDT_USDT_POOL_NAME
   | typeof ZUSDC_USDC_POOL_NAME
   | typeof ZETH_ETH_POOL_NAME
@@ -614,6 +660,7 @@ export type PoolName =
   | typeof DWETH_ETH_POOL_NAME
 
 export const ZUSDT_USDT_POOL_TOKENS = [USDT, ZUSDT]
+export const DUSDT_USDT_POOL_TOKENS = [USDT, DUSDT]
 export const ZUSDC_USDC_POOL_TOKENS = [USDC, ZUSDC]
 export const ZBTC_WBTC_POOL_TOKENS = [WBTC, ZBTC]
 export const ZDAI_DAI_POOL_TOKENS = [DAI, ZDAI]
@@ -628,6 +675,8 @@ export const TOKENS_MAP: {
   GDL_TOKEN,
   PANGOLIN_AVAX_GDL_TOKEN,
   ZERO_GDL_TOKEN,
+  ...DUSDT_USDT_POOL_TOKENS,
+  DUSDT_USDT_SWAP_TOKEN,
   ...ZUSDT_USDT_POOL_TOKENS,
   ZUSDT_USDT_SWAP_TOKEN,
   ...ZUSDC_USDC_POOL_TOKENS,
@@ -672,6 +721,12 @@ export const POOLS_MAP: {
     poolId: ZDAI_DAI_POOL_ID,
     lpToken: ZDAI_DAI_SWAP_TOKEN,
     poolTokens: ZDAI_DAI_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [DUSDT_USDT_POOL_NAME]: {
+    poolId: DUSDT_USDT_POOL_ID,
+    lpToken: DUSDT_USDT_SWAP_TOKEN,
+    poolTokens: DUSDT_USDT_POOL_TOKENS,
     isSwapPool: true,
   },
   [ZUSDT_USDT_POOL_NAME]: {
