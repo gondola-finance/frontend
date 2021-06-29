@@ -175,6 +175,23 @@ export const ZETH = new Token(
   ethLogo,
 )
 
+export const DWETH = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xbF61c387c9A9535140eCC572eeB22C7aa3FcF7A9",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "DWETH",
+  "ethereum",
+  "DWETH",
+  ethLogo,
+)
+
 export const WBTC = new Token(
   {
     [ChainId.AVALANCHE]: "0x408d4cd0adb7cebd1f1a1c33a0ba2098e1295bab",
@@ -378,6 +395,14 @@ export const RENBTC_WBTC_SWAP_CONTRACT_ADDRESSES: {
   [ChainId.BSC]: "",
 }
 
+export const DWETH_ETH_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0xA160Db9366E7DaB6399D2E77Dcc5c89F15E9B4f4",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
+}
+
 // pool lp tokens
 
 export const ZUSDT_USDT_SWAP_TOKEN = new Token(
@@ -462,6 +487,23 @@ export const ZETH_ETH_SWAP_TOKEN = new Token(
   "ETH LP",
   "gondolaETH",
   "Gondola zETH/ETH LP",
+  gondolaLogo,
+)
+
+export const DWETH_ETH_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x0Ca4eb327a9515406a7Ea49230C696C31DFc2404",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "DWETH LP",
+  "gondolaDWETH",
+  "Gondola DWETH/ETH LP",
   gondolaLogo,
 )
 
@@ -556,6 +598,9 @@ export const RENBTC_WBTC_POOL_ID = 14
 export const ZUSDC_USDC_POOL_NAME = "zUSDC-USDC Pool"
 export const ZUSDC_USDC_POOL_ID = 1 /** @todo update pool id */
 
+export const DWETH_ETH_POOL_NAME = "DWETH-ETH Pool"
+export const DWETH_ETH_POOL_ID = 1 /** @todo update pool id */
+
 export type PoolName =
   | typeof GDL_POOL_NAME
   | typeof ZDAI_DAI_POOL_NAME
@@ -566,12 +611,14 @@ export type PoolName =
   | typeof RENBTC_WBTC_POOL_NAME
   | typeof PANGOLIN_AVAX_GDL_POOL_NAME
   | typeof ZERO_GDL_POOL_NAME
+  | typeof DWETH_ETH_POOL_NAME
 
 export const ZUSDT_USDT_POOL_TOKENS = [USDT, ZUSDT]
 export const ZUSDC_USDC_POOL_TOKENS = [USDC, ZUSDC]
 export const ZBTC_WBTC_POOL_TOKENS = [WBTC, ZBTC]
 export const ZDAI_DAI_POOL_TOKENS = [DAI, ZDAI]
 export const ZETH_ETH_POOL_TOKENS = [ETH, ZETH]
+export const DWETH_ETH_POOL_TOKENS = [ETH, DWETH]
 export const RENBTC_WBTC_POOL_TOKENS = [WBTC, RENBTC]
 
 // maps a symbol string to a token object
@@ -641,6 +688,12 @@ export const POOLS_MAP: {
     poolId: ZETH_ETH_POOL_ID,
     lpToken: ZETH_ETH_SWAP_TOKEN,
     poolTokens: ZETH_ETH_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [DWETH_ETH_POOL_NAME]: {
+    poolId: DWETH_ETH_POOL_ID,
+    lpToken: DWETH_ETH_SWAP_TOKEN,
+    poolTokens: DWETH_ETH_POOL_TOKENS,
     isSwapPool: true,
   },
   [RENBTC_WBTC_POOL_NAME]: {

@@ -1,5 +1,9 @@
 import {
   DAI,
+  DWETH,
+  DWETH_ETH_POOL_NAME,
+  DWETH_ETH_SWAP_CONTRACT_ADDRESSES,
+  DWETH_ETH_SWAP_TOKEN,
   ETH,
   GONDOLA_ADDRESS,
   MASTERCHEF_ADDRESS,
@@ -127,6 +131,12 @@ export function useSwapContract(poolName: PoolName): Swap | null {
     withSignerIfPossible,
   )
 
+  const dwethEthSwapContract = useContract(
+    chainId ? DWETH_ETH_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
+
   return useMemo(() => {
     if (poolName === ZBTC_WBTC_POOL_NAME) {
       return zbtcWbtcSwapContract as Swap
@@ -134,6 +144,8 @@ export function useSwapContract(poolName: PoolName): Swap | null {
       return zdaiDaiSwapContract as Swap
     } else if (poolName === ZETH_ETH_POOL_NAME) {
       return zethEthSwapContract as Swap
+    } else if (poolName === DWETH_ETH_POOL_NAME) {
+      return dwethEthSwapContract as Swap
     } else if (poolName === ZUSDT_USDT_POOL_NAME) {
       return zusdtUsdtSwapContract as Swap
     } else if (poolName === RENBTC_WBTC_POOL_NAME) {
@@ -150,6 +162,7 @@ export function useSwapContract(poolName: PoolName): Swap | null {
     zusdtUsdtSwapContract,
     renbtcWbtcSwapContract,
     zusdcUsdcSwapContract,
+    dwethEthSwapContract,
     poolName,
   ])
 }
@@ -172,6 +185,7 @@ export function useAllContracts(): AllContractsObject | null {
   const wbtcContract = useTokenContract(WBTC) as Erc20
   const daiContract = useTokenContract(DAI) as Erc20
   const ethContract = useTokenContract(ETH) as Erc20
+  const dwethContract = useTokenContract(DWETH) as Erc20
   const usdcContract = useTokenContract(USDC) as Erc20
   const usdtContract = useTokenContract(USDT) as Erc20
   const zdaiContract = useTokenContract(ZDAI) as Erc20
@@ -186,6 +200,9 @@ export function useAllContracts(): AllContractsObject | null {
   ) as Swap
   const zdaiDaiSwapTokenContract = useTokenContract(ZDAI_DAI_SWAP_TOKEN) as Swap
   const zethEthSwapTokenContract = useTokenContract(ZETH_ETH_SWAP_TOKEN) as Swap
+  const dwethEthSwapTokenContract = useTokenContract(
+    DWETH_ETH_SWAP_TOKEN,
+  ) as Swap
   const zusdcUsdcSwapTokenContract = useTokenContract(
     ZUSDC_USDC_SWAP_TOKEN,
   ) as Swap
@@ -200,6 +217,7 @@ export function useAllContracts(): AllContractsObject | null {
     return {
       [DAI.symbol]: daiContract,
       [ETH.symbol]: ethContract,
+      [DWETH.symbol]: dwethContract,
       [USDC.symbol]: usdcContract,
       [USDT.symbol]: usdtContract,
       [RENBTC.symbol]: renbtcContract,
@@ -212,6 +230,7 @@ export function useAllContracts(): AllContractsObject | null {
       [ZDAI_DAI_SWAP_TOKEN.symbol]: zdaiDaiSwapTokenContract,
       [ZBTC_WBTC_SWAP_TOKEN.symbol]: zbtcWbtcSwapTokenContract,
       [ZETH_ETH_SWAP_TOKEN.symbol]: zethEthSwapTokenContract,
+      [DWETH_ETH_SWAP_TOKEN.symbol]: dwethEthSwapTokenContract,
       [ZUSDC_USDC_SWAP_TOKEN.symbol]: zusdcUsdcSwapTokenContract,
       [ZUSDT_USDT_SWAP_TOKEN.symbol]: zusdtUsdtSwapTokenContract,
       [RENBTC_WBTC_SWAP_TOKEN.symbol]: renbtcWbtcSwapTokenContract,
@@ -220,6 +239,7 @@ export function useAllContracts(): AllContractsObject | null {
     wbtcContract,
     daiContract,
     ethContract,
+    dwethContract,
     usdcContract,
     usdtContract,
     renbtcContract,
@@ -233,6 +253,7 @@ export function useAllContracts(): AllContractsObject | null {
     zdaiDaiSwapTokenContract,
     zusdcUsdcSwapTokenContract,
     zethEthSwapTokenContract,
+    dwethEthSwapTokenContract,
     zusdtUsdtSwapTokenContract,
   ])
 }

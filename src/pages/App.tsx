@@ -3,6 +3,7 @@ import "../styles/global.scss"
 import {
   BLOCK_TIME,
   ChainId,
+  DWETH_ETH_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
@@ -95,6 +96,13 @@ export default function App(): ReactElement {
               />
               <Route
                 exact
+                path="/swap/dweth"
+                render={(props) => (
+                  <Swap {...props} poolName={DWETH_ETH_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
                 path="/swap/usdc"
                 render={(props) => (
                   <Swap {...props} poolName={ZUSDC_USDC_POOL_NAME} />
@@ -131,6 +139,13 @@ export default function App(): ReactElement {
                 path="/deposit/eth"
                 render={(props) => (
                   <Deposit {...props} poolName={ZETH_ETH_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/deposit/dweth"
+                render={(props) => (
+                  <Deposit {...props} poolName={DWETH_ETH_POOL_NAME} />
                 )}
               />
               <Route
@@ -185,6 +200,13 @@ export default function App(): ReactElement {
                 path="/withdraw/eth"
                 render={(props) => (
                   <Withdraw {...props} poolName={ZETH_ETH_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/dweth"
+                render={(props) => (
+                  <Withdraw {...props} poolName={DWETH_ETH_POOL_NAME} />
                 )}
               />
               <Route
