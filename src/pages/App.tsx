@@ -6,12 +6,12 @@ import {
   DUSDT_USDT_POOL_NAME,
   DWETH_ETH_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
+  USDT_DAI_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZETH_ETH_POOL_NAME,
   ZUSDC_USDC_POOL_NAME,
   ZUSDT_USDT_POOL_NAME,
-  USDT_DAI_POOL_NAME,
 } from "../constants"
 import React, { ReactElement, Suspense, useCallback } from "react"
 import { Route, Switch } from "react-router-dom"

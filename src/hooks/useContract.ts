@@ -149,7 +149,7 @@ export function useSwapContract(poolName: PoolName): Swap | null {
     SWAP_ABI,
     withSignerIfPossible,
   )
-  
+
   const usdtDaiSwapContract = useContract(
     chainId ? USDT_DAI_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
     SWAP_ABI,
@@ -239,10 +239,8 @@ export function useAllContracts(): AllContractsObject | null {
   const renbtcWbtcSwapTokenContract = useTokenContract(
     RENBTC_WBTC_SWAP_TOKEN,
   ) as Swap
-  const SwapTokenContract = useTokenContract(
-    USDT_DAI_SWAP_TOKEN,
-  ) as Swap
-  
+  const usdtDaiSwapTokenContract = useTokenContract(USDT_DAI_SWAP_TOKEN) as Swap
+
   return useMemo(() => {
     return {
       [DAI.symbol]: daiContract,
