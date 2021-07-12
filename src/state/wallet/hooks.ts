@@ -19,6 +19,8 @@ import {
   ZUSDC,
   ZUSDT,
   ZUSDT_USDT_SWAP_TOKEN,
+  USDT_DAI_SWAP_TOKEN,
+  RENBTC_WBTC_POOL_TOKEN,
 } from "../../constants"
 
 import { BigNumber } from "@ethersproject/bignumber"
@@ -73,6 +75,9 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   const dwethEthSwapTokenBalance = useTokenBalance(DWETH_ETH_SWAP_TOKEN)
   const zusdtUsdtSwapTokenBalance = useTokenBalance(ZUSDT_USDT_SWAP_TOKEN)
   const dusdtUsdtSwapTokenBalance = useTokenBalance(DUSDT_USDT_SWAP_TOKEN)
+  const renbtcWbtcSwapTokenBalance = useTokenBalance(RENBTC_WBTC_SWAP_TOKEN)
+  const usdtDaiSwapTokenBalance = useTokenBalance(USDT_DAI_SWAP_TOKEN)
+
 
   const poolTokensBalances = useMemo(
     () => ({
@@ -94,6 +99,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       [ZETH_ETH_SWAP_TOKEN.symbol]: zethEthSwapTokenBalance,
       [DWETH_ETH_SWAP_TOKEN.symbol]: dwethEthSwapTokenBalance,
       [ZUSDT_USDT_SWAP_TOKEN.symbol]: zusdtUsdtSwapTokenBalance,
+      [RENBTC_WBTC_SWAP_TOKEN.symbol]: renbtcWbtcSwapTokenBalance,
+      [USDT_DAI_SWAP_TOKEN.symbol]: usdtDaiSwapTokenBalance,
     }),
     [
       daiTokenBalance,
@@ -114,6 +121,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       zdaiDaiSwapTokenBalance,
       zethEthSwapTokenBalance,
       zusdtUsdtSwapTokenBalance,
+      renbtcWbtcSwapTokenBalance,
+      usdtDaiSwapTokenBalance,
     ],
   )
 
