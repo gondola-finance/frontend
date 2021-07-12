@@ -431,7 +431,7 @@ export const DWETH_ETH_SWAP_CONTRACT_ADDRESSES: {
 export const USDT_DAI_SWAP_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.AVALANCHE]: "0x8ce4d6749684aEe27d7f75cff18fa9A4cC8Fe9b3",  
+  [ChainId.AVALANCHE]: "0x8ce4d6749684aEe27d7f75cff18fa9A4cC8Fe9b3",
   [ChainId.FUJI]: "",
   [ChainId.BSC]: "",
 }
@@ -802,7 +802,7 @@ export const POOLS_MAP: {
   },
   [USDT_DAI_POOL_NAME]: {
     poolId: USDT_DAI_POOL_ID,
-    lpToken: USDT_DAI_TOKEN,
+    lpToken: USDT_DAI_SWAP_TOKEN,
     poolTokens: [],
     isSwapPool: true,    
   },
