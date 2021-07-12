@@ -431,7 +431,7 @@ export const DWETH_ETH_SWAP_CONTRACT_ADDRESSES: {
 export const USDT_DAI_SWAP_CONTRACT_ADDRESSES: {
   [chainId in ChainId]: string
 } = {
-  [ChainId.AVALANCHE]: "",  // TODO: add after deployed new pool
+  [ChainId.AVALANCHE]: "0x8ce4d6749684aEe27d7f75cff18fa9A4cC8Fe9b3",  
   [ChainId.FUJI]: "",
   [ChainId.BSC]: "",
 }
@@ -453,7 +453,22 @@ export const DUSDT_USDT_SWAP_TOKEN = new Token(
   "Gondola DUSDT/USDT LP",
   gondolaLogo,
 )
-
+export const USDT_DAI_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x4b9C05D3E6cD5D2F19D1c7ee9a7efe847f347770",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "USDT DAI LP",
+  "gondolaUSDTDAI",
+  "Gondola USDT/DAI LP",
+  gondolaLogo,
+)
 export const ZUSDT_USDT_SWAP_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0xE586dB7Db75B87A3E84110a73b99960F5f106c6A",
@@ -654,7 +669,7 @@ export const DWETH_ETH_POOL_NAME = "DWETH-ETH Pool"
 export const DWETH_ETH_POOL_ID = 1 /** @todo update pool id */
 
 export const USDT_DAI_POOL_NAME = "USDT-DAI Pool"
-export const USDT_DAI_POOL_ID = 1 // TODO: update pool id 
+export const USDT_DAI_POOL_ID = 1 /** @todo update pool id */
 
 export type PoolName =
   | typeof GDL_POOL_NAME
@@ -678,7 +693,7 @@ export const ZDAI_DAI_POOL_TOKENS = [DAI, ZDAI]
 export const ZETH_ETH_POOL_TOKENS = [ETH, ZETH]
 export const DWETH_ETH_POOL_TOKENS = [ETH, DWETH]
 export const RENBTC_WBTC_POOL_TOKENS = [WBTC, RENBTC]
-export const USDT_DAI_POOL_TOKENS = [USDT, DAI]
+export const USDT_DAI_POOL_TOKENS = [DAI , USDT]
 
 // maps a symbol string to a token object
 export const TOKENS_MAP: {

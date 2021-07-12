@@ -21,6 +21,9 @@ import {
   Token,
   USDC,
   USDT,
+  USDT_DAI_POOL_NAME,
+  USDT_DAI_SWAP_CONTRACT_ADDRESSES,
+  USDT_DAI_SWAP_TOKEN,
   WBTC,
   ZBTC,
   ZBTC_WBTC_POOL_NAME,
@@ -42,9 +45,6 @@ import {
   ZUSDT_USDT_POOL_NAME,
   ZUSDT_USDT_SWAP_CONTRACT_ADDRESSES,
   ZUSDT_USDT_SWAP_TOKEN,
-  USDT_DAI_POOL_NAME,
-  USDT_DAI_SWAP_CONTRACT_ADDRESSES,
-  USDT_DAI_SWAP_TOKEN,
 } from "../constants"
 
 import { Contract } from "@ethersproject/contracts"
