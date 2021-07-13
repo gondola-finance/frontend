@@ -11,6 +11,8 @@ import {
   TOKENS_MAP,
   TRANSACTION_TYPES,
   Token,
+  USDT_DAI_POOL_NAME,
+  USDT_DAI_POOL_TOKENS,
   ZBTC_WBTC_POOL_NAME,
   ZBTC_WBTC_POOL_TOKENS,
   ZDAI_DAI_POOL_NAME,
@@ -76,6 +78,8 @@ export function useApproveAndSwap(
     POOL_TOKENS = ZUSDC_USDC_POOL_TOKENS
   } else if (poolName === RENBTC_WBTC_POOL_NAME) {
     POOL_TOKENS = RENBTC_WBTC_POOL_TOKENS
+  } else if (poolName === USDT_DAI_POOL_NAME) {
+    POOL_TOKENS = USDT_DAI_POOL_TOKENS
   } else {
     throw new Error("useApproveAndSwap requires a valid pool name")
   }

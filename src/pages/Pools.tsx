@@ -5,6 +5,7 @@ import {
   DUSDT_USDT_POOL_NAME,
   DWETH_ETH_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
+  USDT_DAI_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZETH_ETH_POOL_NAME,
@@ -33,6 +34,7 @@ function Pools({
   const [dwethPoolData] = usePoolData(DWETH_ETH_POOL_NAME)
   const [usdtPoolData] = usePoolData(ZUSDT_USDT_POOL_NAME)
   const [dusdtPoolData] = usePoolData(DUSDT_USDT_POOL_NAME)
+  const [usdtDaiPoolData] = usePoolData(USDT_DAI_POOL_NAME)
   const { t } = useTranslation()
 
   return (
@@ -57,6 +59,9 @@ function Pools({
           )}
           {chainId && chainId === ChainId.AVALANCHE && (
             <PoolOverview data={renbtcPoolData} to={`/${action}/renbtc`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={usdtDaiPoolData} to={`/${action}/usdtdai`} />
           )}
         </SimpleGrid>
       </div>
