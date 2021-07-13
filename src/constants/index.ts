@@ -693,7 +693,7 @@ export const ZDAI_DAI_POOL_TOKENS = [DAI, ZDAI]
 export const ZETH_ETH_POOL_TOKENS = [ETH, ZETH]
 export const DWETH_ETH_POOL_TOKENS = [ETH, DWETH]
 export const RENBTC_WBTC_POOL_TOKENS = [WBTC, RENBTC]
-export const USDT_DAI_POOL_TOKENS = [DAI, USDT]
+export const USDT_DAI_POOL_TOKENS = [USDT, DAI]
 
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
@@ -803,7 +803,7 @@ export const POOLS_MAP: {
   [USDT_DAI_POOL_NAME]: {
     poolId: USDT_DAI_POOL_ID,
     lpToken: USDT_DAI_SWAP_TOKEN,
-    poolTokens: [],
+    poolTokens: USDT_DAI_POOL_TOKENS,
     isSwapPool: true,
   },
 }
