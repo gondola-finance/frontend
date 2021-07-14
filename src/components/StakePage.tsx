@@ -5,6 +5,7 @@ import {
   GDL_POOL_NAME,
   PANGOLIN_AVAX_GDL_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
+  USDT_DAI_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZERO_GDL_POOL_NAME,
@@ -27,6 +28,7 @@ const StakePage = (): ReactElement => {
   const [usdtTvl, setUsdtTvl] = useState(0)
   const [btcTvl, setbtcTvl] = useState(0)
   const [renBtcTvl, setrenBtcTvl] = useState(0)
+  const [usdtDaiTvl, setusdtDaiTvl] = useState(0)
   return (
     <div className="stake">
       <TopMenu activeTab={"stake"} />
@@ -38,7 +40,7 @@ const StakePage = (): ReactElement => {
             {formatUSDNumber(
               parseFloat(
                 Number(
-                  daiTvl + ethTvl + usdtTvl + btcTvl + renBtcTvl,
+                  daiTvl + ethTvl + usdtTvl + btcTvl + renBtcTvl + usdtDaiTvl,
                 ).toPrecision(3),
               ),
               true,
@@ -69,6 +71,10 @@ const StakePage = (): ReactElement => {
               />
               <StakePool
                 poolName={ZDAI_DAI_POOL_NAME}
+                onTvlUpdate={(usdtdai) => setusdtDaiTvl(usdtdai)}
+              />
+              <StakePool
+                poolName={USDT_DAI_POOL_NAME}
                 onTvlUpdate={(dai) => setDaiTvl(dai)}
               />
             </>
