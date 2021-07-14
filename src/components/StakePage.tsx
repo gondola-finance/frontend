@@ -71,11 +71,11 @@ const StakePage = (): ReactElement => {
               />
               <StakePool
                 poolName={ZDAI_DAI_POOL_NAME}
-                onTvlUpdate={(usdtdai) => setusdtDaiTvl(usdtdai)}
+                onTvlUpdate={(dai) => setDaiTvl(dai)}
               />
               <StakePool
                 poolName={USDT_DAI_POOL_NAME}
-                onTvlUpdate={(dai) => setDaiTvl(dai)}
+                onTvlUpdate={(usdtdai) => setusdtDaiTvl(usdtdai)}
               />
             </>
           )}
