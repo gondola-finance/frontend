@@ -669,11 +669,7 @@ export const DWETH_ETH_POOL_NAME = "DWETH-ETH Pool"
 export const DWETH_ETH_POOL_ID = 1 /** @todo update pool id */
 
 export const USDT_DAI_POOL_NAME = "USDT-DAI Pool"
-<<<<<<< HEAD
-export const USDT_DAI_POOL_ID = 15 /** @todo update pool id */
-=======
 export const USDT_DAI_POOL_ID = 1 /** @todo update pool id */
->>>>>>> master
 
 export type PoolName =
   | typeof GDL_POOL_NAME
