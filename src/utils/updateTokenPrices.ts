@@ -83,6 +83,8 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
               WETHE: body?.ethereum?.usd,
               WBTCE: body?.bitcoin?.usd,
               RenBTC: body?.bitcoin?.usd,
+              DAIE: body?.tether?.usd,
+              USDTE: body?.tether?.usd,
               KEEP: body?.["keep-network"].usd,
               [GDL_TOKEN.symbol]: Math.round(gdlToUSD * 1000000) / 1000000,
             },
