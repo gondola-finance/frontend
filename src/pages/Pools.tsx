@@ -2,10 +2,15 @@ import "./Pools.scss"
 
 import {
   ChainId,
+  DAIE_USDTE_POOL_NAME,
+  DAI_DAIE_POOL_NAME,
   DUSDT_USDT_POOL_NAME,
   DWETH_ETH_POOL_NAME,
+  ETH_WETHE_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
   USDT_DAI_POOL_NAME,
+  USDT_USDTE_POOL_NAME,
+  WBTC_WBTCE_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZETH_ETH_POOL_NAME,
@@ -35,6 +40,11 @@ function Pools({
   const [usdtPoolData] = usePoolData(ZUSDT_USDT_POOL_NAME)
   const [dusdtPoolData] = usePoolData(DUSDT_USDT_POOL_NAME)
   const [usdtDaiPoolData] = usePoolData(USDT_DAI_POOL_NAME)
+  const [wbtcWbtcePoolData] = usePoolData(WBTC_WBTCE_POOL_NAME)
+  const [ethWethePoolData] = usePoolData(ETH_WETHE_POOL_NAME)
+  const [usdtUsdtePoolData] = usePoolData(USDT_USDTE_POOL_NAME)
+  const [daiDaiePoolData] = usePoolData(DAI_DAIE_POOL_NAME)
+  const [daieUsdtePoolData] = usePoolData(DAIE_USDTE_POOL_NAME)
   const { t } = useTranslation()
 
   return (
@@ -62,6 +72,24 @@ function Pools({
           )}
           {chainId && chainId === ChainId.AVALANCHE && (
             <PoolOverview data={usdtDaiPoolData} to={`/${action}/usdtdai`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={wbtcWbtcePoolData} to={`/${action}/wbtce`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={ethWethePoolData} to={`/${action}/wethe`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={usdtUsdtePoolData} to={`/${action}/usdte`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={daiDaiePoolData} to={`/${action}/daie`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview
+              data={daieUsdtePoolData}
+              to={`/${action}/daieusdte`}
+            />
           )}
         </SimpleGrid>
       </div>

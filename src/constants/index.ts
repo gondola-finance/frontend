@@ -192,6 +192,22 @@ export const DWETH = new Token(
   ethLogo,
 )
 
+export const WETHE = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "WETHE",
+  "ethereum",
+  "WETH.e",
+  ethLogo,
+)
 export const WBTC = new Token(
   {
     [ChainId.AVALANCHE]: "0x408d4cd0adb7cebd1f1a1c33a0ba2098e1295bab",
@@ -209,6 +225,22 @@ export const WBTC = new Token(
   btcLogo,
 )
 
+export const WBTCE = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x50b7545627a5162f82a992c33b87adc75187b218",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 8,
+    [ChainId.FUJI]: 8,
+    [ChainId.BSC]: 8,
+  },
+  "WBTCE",
+  "bitcoin",
+  "WBTC.e",
+  btcLogo,
+)
 export const ZBTC = new Token(
   {
     [ChainId.AVALANCHE]: "0xc4f4Ff34A2e2cF5e4c892476BB2D056871125452",
@@ -240,6 +272,23 @@ export const DAI = new Token(
   "DAI",
   "dai",
   "DAI",
+  daiLogo,
+)
+
+export const DAIE = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xd586e7f844cea2f87f50152665bcbc2c279d8d70",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "DAIE",
+  "dai",
+  "DAI.e",
   daiLogo,
 )
 
@@ -293,7 +342,22 @@ export const ZUSDT = new Token(
   "zUSDT",
   usdtLogo,
 )
-
+export const USDTE = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xc7198437980c041c805a1edcba50c1ce5db95118",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 6,
+    [ChainId.FUJI]: 6,
+    [ChainId.BSC]: 6,
+  },
+  "USDTE",
+  "tether",
+  "USDT.e",
+  usdtLogo,
+)
 export const DUSDT = new Token(
   {
     [ChainId.AVALANCHE]: "0x017801B52F3e40178C75C4B4f19f1a0c8F8A0b78",
@@ -435,6 +499,46 @@ export const USDT_DAI_SWAP_CONTRACT_ADDRESSES: {
   [ChainId.FUJI]: "",
   [ChainId.BSC]: "",
 }
+
+export const ETH_WETHE_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0x7408DE8334C03321AFFF953F1318d0B04cdF2601",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
+}
+
+export const WBTC_WBTCE_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0x0792ca636c917177AB534BD2D86aDa5535D97369",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
+}
+
+export const USDT_USDTE_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0xAE5a60BB105e38A4986017A711c6A6CC1D1a0f36",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
+}
+
+export const DAI_DAIE_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0x159E2fE53E415B163bC5846DD70DDD2BC8d8F018",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
+}
+
+export const DAIE_USDTE_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0xCF97190fAAfea63523055eBd139c008cdb4468eB",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
+}
 // pool lp tokens
 
 export const DUSDT_USDT_SWAP_TOKEN = new Token(
@@ -469,6 +573,92 @@ export const USDT_DAI_SWAP_TOKEN = new Token(
   "Gondola USDT/DAI LP",
   gondolaLogo,
 )
+
+export const WBTC_WBTCE_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x5CC6Ca58Ae2c07b54B732fbAEE046176cbe743BC",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "WBTC.e LP",
+  "gondolaWBTCE",
+  "Gondola WBTC/WBTC.e LP",
+  gondolaLogo,
+)
+
+export const ETH_WETHE_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xa5AbEeA9f5fb7850038e91aeb5F3f5ffdeeDF7B7",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "WETH.e LP",
+  "gondolaWETHE",
+  "Gondola ETH/WETH.e LP",
+  gondolaLogo,
+)
+
+export const USDT_USDTE_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x56dF40732eC09bd9BEA6B3eb73E48E00D2c537AB",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "USDT.e LP",
+  "gondolaUSDTE",
+  "Gondola USDT/USDT.e LP",
+  gondolaLogo,
+)
+
+export const DAI_DAIE_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xF2fC2836882bCf7eb00Feb05729a248106fBfDdE",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "DAI.e LP",
+  "gondolaDAIE",
+  "Gondola DAI/DAI.e LP",
+  gondolaLogo,
+)
+
+export const DAIE_USDTE_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xD7D4a4c67E9C1f5a913Bc38E87e228f4B8820e8A",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "DAI.e USDT.e LP",
+  "gondolaDAIEUSDTE",
+  "Gondola DAI.e/USDT.e LP",
+  gondolaLogo,
+)
+
 export const ZUSDT_USDT_SWAP_TOKEN = new Token(
   {
     [ChainId.AVALANCHE]: "0xE586dB7Db75B87A3E84110a73b99960F5f106c6A",
@@ -671,6 +861,21 @@ export const DWETH_ETH_POOL_ID = 1 /** @todo update pool id */
 export const USDT_DAI_POOL_NAME = "USDT-DAI Pool"
 export const USDT_DAI_POOL_ID = 15
 
+export const ETH_WETHE_POOL_NAME = "ETH-ETH.e Pool"
+export const ETH_WETHE_POOL_ID = 1 /** @todo update pool id */
+
+export const WBTC_WBTCE_POOL_NAME = "WBTC-WBTC.e Pool"
+export const WBTC_WBTCE_POOL_ID = 1 /** @todo update pool id */
+
+export const DAI_DAIE_POOL_NAME = "DAI-DAI.e Pool"
+export const DAI_DAIE_POOL_ID = 1 /** @todo update pool id */
+
+export const USDT_USDTE_POOL_NAME = "USDT-USDT.e Pool"
+export const USDT_USDTE_POOL_ID = 1 /** @todo update pool id */
+
+export const DAIE_USDTE_POOL_NAME = "DAI.e-USDT.e Pool"
+export const DAIE_USDTE_POOL_ID = 1 /** @todo update pool id */
+
 export type PoolName =
   | typeof GDL_POOL_NAME
   | typeof ZDAI_DAI_POOL_NAME
@@ -684,6 +889,11 @@ export type PoolName =
   | typeof ZERO_GDL_POOL_NAME
   | typeof DWETH_ETH_POOL_NAME
   | typeof USDT_DAI_POOL_NAME
+  | typeof ETH_WETHE_POOL_NAME
+  | typeof WBTC_WBTCE_POOL_NAME
+  | typeof USDT_USDTE_POOL_NAME
+  | typeof DAI_DAIE_POOL_NAME
+  | typeof DAIE_USDTE_POOL_NAME
 
 export const ZUSDT_USDT_POOL_TOKENS = [USDT, ZUSDT]
 export const DUSDT_USDT_POOL_TOKENS = [USDT, DUSDT]
@@ -694,7 +904,11 @@ export const ZETH_ETH_POOL_TOKENS = [ETH, ZETH]
 export const DWETH_ETH_POOL_TOKENS = [ETH, DWETH]
 export const RENBTC_WBTC_POOL_TOKENS = [WBTC, RENBTC]
 export const USDT_DAI_POOL_TOKENS = [USDT, DAI]
-
+export const ETH_WETHE_POOL_TOKENS = [ETH, WETHE]
+export const WBTC_WBTCE_POOL_TOKENS = [WBTC, WBTCE]
+export const USDT_USDTE_POOL_TOKENS = [USDT, USDTE]
+export const DAI_DAIE_POOL_TOKENS = [DAI, DAIE]
+export const DAIE_USDTE_POOL_TOKENS = [DAIE, USDTE]
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
   [symbol: string]: Token
@@ -720,6 +934,16 @@ export const TOKENS_MAP: {
   ...RENBTC_WBTC_POOL_TOKENS,
   USDT_DAI_SWAP_TOKEN,
   ...USDT_DAI_POOL_TOKENS,
+  WBTC_WBTCE_SWAP_TOKEN,
+  ...WBTC_WBTCE_POOL_TOKENS,
+  ETH_WETHE_SWAP_TOKEN,
+  ...ETH_WETHE_POOL_TOKENS,
+  USDT_USDTE_SWAP_TOKEN,
+  ...USDT_USDTE_POOL_TOKENS,
+  DAI_DAIE_SWAP_TOKEN,
+  ...DAI_DAIE_POOL_TOKENS,
+  DAIE_USDTE_SWAP_TOKEN,
+  ...DAIE_USDTE_POOL_TOKENS,
 ].reduce((acc, token) => ({ ...acc, [token.symbol]: token }), {})
 
 export type POOL = {
@@ -804,6 +1028,36 @@ export const POOLS_MAP: {
     poolId: USDT_DAI_POOL_ID,
     lpToken: USDT_DAI_SWAP_TOKEN,
     poolTokens: USDT_DAI_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [WBTC_WBTCE_POOL_NAME]: {
+    poolId: WBTC_WBTCE_POOL_ID,
+    lpToken: WBTC_WBTCE_SWAP_TOKEN,
+    poolTokens: WBTC_WBTCE_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [ETH_WETHE_POOL_NAME]: {
+    poolId: ETH_WETHE_POOL_ID,
+    lpToken: ETH_WETHE_SWAP_TOKEN,
+    poolTokens: ETH_WETHE_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [USDT_USDTE_POOL_NAME]: {
+    poolId: USDT_USDTE_POOL_ID,
+    lpToken: USDT_USDTE_SWAP_TOKEN,
+    poolTokens: USDT_USDTE_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [DAI_DAIE_POOL_NAME]: {
+    poolId: DAI_DAIE_POOL_ID,
+    lpToken: DAI_DAIE_SWAP_TOKEN,
+    poolTokens: DAI_DAIE_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [DAIE_USDTE_POOL_NAME]: {
+    poolId: DAIE_USDTE_POOL_ID,
+    lpToken: DAIE_USDTE_SWAP_TOKEN,
+    poolTokens: DAIE_USDTE_POOL_TOKENS,
     isSwapPool: true,
   },
 }

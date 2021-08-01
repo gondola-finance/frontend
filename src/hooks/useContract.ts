@@ -1,5 +1,12 @@
 import {
   DAI,
+  DAIE,
+  DAIE_USDTE_POOL_NAME,
+  DAIE_USDTE_SWAP_CONTRACT_ADDRESSES,
+  DAIE_USDTE_SWAP_TOKEN,
+  DAI_DAIE_POOL_NAME,
+  DAI_DAIE_SWAP_CONTRACT_ADDRESSES,
+  DAI_DAIE_SWAP_TOKEN,
   DUSDT,
   DUSDT_USDT_POOL_NAME,
   DUSDT_USDT_SWAP_CONTRACT_ADDRESSES,
@@ -9,6 +16,9 @@ import {
   DWETH_ETH_SWAP_CONTRACT_ADDRESSES,
   DWETH_ETH_SWAP_TOKEN,
   ETH,
+  ETH_WETHE_POOL_NAME,
+  ETH_WETHE_SWAP_CONTRACT_ADDRESSES,
+  ETH_WETHE_SWAP_TOKEN,
   GONDOLA_ADDRESS,
   MASTERCHEF_ADDRESS,
   MULTICALL_NETWORKS,
@@ -21,10 +31,19 @@ import {
   Token,
   USDC,
   USDT,
+  USDTE,
   USDT_DAI_POOL_NAME,
   USDT_DAI_SWAP_CONTRACT_ADDRESSES,
   USDT_DAI_SWAP_TOKEN,
+  USDT_USDTE_POOL_NAME,
+  USDT_USDTE_SWAP_CONTRACT_ADDRESSES,
+  USDT_USDTE_SWAP_TOKEN,
   WBTC,
+  WBTCE,
+  WBTC_WBTCE_POOL_NAME,
+  WBTC_WBTCE_SWAP_CONTRACT_ADDRESSES,
+  WBTC_WBTCE_SWAP_TOKEN,
+  WETHE,
   ZBTC,
   ZBTC_WBTC_POOL_NAME,
   ZBTC_WBTC_SWAP_CONTRACT_ADDRESSES,
@@ -155,6 +174,36 @@ export function useSwapContract(poolName: PoolName): Swap | null {
     SWAP_ABI,
     withSignerIfPossible,
   )
+
+  const wbtcWbtceSwapContract = useContract(
+    chainId ? WBTC_WBTCE_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
+
+  const ethWetheSwapContract = useContract(
+    chainId ? ETH_WETHE_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
+
+  const usdtUsdteSwapContract = useContract(
+    chainId ? USDT_USDTE_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
+
+  const daiDaieSwapContract = useContract(
+    chainId ? DAI_DAIE_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
+
+  const daieUsdteSwapContract = useContract(
+    chainId ? DAIE_USDTE_SWAP_CONTRACT_ADDRESSES[chainId] : undefined,
+    SWAP_ABI,
+    withSignerIfPossible,
+  )
   return useMemo(() => {
     if (poolName === ZBTC_WBTC_POOL_NAME) {
       return zbtcWbtcSwapContract as Swap
@@ -174,6 +223,16 @@ export function useSwapContract(poolName: PoolName): Swap | null {
       return zusdcUsdcSwapContract as Swap
     } else if (poolName === USDT_DAI_POOL_NAME) {
       return usdtDaiSwapContract as Swap
+    } else if (poolName === WBTC_WBTCE_POOL_NAME) {
+      return wbtcWbtceSwapContract as Swap
+    } else if (poolName === ETH_WETHE_POOL_NAME) {
+      return ethWetheSwapContract as Swap
+    } else if (poolName === USDT_USDTE_POOL_NAME) {
+      return usdtUsdteSwapContract as Swap
+    } else if (poolName === DAI_DAIE_POOL_NAME) {
+      return daiDaieSwapContract as Swap
+    } else if (poolName === DAIE_USDTE_POOL_NAME) {
+      return daieUsdteSwapContract as Swap
     }
 
     return null
@@ -187,6 +246,11 @@ export function useSwapContract(poolName: PoolName): Swap | null {
     dwethEthSwapContract,
     dusdtUsdtSwapContract,
     usdtDaiSwapContract,
+    wbtcWbtceSwapContract,
+    ethWetheSwapContract,
+    usdtUsdteSwapContract,
+    daiDaieSwapContract,
+    daieUsdteSwapContract,
     poolName,
   ])
 }
@@ -219,6 +283,11 @@ export function useAllContracts(): AllContractsObject | null {
   const zusdtContract = useTokenContract(ZUSDT) as Erc20
   const zbtcContract = useTokenContract(ZBTC) as Erc20
   const renbtcContract = useTokenContract(RENBTC) as Erc20
+  const wbtceContract = useTokenContract(WBTCE) as Erc20
+  const wetheContract = useTokenContract(WETHE) as Erc20
+  const daieContract = useTokenContract(DAIE) as Erc20
+  const usdteContract = useTokenContract(USDTE) as Erc20
+
   const zbtcWbtcSwapTokenContract = useTokenContract(
     ZBTC_WBTC_SWAP_TOKEN,
   ) as Swap
@@ -240,6 +309,19 @@ export function useAllContracts(): AllContractsObject | null {
     RENBTC_WBTC_SWAP_TOKEN,
   ) as Swap
   const usdtDaiSwapTokenContract = useTokenContract(USDT_DAI_SWAP_TOKEN) as Swap
+  const wbtcWbtceSwapTokenContract = useTokenContract(
+    WBTC_WBTCE_SWAP_TOKEN,
+  ) as Swap
+  const ethWetheSwapTokenContract = useTokenContract(
+    ETH_WETHE_SWAP_TOKEN,
+  ) as Swap
+  const usdtUsdteSwapTokenContract = useTokenContract(
+    USDT_USDTE_SWAP_TOKEN,
+  ) as Swap
+  const daiDaieSwapTokenContract = useTokenContract(DAI_DAIE_SWAP_TOKEN) as Swap
+  const daieUsdteSwapTokenContract = useTokenContract(
+    DAIE_USDTE_SWAP_TOKEN,
+  ) as Swap
 
   return useMemo(() => {
     return {
@@ -250,6 +332,10 @@ export function useAllContracts(): AllContractsObject | null {
       [USDT.symbol]: usdtContract,
       [DUSDT.symbol]: dusdtContract,
       [RENBTC.symbol]: renbtcContract,
+      [USDTE.symbol]: usdteContract,
+      [DAIE.symbol]: daieContract,
+      [WBTCE.symbol]: wbtceContract,
+      [WETHE.symbol]: wetheContract,
       [WBTC.symbol]: wbtcContract,
       [ZBTC.symbol]: zbtcContract,
       [ZDAI.symbol]: zdaiContract,
@@ -265,6 +351,11 @@ export function useAllContracts(): AllContractsObject | null {
       [DUSDT_USDT_SWAP_TOKEN.symbol]: dusdtUsdtSwapTokenContract,
       [RENBTC_WBTC_SWAP_TOKEN.symbol]: renbtcWbtcSwapTokenContract,
       [USDT_DAI_SWAP_TOKEN.symbol]: usdtDaiSwapTokenContract,
+      [WBTC_WBTCE_SWAP_TOKEN.symbol]: wbtcWbtceSwapTokenContract,
+      [ETH_WETHE_SWAP_TOKEN.symbol]: ethWetheSwapTokenContract,
+      [USDT_USDTE_SWAP_TOKEN.symbol]: usdtUsdteSwapTokenContract,
+      [DAI_DAIE_SWAP_TOKEN.symbol]: daiDaieSwapTokenContract,
+      [DAIE_USDTE_SWAP_TOKEN.symbol]: daieUsdteSwapTokenContract,
     }
   }, [
     wbtcContract,
@@ -280,6 +371,10 @@ export function useAllContracts(): AllContractsObject | null {
     zusdcContract,
     zusdtContract,
     dusdtContract,
+    wbtceContract,
+    wetheContract,
+    daieContract,
+    usdteContract,
     renbtcWbtcSwapTokenContract,
     zbtcWbtcSwapTokenContract,
     zdaiDaiSwapTokenContract,
@@ -289,6 +384,11 @@ export function useAllContracts(): AllContractsObject | null {
     zusdtUsdtSwapTokenContract,
     dusdtUsdtSwapTokenContract,
     usdtDaiSwapTokenContract,
+    wbtcWbtceSwapTokenContract,
+    ethWetheSwapTokenContract,
+    usdtUsdteSwapTokenContract,
+    daiDaieSwapTokenContract,
+    daieUsdteSwapTokenContract,
   ])
 }
 

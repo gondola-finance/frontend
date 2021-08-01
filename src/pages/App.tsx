@@ -3,10 +3,15 @@ import "../styles/global.scss"
 import {
   BLOCK_TIME,
   ChainId,
+  DAIE_USDTE_POOL_NAME,
+  DAI_DAIE_POOL_NAME,
   DUSDT_USDT_POOL_NAME,
   DWETH_ETH_POOL_NAME,
+  ETH_WETHE_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
   USDT_DAI_POOL_NAME,
+  USDT_USDTE_POOL_NAME,
+  WBTC_WBTCE_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZETH_ETH_POOL_NAME,
@@ -119,6 +124,41 @@ export default function App(): ReactElement {
               />
               <Route
                 exact
+                path="/swap/wbtce"
+                render={(props) => (
+                  <Swap {...props} poolName={WBTC_WBTCE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/swap/wethe"
+                render={(props) => (
+                  <Swap {...props} poolName={ETH_WETHE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/swap/usdte"
+                render={(props) => (
+                  <Swap {...props} poolName={USDT_USDTE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/swap/daie"
+                render={(props) => (
+                  <Swap {...props} poolName={DAI_DAIE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/swap/daieusdte"
+                render={(props) => (
+                  <Swap {...props} poolName={DAIE_USDTE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
                 path="/swap/usdt"
                 render={(props) => (
                   <Swap {...props} poolName={ZUSDT_USDT_POOL_NAME} />
@@ -201,6 +241,41 @@ export default function App(): ReactElement {
               />
               <Route
                 exact
+                path="/deposit/wbtce"
+                render={(props) => (
+                  <Deposit {...props} poolName={WBTC_WBTCE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/deposit/wethe"
+                render={(props) => (
+                  <Deposit {...props} poolName={ETH_WETHE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/deposit/usdte"
+                render={(props) => (
+                  <Deposit {...props} poolName={USDT_USDTE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/deposit/daie"
+                render={(props) => (
+                  <Deposit {...props} poolName={DAI_DAIE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/deposit/daieusdte"
+                render={(props) => (
+                  <Deposit {...props} poolName={DAIE_USDTE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
                 path="/withdraw"
                 render={(props) => <Pools action="withdraw" {...props} />}
               />
@@ -244,6 +319,41 @@ export default function App(): ReactElement {
                 path="/withdraw/usdtdai"
                 render={(props) => (
                   <Withdraw {...props} poolName={USDT_DAI_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/wbtce"
+                render={(props) => (
+                  <Withdraw {...props} poolName={WBTC_WBTCE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/wethe"
+                render={(props) => (
+                  <Withdraw {...props} poolName={ETH_WETHE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/usdte"
+                render={(props) => (
+                  <Withdraw {...props} poolName={USDT_USDTE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/daie"
+                render={(props) => (
+                  <Withdraw {...props} poolName={DAI_DAIE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/daieusdte"
+                render={(props) => (
+                  <Withdraw {...props} poolName={DAIE_USDTE_POOL_NAME} />
                 )}
               />
               <Route
