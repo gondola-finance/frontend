@@ -2,10 +2,15 @@ import "./StakePage.scss"
 
 import {
   ChainId,
+  DAIE_USDTE_POOL_NAME,
+  DAI_DAIE_POOL_NAME,
+  ETH_WETHE_POOL_NAME,
   GDL_POOL_NAME,
   PANGOLIN_AVAX_GDL_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
   USDT_DAI_POOL_NAME,
+  USDT_USDTE_POOL_NAME,
+  WBTC_WBTCE_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
   ZERO_GDL_POOL_NAME,
@@ -29,6 +34,11 @@ const StakePage = (): ReactElement => {
   const [btcTvl, setbtcTvl] = useState(0)
   const [renBtcTvl, setrenBtcTvl] = useState(0)
   const [usdtDaiTvl, setusdtDaiTvl] = useState(0)
+  const [ethWetheTvl, setethWetheTvl] = useState(0)
+  const [wbtcWbtceTvl, setwbtcWbtceTvl] = useState(0)
+  const [usdtUsdteTvl, setusdtUsdteTvl] = useState(0)
+  const [daiDaieTvl, setdaiDaieTvl] = useState(0)
+  const [daieUsdteTvl, setdaieUsdteTvl] = useState(0)
   return (
     <div className="stake">
       <TopMenu activeTab={"stake"} />
@@ -40,7 +50,17 @@ const StakePage = (): ReactElement => {
             {formatUSDNumber(
               parseFloat(
                 Number(
-                  daiTvl + ethTvl + usdtTvl + btcTvl + renBtcTvl + usdtDaiTvl,
+                  daiTvl +
+                    ethTvl +
+                    usdtTvl +
+                    btcTvl +
+                    renBtcTvl +
+                    usdtDaiTvl +
+                    ethWetheTvl +
+                    wbtcWbtceTvl +
+                    daiDaieTvl +
+                    usdtUsdteTvl +
+                    daieUsdteTvl,
                 ).toPrecision(3),
               ),
               true,
@@ -76,6 +96,26 @@ const StakePage = (): ReactElement => {
               <StakePool
                 poolName={USDT_DAI_POOL_NAME}
                 onTvlUpdate={(usdtdai) => setusdtDaiTvl(usdtdai)}
+              />
+              <StakePool
+                poolName={WBTC_WBTCE_POOL_NAME}
+                onTvlUpdate={(wbtc) => setwbtcWbtceTvl(wbtc)}
+              />
+              <StakePool
+                poolName={ETH_WETHE_POOL_NAME}
+                onTvlUpdate={(wethe) => setethWetheTvl(wethe)}
+              />
+              <StakePool
+                poolName={USDT_USDTE_POOL_NAME}
+                onTvlUpdate={(usdte) => setusdtUsdteTvl(usdte)}
+              />
+              <StakePool
+                poolName={DAI_DAIE_POOL_NAME}
+                onTvlUpdate={(daie) => setdaiDaieTvl(daie)}
+              />
+              <StakePool
+                poolName={DAIE_USDTE_POOL_NAME}
+                onTvlUpdate={(daieusdte) => setdaieUsdteTvl(daieusdte)}
               />
             </>
           )}
