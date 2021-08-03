@@ -862,19 +862,19 @@ export const USDT_DAI_POOL_NAME = "USDT-DAI Pool"
 export const USDT_DAI_POOL_ID = 15
 
 export const ETH_WETHE_POOL_NAME = "ETH-ETH.e Pool"
-export const ETH_WETHE_POOL_ID = 1 /** @todo update pool id */
+export const ETH_WETHE_POOL_ID = 16
 
 export const WBTC_WBTCE_POOL_NAME = "WBTC-WBTC.e Pool"
-export const WBTC_WBTCE_POOL_ID = 1 /** @todo update pool id */
+export const WBTC_WBTCE_POOL_ID = 20
 
 export const DAI_DAIE_POOL_NAME = "DAI-DAI.e Pool"
-export const DAI_DAIE_POOL_ID = 1 /** @todo update pool id */
+export const DAI_DAIE_POOL_ID = 18
 
 export const USDT_USDTE_POOL_NAME = "USDT-USDT.e Pool"
-export const USDT_USDTE_POOL_ID = 1 /** @todo update pool id */
+export const USDT_USDTE_POOL_ID = 17
 
 export const DAIE_USDTE_POOL_NAME = "DAI.e-USDT.e Pool"
-export const DAIE_USDTE_POOL_ID = 1 /** @todo update pool id */
+export const DAIE_USDTE_POOL_ID = 19
 
 export type PoolName =
   | typeof GDL_POOL_NAME
