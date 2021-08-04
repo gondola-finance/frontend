@@ -54,6 +54,24 @@ function Pools({
         <h3 className="title">{t("Select a Pool")}</h3>
         <SimpleGrid width="90%" columns={[2, 2, 2, 3]} minChildWidth="300px">
           {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={wbtcWbtcePoolData} to={`/${action}/wbtce`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={ethWethePoolData} to={`/${action}/wethe`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={usdtUsdtePoolData} to={`/${action}/usdte`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={daiDaiePoolData} to={`/${action}/daie`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview
+              data={daieUsdtePoolData}
+              to={`/${action}/daieusdte`}
+            />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
             <PoolOverview data={daiPoolData} to={`/${action}/dai`} />
           )}
           <PoolOverview data={ethPoolData} to={`/${action}/eth`} />
@@ -72,24 +90,6 @@ function Pools({
           )}
           {chainId && chainId === ChainId.AVALANCHE && (
             <PoolOverview data={usdtDaiPoolData} to={`/${action}/usdtdai`} />
-          )}
-          {chainId && chainId === ChainId.AVALANCHE && (
-            <PoolOverview data={wbtcWbtcePoolData} to={`/${action}/wbtce`} />
-          )}
-          {chainId && chainId === ChainId.AVALANCHE && (
-            <PoolOverview data={ethWethePoolData} to={`/${action}/wethe`} />
-          )}
-          {chainId && chainId === ChainId.AVALANCHE && (
-            <PoolOverview data={usdtUsdtePoolData} to={`/${action}/usdte`} />
-          )}
-          {chainId && chainId === ChainId.AVALANCHE && (
-            <PoolOverview data={daiDaiePoolData} to={`/${action}/daie`} />
-          )}
-          {chainId && chainId === ChainId.AVALANCHE && (
-            <PoolOverview
-              data={daieUsdtePoolData}
-              to={`/${action}/daieusdte`}
-            />
           )}
         </SimpleGrid>
       </div>
