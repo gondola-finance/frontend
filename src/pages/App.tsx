@@ -28,6 +28,7 @@ import Deposit from "./Deposit"
 import Pools from "./Pools"
 import Risk from "./Risk"
 import Stake from "./Stake"
+import StakeInactive from "./StakeInactive"
 import Swap from "./Swap"
 import ToastsProvider from "../providers/ToastsProvider"
 import Web3ReactManager from "../components/Web3ReactManager"
@@ -378,6 +379,11 @@ export default function App(): ReactElement {
                 )}
               />
               <Route exact path="/stake" render={() => <Stake />} />
+              <Route
+                exact
+                path="/stakeinactive"
+                render={() => <StakeInactive />}
+              />
               <Route exact path="/airdrop" render={() => <Airdrop />} />
               <Route exact path="/risk" component={Risk} />
             </Switch>
