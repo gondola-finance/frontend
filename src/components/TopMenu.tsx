@@ -59,7 +59,7 @@ function TopMenu({ activeTab }: Props): ReactElement {
             to="/stake"
             className={classNames({ active: activeTab === "stake" })}
           >
-            {t("stake")}
+            {t("Pool (Live)")}
           </Link>
         </li>
         <li>
@@ -67,7 +67,7 @@ function TopMenu({ activeTab }: Props): ReactElement {
             to="/stakeinactive"
             className={classNames({ active: activeTab === "stake" })}
           >
-            {t("Stake (Inactive)")}
+            {t("Pool (Finished)")}
           </Link>
         </li>
         <li>

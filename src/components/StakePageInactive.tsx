@@ -5,6 +5,9 @@ import {
   USDT_DAI_POOL_NAME,
   ZBTC_WBTC_POOL_NAME,
   ZDAI_DAI_POOL_NAME,
+  ZERO_GDL_POOL_NAME,
+  ZETH_ETH_POOL_NAME,
+  ZUSDT_USDT_POOL_NAME,
 } from "../constants"
 
 import React, { ReactElement, useState } from "react"
@@ -18,8 +21,8 @@ import { useActiveWeb3React } from "../hooks"
 const StakePage = (): ReactElement => {
   const { chainId } = useActiveWeb3React()
   const [daiTvl, setDaiTvl] = useState(0)
-  const [ethTvl] = useState(0)
-  const [usdtTvl] = useState(0)
+  const [ethTvl, setEthTvl] = useState(0)
+  const [usdtTvl, setUsdtTvl] = useState(0)
   const [btcTvl, setbtcTvl] = useState(0)
   const [usdtDaiTvl, setusdtDaiTvl] = useState(0)
   return (
@@ -43,6 +46,7 @@ const StakePage = (): ReactElement => {
         <div className="stakePoolList">
           {chainId && chainId === ChainId.AVALANCHE && (
             <>
+              <StakePool poolName={ZERO_GDL_POOL_NAME} />
               <StakePool
                 poolName={USDT_DAI_POOL_NAME}
                 onTvlUpdate={(usdtdai) => setusdtDaiTvl(usdtdai)}
@@ -54,6 +58,14 @@ const StakePage = (): ReactElement => {
               <StakePool
                 poolName={ZDAI_DAI_POOL_NAME}
                 onTvlUpdate={(dai) => setDaiTvl(dai)}
+              />
+              <StakePool
+                poolName={ZETH_ETH_POOL_NAME}
+                onTvlUpdate={(eth) => setEthTvl(eth)}
+              />
+              <StakePool
+                poolName={ZUSDT_USDT_POOL_NAME}
+                onTvlUpdate={(usdt) => setUsdtTvl(usdt)}
               />
             </>
           )}
