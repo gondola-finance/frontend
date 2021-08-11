@@ -10,9 +10,6 @@ import {
   RENBTC_WBTC_POOL_NAME,
   USDT_USDTE_POOL_NAME,
   WBTC_WBTCE_POOL_NAME,
-  ZERO_GDL_POOL_NAME,
-  ZETH_ETH_POOL_NAME,
-  ZUSDT_USDT_POOL_NAME,
 } from "../constants"
 
 import React, { ReactElement, useState } from "react"
@@ -26,8 +23,6 @@ import { useActiveWeb3React } from "../hooks"
 const StakePage = (): ReactElement => {
   const { chainId } = useActiveWeb3React()
   const [daiTvl] = useState(0)
-  const [ethTvl, setEthTvl] = useState(0)
-  const [usdtTvl, setUsdtTvl] = useState(0)
   const [btcTvl] = useState(0)
   const [renBtcTvl, setrenBtcTvl] = useState(0)
   const [usdtDaiTvl] = useState(0)
@@ -48,8 +43,6 @@ const StakePage = (): ReactElement => {
               parseFloat(
                 Number(
                   daiTvl +
-                    ethTvl +
-                    usdtTvl +
                     btcTvl +
                     renBtcTvl +
                     usdtDaiTvl +
@@ -69,7 +62,6 @@ const StakePage = (): ReactElement => {
             <>
               <StakePool poolName={GDL_POOL_NAME} />
               <StakePool poolName={PANGOLIN_AVAX_GDL_POOL_NAME} />
-              <StakePool poolName={ZERO_GDL_POOL_NAME} />
               <StakePool
                 poolName={WBTC_WBTCE_POOL_NAME}
                 onTvlUpdate={(wbtc) => setwbtcWbtceTvl(wbtc)}
@@ -89,14 +81,6 @@ const StakePage = (): ReactElement => {
               <StakePool
                 poolName={DAIE_USDTE_POOL_NAME}
                 onTvlUpdate={(daieusdte) => setdaieUsdteTvl(daieusdte)}
-              />
-              <StakePool
-                poolName={ZETH_ETH_POOL_NAME}
-                onTvlUpdate={(eth) => setEthTvl(eth)}
-              />
-              <StakePool
-                poolName={ZUSDT_USDT_POOL_NAME}
-                onTvlUpdate={(usdt) => setUsdtTvl(usdt)}
               />
               <StakePool
                 poolName={RENBTC_WBTC_POOL_NAME}
