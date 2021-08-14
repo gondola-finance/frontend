@@ -1,6 +1,7 @@
 import AIRDROP1_BALANCES from "./airdrop1.json"
 import AIRDROP2_BALANCES from "./airdrop2.json"
 import AIRDROP3_BALANCES from "./airdrop3.json"
+import AIRDROP4_BALANCES from "./airdrop4.json"
 import { ChainId } from ".."
 interface AirdropCampaign {
   name: string
@@ -38,8 +39,17 @@ const AIRDROP3 = {
   balances: AIRDROP3_BALANCES,
 }
 
+const AIRDROP4 = {
+  name: "New Bridge Airdrop",
+  address: {
+    [ChainId.AVALANCHE]: "0x56b4D764DfFf23EB407FB09a9F56cF4743A36D9f",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  balances: AIRDROP4_BALANCES,
+}
 const airdrops: { [chainId in ChainId]: AirdropCampaign[] } = {
-  [ChainId.AVALANCHE]: [AIRDROP1, AIRDROP2, AIRDROP3],
+  [ChainId.AVALANCHE]: [AIRDROP1, AIRDROP2, AIRDROP3, AIRDROP4],
   [ChainId.BSC]: [],
   [ChainId.FUJI]: [],
 }
