@@ -65,7 +65,7 @@ function TopMenu({ activeTab }: Props): ReactElement {
         <li>
           <Link
             to="/stakeinactive"
-            className={classNames({ active: activeTab === "stake" })}
+            className={classNames({ active: activeTab === "stakeinactive" })}
           >
             {t("Pool (Finished)")}
           </Link>

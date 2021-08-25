@@ -39,7 +39,7 @@ header.top {
     margin: 0;
 
     & > li {
-      display: inline;
+      display: inline-block;
       margin-right: 40px;
       @include breakpoint(lg) {
         margin-right: 32px;

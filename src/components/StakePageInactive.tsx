@@ -27,7 +27,7 @@ const StakePage = (): ReactElement => {
   const [usdtDaiTvl, setusdtDaiTvl] = useState(0)
   return (
     <div className="stake">
-      <TopMenu activeTab={"stakeold"} />
+      <TopMenu activeTab={"stakeinactive"} />
 
       <div className="content">
         <Box my={10}>
