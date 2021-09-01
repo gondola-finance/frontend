@@ -11,8 +11,12 @@ import {
   ETH,
   ETH_WETHE_SWAP_TOKEN,
   RENBTC,
+  TSD,
+  TSD_SWAP_TOKEN,
   Token,
   USDC,
+  USDCE,
+  USDCE_SWAP_TOKEN,
   USDT,
   USDTE,
   USDT_DAI_SWAP_TOKEN,
@@ -81,6 +85,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   const wetheTokenBalance = useTokenBalance(WETHE)
   const usdteTokenBalance = useTokenBalance(USDTE)
   const daieTokenBalance = useTokenBalance(DAIE)
+  const tsdTokenBalance = useTokenBalance(TSD)
+  const usdceTokenBalance = useTokenBalance(USDCE)
   // lpTokens
   const zdaiDaiSwapTokenBalance = useTokenBalance(ZDAI_DAI_SWAP_TOKEN)
   const zethEthSwapTokenBalance = useTokenBalance(ZETH_ETH_SWAP_TOKEN)
@@ -93,6 +99,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
   const usdtUsdteSwapTokenBalance = useTokenBalance(USDT_USDTE_SWAP_TOKEN)
   const daiDaieSwapTokenBalance = useTokenBalance(DAI_DAIE_SWAP_TOKEN)
   const daieUsdteSwapTokenBalance = useTokenBalance(DAIE_USDTE_SWAP_TOKEN)
+  const usdceSwapTokenBalance = useTokenBalance(USDCE_SWAP_TOKEN)
+  const tsdSwapTokenBalance = useTokenBalance(TSD_SWAP_TOKEN)
   const poolTokensBalances = useMemo(
     () => ({
       [DAI.symbol]: daiTokenBalance,
@@ -112,6 +120,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       [ZETH.symbol]: zethTokenBalance,
       [ZUSDC.symbol]: zusdcTokenBalance,
       [ZUSDT.symbol]: zusdtTokenBalance,
+      [TSD.symbol]: tsdTokenBalance,
+      [USDCE.symbol]: usdceTokenBalance,
       [DUSDT.symbol]: dusdtUsdtSwapTokenBalance,
       [ZDAI_DAI_SWAP_TOKEN.symbol]: zdaiDaiSwapTokenBalance,
       [ZETH_ETH_SWAP_TOKEN.symbol]: zethEthSwapTokenBalance,
@@ -123,6 +133,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       [USDT_USDTE_SWAP_TOKEN.symbol]: usdtUsdteSwapTokenBalance,
       [DAI_DAIE_SWAP_TOKEN.symbol]: daiDaieSwapTokenBalance,
       [DAIE_USDTE_SWAP_TOKEN.symbol]: daieUsdteSwapTokenBalance,
+      [USDCE_SWAP_TOKEN.symbol]: usdceSwapTokenBalance,
+      [TSD_SWAP_TOKEN.symbol]: tsdSwapTokenBalance,
     }),
     [
       daiTokenBalance,
@@ -144,6 +156,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       usdteTokenBalance,
       wbtceTokenBalance,
       wetheTokenBalance,
+      tsdTokenBalance,
+      usdceTokenBalance,
       zdaiDaiSwapTokenBalance,
       zethEthSwapTokenBalance,
       zusdtUsdtSwapTokenBalance,
@@ -153,6 +167,8 @@ export function usePoolTokenBalances(): { [token: string]: BigNumber } | null {
       usdtUsdteSwapTokenBalance,
       daiDaieSwapTokenBalance,
       daieUsdteSwapTokenBalance,
+      usdceSwapTokenBalance,
+      tsdSwapTokenBalance,
     ],
   )
 

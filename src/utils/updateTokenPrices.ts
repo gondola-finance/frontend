@@ -2,6 +2,8 @@ import {
   ChainId,
   GDL_TOKEN,
   GONDOLA_ADDRESS,
+  TSD,
+  TSD_ADDRESS,
   ZDAI_DAI_POOL_TOKENS,
   ZETH_ETH_POOL_TOKENS,
   ZUSDT_USDT_POOL_TOKENS,
@@ -12,7 +14,6 @@ import retry from "async-retry"
 import { updateTokensPricesUSD } from "../state/application"
 
 const coinGeckoAPI = "https://api.coingecko.com/api/v3/simple/price"
-
 interface CoinGeckoReponse {
   [tokenSymbol: string]: {
     usd: number
@@ -61,12 +62,26 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
             )
             .then(({ data }) => data)
 
+          const tsdPriceResponse = await axios
+            .post<PangolinAPIResponse>(
+              "https://api.thegraph.com/subgraphs/name/dasconnor/pangolin-dex",
+              {
+                operationName: "tokens",
+                query: `query tokens { tokens(where: {id: "${TSD_ADDRESS[
+                  ChainId.AVALANCHE
+                ].toLowerCase()}"}) { symbol  derivedETH  } }`,
+              },
+            )
+            .then(({ data }) => data)
           const gdlToAVAX = Number(
             gdlPriceResponse.data.tokens[0]?.derivedETH || "0.1",
           )
           const avaxPriceUSD = body?.[avalancheGeckoId]?.usd || 1
           const gdlToUSD = gdlToAVAX * avaxPriceUSD
-
+          const tsdToAVAX = Number(
+            tsdPriceResponse.data.tokens[0]?.derivedETH || "0.1",
+          )
+          const tsdToUSD = tsdToAVAX * avaxPriceUSD
           const result = tokens.reduce(
             (acc, token) => {
               return { ...acc, [token.symbol]: body?.[token.geckoId]?.usd }
@@ -84,9 +99,11 @@ export default function fetchTokenPricesUSD(dispatch: AppDispatch): void {
               WBTCE: body?.bitcoin?.usd,
               RenBTC: body?.bitcoin?.usd,
               DAIE: body?.tether?.usd,
+              USDCE: body?.tether?.usd,
               USDTE: body?.tether?.usd,
               KEEP: body?.["keep-network"].usd,
               [GDL_TOKEN.symbol]: Math.round(gdlToUSD * 1000000) / 1000000,
+              [TSD.symbol]: Math.round(tsdToUSD * 1000000) / 1000000,
             },
           )
           dispatch(updateTokensPricesUSD(result))

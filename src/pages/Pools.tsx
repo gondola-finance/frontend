@@ -8,6 +8,8 @@ import {
   DWETH_ETH_POOL_NAME,
   ETH_WETHE_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
+  TSD_POOL_NAME,
+  USDCE_POOL_NAME,
   USDT_DAI_POOL_NAME,
   USDT_USDTE_POOL_NAME,
   WBTC_WBTCE_POOL_NAME,
@@ -32,6 +34,8 @@ function Pools({
   action: "deposit" | "withdraw" | "swap"
 }): ReactElement | null {
   const { chainId } = useActiveWeb3React()
+  const [usdcePoolData] = usePoolData(USDCE_POOL_NAME)
+  const [tsdPoolData] = usePoolData(TSD_POOL_NAME)
   const [renbtcPoolData] = usePoolData(RENBTC_WBTC_POOL_NAME)
   const [btcPoolData] = usePoolData(ZBTC_WBTC_POOL_NAME)
   const [daiPoolData] = usePoolData(ZDAI_DAI_POOL_NAME)
@@ -53,6 +57,12 @@ function Pools({
       <div className="content">
         <h3 className="title">{t("Select a Pool")}</h3>
         <SimpleGrid width="90%" columns={[2, 2, 2, 3]} minChildWidth="300px">
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={usdcePoolData} to={`/${action}/usdce`} />
+          )}
+          {chainId && chainId === ChainId.AVALANCHE && (
+            <PoolOverview data={tsdPoolData} to={`/${action}/tsd`} />
+          )}
           {chainId && chainId === ChainId.AVALANCHE && (
             <PoolOverview data={wbtcWbtcePoolData} to={`/${action}/wbtce`} />
           )}

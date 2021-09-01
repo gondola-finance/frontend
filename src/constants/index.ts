@@ -5,10 +5,10 @@ import btcLogo from "../assets/icons/wbtc.svg"
 import daiLogo from "../assets/icons/dai.svg"
 import ethLogo from "../assets/icons/eth.svg"
 import gondolaLogo from "../assets/icons/brand_logo.png"
+import tsdLogo from "../assets/icons/tsd.png"
 import usdcLogo from "../assets/icons/usdc.svg"
 import usdtLogo from "../assets/icons/usdt.svg"
 import zeroLogo from "../assets/icons/icon_zero.png"
-
 export const NetworkContextName = "NETWORK"
 
 export const GAS_PRICE_DEFAULT = true // use default gas price from metamask. if false, use GAS_PRICE_BIGNUMBER
@@ -136,6 +136,12 @@ export const MULTICALL_NETWORKS: { [chainId in ChainId]: string } = {
 export const GONDOLA_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.AVALANCHE]: "0xD606199557c8Ab6F4Cc70bD03FaCc96ca576f142",
   [ChainId.FUJI]: "0x899A5336c9F9335f387cdFCC59aB02a7c6A3128F",
+  [ChainId.BSC]: "",
+}
+
+export const TSD_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.AVALANCHE]: "0x4fbf0429599460D327BD5F55625E30E4fC066095",
+  [ChainId.FUJI]: "",
   [ChainId.BSC]: "",
 }
 
@@ -426,6 +432,36 @@ export const RENBTC = new Token(
   btcLogo,
 )
 
+export const TSD = new Token(
+  TSD_ADDRESS,
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "TSD",
+  "tsd",
+  "TSD",
+  tsdLogo,
+)
+
+export const USDCE = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 6,
+    [ChainId.FUJI]: 6,
+    [ChainId.BSC]: 6,
+  },
+  "USDCE",
+  "usd-coin",
+  "USDC.e",
+  usdcLogo,
+)
+
 // pool contracts addresses
 
 export const DUSDT_USDT_SWAP_CONTRACT_ADDRESSES: {
@@ -539,6 +575,23 @@ export const DAIE_USDTE_SWAP_CONTRACT_ADDRESSES: {
   [ChainId.FUJI]: "",
   [ChainId.BSC]: "",
 }
+
+export const USDCE_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0x4B941276eb39d114c89514791D073A085aCBa3c0",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
+}
+
+export const TSD_SWAP_CONTRACT_ADDRESSES: {
+  [chainId in ChainId]: string
+} = {
+  [ChainId.AVALANCHE]: "0x83e4eE7b24bA92b3437F382b0b3C1BFA10445354",
+  [ChainId.FUJI]: "",
+  [ChainId.BSC]: "",
+}
+
 // pool lp tokens
 
 export const DUSDT_USDT_SWAP_TOKEN = new Token(
@@ -825,6 +878,40 @@ export const ZERO_GDL_TOKEN = new Token(
   zeroLogo,
 )
 
+export const USDCE_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0x4dc5a6308338e540AA97FAaB7fd2E03876075413",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "USDT.e-USDC.e LP",
+  "",
+  "USDT.e-USDC.e LP",
+  gondolaLogo,
+)
+
+export const TSD_SWAP_TOKEN = new Token(
+  {
+    [ChainId.AVALANCHE]: "0xbE29D10EBDfBd5A82Eb54D4db4a224c060BDBD96",
+    [ChainId.FUJI]: "",
+    [ChainId.BSC]: "",
+  },
+  {
+    [ChainId.AVALANCHE]: 18,
+    [ChainId.FUJI]: 18,
+    [ChainId.BSC]: 18,
+  },
+  "USDT.e-TSD LP",
+  "",
+  "USDT.e-TSD LP",
+  gondolaLogo,
+)
+
 export const GDL_POOL_NAME = "GDL Pool"
 export const GDL_POOL_ID = 11
 
@@ -876,6 +963,12 @@ export const USDT_USDTE_POOL_ID = 17
 export const DAIE_USDTE_POOL_NAME = "DAI.e-USDT.e Pool"
 export const DAIE_USDTE_POOL_ID = 19
 
+export const USDCE_POOL_NAME = "USDT.e-USDC.e Pool"
+export const USDCE_POOL_ID = 1
+
+export const TSD_POOL_NAME = "USDT.e-TSD Pool"
+export const TSD_POOL_ID = 1
+
 export type PoolName =
   | typeof GDL_POOL_NAME
   | typeof ZDAI_DAI_POOL_NAME
@@ -894,6 +987,8 @@ export type PoolName =
   | typeof USDT_USDTE_POOL_NAME
   | typeof DAI_DAIE_POOL_NAME
   | typeof DAIE_USDTE_POOL_NAME
+  | typeof USDCE_POOL_NAME
+  | typeof TSD_POOL_NAME
 
 export const ZUSDT_USDT_POOL_TOKENS = [USDT, ZUSDT]
 export const DUSDT_USDT_POOL_TOKENS = [USDT, DUSDT]
@@ -909,6 +1004,9 @@ export const WBTC_WBTCE_POOL_TOKENS = [WBTC, WBTCE]
 export const USDT_USDTE_POOL_TOKENS = [USDT, USDTE]
 export const DAI_DAIE_POOL_TOKENS = [DAI, DAIE]
 export const DAIE_USDTE_POOL_TOKENS = [DAIE, USDTE]
+export const USDCE_POOL_TOKENS = [USDTE, USDCE]
+export const TSD_POOL_TOKENS = [USDTE, TSD]
+
 // maps a symbol string to a token object
 export const TOKENS_MAP: {
   [symbol: string]: Token
@@ -944,6 +1042,10 @@ export const TOKENS_MAP: {
   ...DAI_DAIE_POOL_TOKENS,
   DAIE_USDTE_SWAP_TOKEN,
   ...DAIE_USDTE_POOL_TOKENS,
+  USDCE_SWAP_TOKEN,
+  ...USDCE_POOL_TOKENS,
+  TSD_SWAP_TOKEN,
+  ...TSD_POOL_TOKENS,
 ].reduce((acc, token) => ({ ...acc, [token.symbol]: token }), {})
 
 export type POOL = {
@@ -1058,6 +1160,18 @@ export const POOLS_MAP: {
     poolId: DAIE_USDTE_POOL_ID,
     lpToken: DAIE_USDTE_SWAP_TOKEN,
     poolTokens: DAIE_USDTE_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [USDCE_POOL_NAME]: {
+    poolId: USDCE_POOL_ID,
+    lpToken: USDCE_SWAP_TOKEN,
+    poolTokens: USDCE_POOL_TOKENS,
+    isSwapPool: true,
+  },
+  [TSD_POOL_NAME]: {
+    poolId: TSD_POOL_ID,
+    lpToken: TSD_SWAP_TOKEN,
+    poolTokens: TSD_POOL_TOKENS,
     isSwapPool: true,
   },
 }

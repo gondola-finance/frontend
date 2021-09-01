@@ -78,14 +78,14 @@ function TopMenu({ activeTab }: Props): ReactElement {
             {t("Airdrop")}
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link
             to="/risk"
             className={classNames({ active: activeTab === t("risk") })}
           >
             {t("risk")}
           </Link>
-        </li>
+        </li> */}
       </ul>
       <Web3Status />
       <ThemeChanger />

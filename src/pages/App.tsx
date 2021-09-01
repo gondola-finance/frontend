@@ -9,6 +9,8 @@ import {
   DWETH_ETH_POOL_NAME,
   ETH_WETHE_POOL_NAME,
   RENBTC_WBTC_POOL_NAME,
+  TSD_POOL_NAME,
+  USDCE_POOL_NAME,
   USDT_DAI_POOL_NAME,
   USDT_USDTE_POOL_NAME,
   WBTC_WBTCE_POOL_NAME,
@@ -74,6 +76,7 @@ export default function App(): ReactElement {
                 path="/"
                 render={(props) => <Pools action="swap" {...props} />}
               />
+              {/* swapping */}
               <Route
                 exact
                 path="/swap/btc"
@@ -172,6 +175,19 @@ export default function App(): ReactElement {
                   <Swap {...props} poolName={DUSDT_USDT_POOL_NAME} />
                 )}
               />
+              <Route
+                exact
+                path="/swap/usdce"
+                render={(props) => (
+                  <Swap {...props} poolName={USDCE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/swap/tsd"
+                render={(props) => <Swap {...props} poolName={TSD_POOL_NAME} />}
+              />
+              {/* deposit */}
               <Route
                 exact
                 path="/deposit"
@@ -277,6 +293,21 @@ export default function App(): ReactElement {
               />
               <Route
                 exact
+                path="/deposit/usdce"
+                render={(props) => (
+                  <Deposit {...props} poolName={USDCE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/deposit/tsd"
+                render={(props) => (
+                  <Deposit {...props} poolName={TSD_POOL_NAME} />
+                )}
+              />
+              {/* withdraw */}
+              <Route
+                exact
                 path="/withdraw"
                 render={(props) => <Pools action="withdraw" {...props} />}
               />
@@ -376,6 +407,20 @@ export default function App(): ReactElement {
                 path="/withdraw/dusdt"
                 render={(props) => (
                   <Withdraw {...props} poolName={DUSDT_USDT_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/usdce"
+                render={(props) => (
+                  <Withdraw {...props} poolName={USDCE_POOL_NAME} />
+                )}
+              />
+              <Route
+                exact
+                path="/withdraw/tsd"
+                render={(props) => (
+                  <Withdraw {...props} poolName={TSD_POOL_NAME} />
                 )}
               />
               <Route exact path="/stake" render={() => <Stake />} />

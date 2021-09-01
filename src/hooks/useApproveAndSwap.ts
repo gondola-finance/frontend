@@ -16,7 +16,11 @@ import {
   RENBTC_WBTC_POOL_TOKENS,
   TOKENS_MAP,
   TRANSACTION_TYPES,
+  TSD_POOL_NAME,
+  TSD_POOL_TOKENS,
   Token,
+  USDCE_POOL_NAME,
+  USDCE_POOL_TOKENS,
   USDT_DAI_POOL_NAME,
   USDT_DAI_POOL_TOKENS,
   USDT_USDTE_POOL_NAME,
@@ -100,6 +104,10 @@ export function useApproveAndSwap(
     POOL_TOKENS = DAI_DAIE_POOL_TOKENS
   } else if (poolName === DAIE_USDTE_POOL_NAME) {
     POOL_TOKENS = DAIE_USDTE_POOL_TOKENS
+  } else if (poolName === TSD_POOL_NAME) {
+    POOL_TOKENS = TSD_POOL_TOKENS
+  } else if (poolName === USDCE_POOL_NAME) {
+    POOL_TOKENS = USDCE_POOL_TOKENS
   } else {
     throw new Error("useApproveAndSwap requires a valid pool name")
   }
