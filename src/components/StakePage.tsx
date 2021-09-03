@@ -3,13 +3,10 @@ import "./StakePage.scss"
 import {
   ChainId,
   DAIE_USDTE_POOL_NAME,
-  DAI_DAIE_POOL_NAME,
-  ETH_WETHE_POOL_NAME,
   GDL_POOL_NAME,
   PANGOLIN_AVAX_GDL_POOL_NAME,
-  RENBTC_WBTC_POOL_NAME,
-  USDT_USDTE_POOL_NAME,
-  WBTC_WBTCE_POOL_NAME,
+  TSD_POOL_NAME,
+  USDCE_POOL_NAME,
 } from "../constants"
 
 import React, { ReactElement, useState } from "react"
@@ -22,15 +19,11 @@ import { useActiveWeb3React } from "../hooks"
 
 const StakePage = (): ReactElement => {
   const { chainId } = useActiveWeb3React()
-  const [daiTvl] = useState(0)
-  const [btcTvl] = useState(0)
-  const [renBtcTvl, setrenBtcTvl] = useState(0)
-  const [usdtDaiTvl] = useState(0)
-  const [ethWetheTvl, setethWetheTvl] = useState(0)
-  const [wbtcWbtceTvl, setwbtcWbtceTvl] = useState(0)
-  const [usdtUsdteTvl, setusdtUsdteTvl] = useState(0)
-  const [daiDaieTvl, setdaiDaieTvl] = useState(0)
   const [daieUsdteTvl, setdaieUsdteTvl] = useState(0)
+  const [gdlTvl, setgdlTvl] = useState(0)
+  const [avaxgdlTvl, setavaxgdlTvl] = useState(0)
+  const [tsdTvl, settsdTvl] = useState(0)
+  const [usdceTvl, setusdceTvl] = useState(0)
   return (
     <div className="stake">
       <TopMenu activeTab={"stake"} />
@@ -42,15 +35,7 @@ const StakePage = (): ReactElement => {
             {formatUSDNumber(
               parseFloat(
                 Number(
-                  daiTvl +
-                    btcTvl +
-                    renBtcTvl +
-                    usdtDaiTvl +
-                    ethWetheTvl +
-                    wbtcWbtceTvl +
-                    daiDaieTvl +
-                    usdtUsdteTvl +
-                    daieUsdteTvl,
+                  daieUsdteTvl + gdlTvl + avaxgdlTvl + usdceTvl + tsdTvl,
                 ).toPrecision(3),
               ),
               true,
@@ -60,31 +45,25 @@ const StakePage = (): ReactElement => {
         <div className="stakePoolList">
           {chainId && chainId === ChainId.AVALANCHE && (
             <>
-              <StakePool poolName={GDL_POOL_NAME} />
-              <StakePool poolName={PANGOLIN_AVAX_GDL_POOL_NAME} />
               <StakePool
-                poolName={WBTC_WBTCE_POOL_NAME}
-                onTvlUpdate={(wbtc) => setwbtcWbtceTvl(wbtc)}
+                poolName={GDL_POOL_NAME}
+                onTvlUpdate={(gdl) => setgdlTvl(gdl)}
               />
               <StakePool
-                poolName={ETH_WETHE_POOL_NAME}
-                onTvlUpdate={(wethe) => setethWetheTvl(wethe)}
+                poolName={PANGOLIN_AVAX_GDL_POOL_NAME}
+                onTvlUpdate={(avaxgdl) => setavaxgdlTvl(avaxgdl)}
               />
               <StakePool
-                poolName={USDT_USDTE_POOL_NAME}
-                onTvlUpdate={(usdte) => setusdtUsdteTvl(usdte)}
+                poolName={TSD_POOL_NAME}
+                onTvlUpdate={(tsd) => settsdTvl(tsd)}
               />
               <StakePool
-                poolName={DAI_DAIE_POOL_NAME}
-                onTvlUpdate={(daie) => setdaiDaieTvl(daie)}
+                poolName={USDCE_POOL_NAME}
+                onTvlUpdate={(usdce) => setusdceTvl(usdce)}
               />
               <StakePool
                 poolName={DAIE_USDTE_POOL_NAME}
                 onTvlUpdate={(daieusdte) => setdaieUsdteTvl(daieusdte)}
-              />
-              <StakePool
-                poolName={RENBTC_WBTC_POOL_NAME}
-                onTvlUpdate={(renBtc) => setrenBtcTvl(renBtc)}
               />
             </>
           )}
