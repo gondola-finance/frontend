@@ -39,7 +39,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "ethereumjs-util": "^7.0.10",
     "ethers": "^5.1.4",
-    "framer-motion": "^3.3.0",
+    "framer-motion": "^6.4.1",
     "history": "^5.0.0",
     "i18next": "^19.8.3",
     "i18next-browser-languagedetector": "^6.0.1",
